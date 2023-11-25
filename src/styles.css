@@ -175,3 +175,24 @@ main{
 h3{
     color:#ABDFF1
 }
+
+.login-btn {
+    color: white;
+    background-color: #0C4A60;
+}
+
+
+.register-btn {
+    color: #0C4A60;
+    background-color: #ABDFF1;
+}
+.continue-btn {
+    color: #0C4A60;
+    background-color: #E1DDDB;
+}
+
+
+.register-link {
+    text-decoration: none;
+    color: #EF6C33;
+}
