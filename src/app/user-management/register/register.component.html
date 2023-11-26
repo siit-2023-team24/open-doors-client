@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<body class="page">
+    <main>
+        
+        <div class="form register-form">
+            <div class="section">
+                <div class="label">I am a...</div>
+                <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="role" value="guest"> guest</label>
+                    <label class="radio-label"><input type="radio" name="role" value="host"> host</label>
+                </div>
+            </div>
+    
+            <div class="section">
+                <div class="label">Email:</div>
+                <input type="email" id="email" class="input-field" placeholder="Enter your email" autocomplete="email">
+            </div>
+    
+            <div class="section">
+                <div class="label">Password:</div>
+                <input type="password" id="password" class="input-field" placeholder="Enter your password">
+            </div>
+    
+            <div class="section">
+                <div class="label">Confirm Password:</div>
+                <input type="password" id="confirm-password" class="input-field" placeholder="Confirm your password">
+            </div>
+    
+            <div class="section">
+                <div class="label">First Name:</div>
+                <input type="text" id="name" class="input-field" placeholder="Enter your first name" autocomplete="name">
+            </div>
+    
+            <div class="section">
+                <div class="label">Last Name:</div>
+                <input type="text" id="family-name" class="input-field" placeholder="Enter your last name" autocomplete="family-name">
+            </div>
+    
+            <div class="section">
+                <div class="label">Country:</div>
+                <select class="register-input-field input-field">
+                    <option value="country1">United States</option>
+                    <option value="country2">Canada</option>
+                </select>
+            </div>
+    
+            <div class="section">
+                <div class="label">City:</div>
+                <input type="text" id="city" class="input-field" placeholder="Enter your city">
+            </div>
+    
+            <div class="section">
+                <div class="label">Street:</div>
+                <input type="text" id="address" class="input-field" placeholder="Enter your address" autocomplete="street-address">
+            </div>
+
+            <div class="section">
+                <div class="label">Number:</div>
+                <input type="number" id="number" class="input-field" placeholder="Enter your street number">
+            </div>
+    
+            <div class="section">
+                <div class="label">Phone:</div>
+                <input type="tel" id="phone" class="input-field" placeholder="Enter your phone number" autocomplete="mobile">
+            </div>
+            
+            <div class="section">
+                <button [routerLink]="['../login']" class="button back-btn">Back</button>
+                <button class="button sign-up-btn">Sign Up</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

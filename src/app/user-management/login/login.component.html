@@ -1,0 +1,18 @@
+<div class="page">
+    <main>
+        <div class="form">
+            <input type="email" id="email" name="email" class="input-field" autocomplete="email" placeholder="Email"><br>
+    
+            <input type="password" id="password" name="password" class="input-field" autocomplete="current-password" placeholder="Password"><br>
+            <button id="login_button" class="button login-btn">Sign in</button>
+            <p class="no-account">
+                Don't have an account yet?
+                <a class="register-link" [routerLink]="['../register']">
+                    Register now.
+                </a>
+
+            </p>
+            <button id="continue_button" class="button continue-btn">Continue without signing in</button>
+        </div>
+    </main>
+</div>
