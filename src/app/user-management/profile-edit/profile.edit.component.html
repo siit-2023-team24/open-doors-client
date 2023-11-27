@@ -60,6 +60,10 @@
         <mat-label>Phone number</mat-label>
         <input matInput type="text" name="phone" formControlName="phone" />
       </mat-form-field>
+      <div class="errorMessage" *ngIf="editProfileForm.get('phone')?.hasError('pattern')">
+        Please enter a valid phone number.
+      </div>
+      
   </form>
 
   <div id="buttons">

@@ -91,3 +91,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
 .grey-button-wrapper ::ng-deep ::selection .greyBtn {
     background-color: #F1F0EF;
 }
+
+.errorMessage {
+    color:#EF6C33
+  }

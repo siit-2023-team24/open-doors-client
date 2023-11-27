@@ -39,7 +39,7 @@ export class ProfileEditComponent implements AfterViewInit {
       country: ['', Validators.required],
       city: ['', Validators.required],
       address: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern(/^(\+\d{1,3}\s?)?(\(\d{1,4}\)|\d{1,4})([-.\s]?\d{1,}){1,12}$/)]]
     });
 
     this.editProfileForm.patchValue(this.user);
