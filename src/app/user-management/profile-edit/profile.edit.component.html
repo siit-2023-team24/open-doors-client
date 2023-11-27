@@ -1,0 +1,47 @@
+<form [formGroup]="editProfileForm">
+    <mat-form-field >
+      <mat-label>First name</mat-label>
+      <input matInput type="text" name="firstName" value="sdgv" formControlName="firstName" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Last name</mat-label>
+      <input matInput type="text" name="lastName" value={{user.lastName}} formControlName="lastName" />
+    </mat-form-field>
+
+
+    <div class="input-field col s12">
+        <select>
+          <option value="" disabled selected>Choose your country</option>
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+          <option value="3">Option 3</option>
+        </select>
+      </div>
+
+    <mat-form-field>
+      <mat-label>City</mat-label>
+      <input matInput type="text" name="city" formControlName="city" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Address</mat-label>
+      <input matInput type="text" name="address" formControlName="address" />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Phone number</mat-label>
+        <input matInput type="text" name="phone" formControlName="phone" />
+      </mat-form-field>
+  </form>
+
+  <div id="buttons">
+    <div  class="dark-orange-button-wrapper">
+        <button class="orangeBtn" mat-raised-button>Change password</button>
+    </div>
+  
+    <div  class="dark-orange-button-wrapper">
+      <button [routerLink]="['/profile']" mat-raised-button>Cancel changes</button>
+  </div>
+
+    <div class="dark-blue-button-wrapper">
+        <button [routerLink]="['/profile']" class="blueBtn" mat-raised-button>Save changes</button>
+    </div>
+</div>
