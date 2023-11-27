@@ -1,5 +1,4 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-/* styles.css */
 @import '~materialize-css/dist/css/materialize.min.css';
 
 
@@ -85,6 +84,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
 }
 
 .grey-button-wrapper ::ng-deep .greyBtn {
-    background-color: F1F0EF;
+    background-color: #F1F0EF;
     color: #0C4A60;
+}
+
+.grey-button-wrapper ::ng-deep ::selection .greyBtn {
+    background-color: #F1F0EF;
 }
