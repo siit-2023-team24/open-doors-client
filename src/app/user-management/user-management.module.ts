@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import {RouterModule} from "@angular/router";
 import { ProfileComponent } from './profile/profile.component';
+import { MaterialModule } from '../infrastucture/material/material.module';
 
 
 
@@ -16,7 +17,8 @@ import { ProfileComponent } from './profile/profile.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    MaterialModule
   ],
   exports: [
     LoginComponent,
