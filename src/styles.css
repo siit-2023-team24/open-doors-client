@@ -92,6 +92,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
     background-color: #F1F0EF;
 }
 
+.transparent-button-wrapper ::ng-deep .tranparentBtn {
+    background-color: transparent;
+    color: #0C4A60;
+    outline: none;
+}
+
 .errorMessage {
     color:#EF6C33
   }
