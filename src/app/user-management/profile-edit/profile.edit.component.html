@@ -34,11 +34,11 @@
 
   <div id="buttons">
     <div  class="dark-orange-button-wrapper">
-        <button class="orangeBtn" mat-raised-button>Change password</button>
+        <button [routerLink]="['change-password']" class="orangeBtn" mat-raised-button>Change password</button>
     </div>
   
-    <div  class="dark-orange-button-wrapper">
-      <button [routerLink]="['/profile']" mat-raised-button>Cancel changes</button>
+    <div  class="grey-button-wrapper">
+      <button [routerLink]="['/profile']" class="greyBtn" mat-raised-button>Cancel changes</button>
   </div>
 
     <div class="dark-blue-button-wrapper">

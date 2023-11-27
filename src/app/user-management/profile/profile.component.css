@@ -8,7 +8,7 @@
 }
 
 #imgDiv {
-    height: 30vh;
+    height: 50vh;
     width: auto;
     padding: 10vh;
 }
@@ -49,7 +49,7 @@ img {
     justify-content: flex-end;
 }
 
-button {
+#buttons button {
     margin-left: 16px;
 }
 

@@ -7,6 +7,7 @@ import { MaterialModule } from '../infrastucture/material/material.module';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileEditComponent } from './profile-edit/profile.edit.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 
@@ -15,7 +16,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    ChangePasswordComponent
   ]
 })
 export class UserManagementModule { }
