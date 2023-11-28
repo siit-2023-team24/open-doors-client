@@ -7,7 +7,18 @@ import { Observable } from "rxjs"
 })
 
 export class UserService {
+
+  private currentUser: User;
+
   private userList: User[] = [];
 
   constructor() { }
+
+  getCurrentUser(): User {
+    return this.currentUser;
+  }
+
+  setCurrentUser(newUser: User) {
+    this.currentUser = newUser;
+  }
 }

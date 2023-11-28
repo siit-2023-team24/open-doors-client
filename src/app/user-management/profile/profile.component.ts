@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.user = {
       email: "test@email.com",
+      role: 'guest',
       imageId: 1,
       firstName: "first",
       lastName: "last",

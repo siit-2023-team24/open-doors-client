@@ -23,6 +23,7 @@ export class ProfileEditComponent implements AfterViewInit {
   ngOnInit(): void {
     this.user = {
       email: "test@email.com",
+      role: 'guest',
       imageId: 1,
       firstName: "first",
       lastName: "last",
