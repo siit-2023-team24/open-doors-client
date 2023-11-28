@@ -7,7 +7,7 @@
             <button id="login_button" class="button login-btn">Sign in</button>
             <p class="no-account">
                 Don't have an account yet?
-                <a class="register-link" [routerLink]="['../register']">
+                <a class="register-link" [routerLink]="['/register']" [queryParams]="{title: 'Registration'}">
                     Register now.
                 </a>
 

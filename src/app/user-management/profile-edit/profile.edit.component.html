@@ -68,14 +68,14 @@
 
   <div id="buttons">
     <div  class="dark-orange-button-wrapper">
-        <button [routerLink]="['change-password']" class="orangeBtn" mat-raised-button>Change password</button>
+        <button [routerLink]="['change-password']" [queryParams]="{title: 'Changing password'}" class="orangeBtn" mat-raised-button>Change password</button>
     </div>
   
     <div  class="grey-button-wrapper">
-      <button [routerLink]="['/profile']" class="greyBtn" mat-raised-button>Cancel changes</button>
+      <button [routerLink]="['/profile']" [queryParams]="{title: 'My profile'}" class="greyBtn" mat-raised-button>Cancel changes</button>
   </div>
 
     <div class="dark-blue-button-wrapper">
-        <button [routerLink]="['/profile']" class="blueBtn" mat-raised-button>Save changes</button>
+        <button [routerLink]="['/profile']" [queryParams]="{title: 'My profile'}" class="blueBtn" mat-raised-button>Save changes</button>
     </div>
 </div>

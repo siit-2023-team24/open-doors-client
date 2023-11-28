@@ -4,12 +4,16 @@
         <button class="tranparentBtn" mat-flat-button>Home</button>
     </div>
 
+    <div *ngIf="role" class="transparent-button-wrapper">
+        <button [routerLink]="['profile']" [queryParams]="{title: 'My profile'}" class="tranparentBtn" mat-flat-button >Profile</button>
+    </div>
+
     <div *ngIf="!role" class="transparent-button-wrapper">
-        <button [routerLink]="['register']" class="tranparentBtn" mat-flat-button >Register</button>
+        <button [routerLink]="['register']" [queryParams]="{title: 'Registration'}" class="tranparentBtn" mat-flat-button >Register</button>
     </div>
     
     <div *ngIf="!role" class="dark-orange-button-wrapper">
-        <button [routerLink]="['login']" class="orangeBtn" mat-flat-button >Login</button>
+        <button [routerLink]="['login']" [queryParams]="{title: 'Login'}" class="orangeBtn" mat-flat-button >Login</button>
     </div>
 
     <div *ngIf="role" class="dark-orange-button-wrapper">
