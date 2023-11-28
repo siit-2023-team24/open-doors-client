@@ -35,7 +35,9 @@ import { HomePageComponent } from './accommodation-management/home-page/home-pag
     BrowserAnimationsModule,
     UserManagementModule,
     MatIconModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
