@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from "../model/user.model"
 import { UserService } from '../user.service';
+import { Country } from 'src/env/country';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +23,7 @@ export class ProfileComponent implements OnInit {
       imageId: 1,
       firstName: "first",
       lastName: "last",
-      country: "co",
+      country: Country.SAN_MARINO,
       city: "city",
       address: "addr",
       phone: "5632842"
