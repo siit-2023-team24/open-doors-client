@@ -1,3 +1,5 @@
+import { Country } from "src/env/country";
+
 export interface User {
     id?: number;
     email: string;
@@ -9,7 +11,7 @@ export interface User {
     firstName: string;
     lastName: string;
     
-    country: string;
+    country: Country;
     city: string;
     address: string;
     phone: string;

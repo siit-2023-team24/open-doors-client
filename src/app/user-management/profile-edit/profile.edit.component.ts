@@ -1,20 +1,22 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from "../model/user.model"
 import { UserService } from '../user.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Country } from 'src/env/country';
 
-declare var M: any;
 
 @Component({
   selector: 'app-profile.edit',
   templateUrl: './profile.edit.component.html',
   styleUrls: ['./profile.edit.component.css', '../../../styles.css']
 })
-export class ProfileEditComponent implements AfterViewInit {
+export class ProfileEditComponent {
   user: User;
 
   editProfileForm: FormGroup;
+
+  countries: string[];
 
   constructor(private route: ActivatedRoute, private userService: UserService, private formBuilder: FormBuilder) {
   }
@@ -27,11 +29,13 @@ export class ProfileEditComponent implements AfterViewInit {
       imageId: 1,
       firstName: "first",
       lastName: "last",
-      country: "1",
+      country: Country.SAN_MARINO,
       city: "city",
       address: "addr",
       phone: "5632842"
     }
+
+    this.countries = Object.values(Country);
 
     this.editProfileForm = this.formBuilder.group({
 
@@ -44,10 +48,6 @@ export class ProfileEditComponent implements AfterViewInit {
     });
 
     this.editProfileForm.patchValue(this.user);
-  }
-  
-  ngAfterViewInit(): void {
-    M.FormSelect.init(document.querySelectorAll('select'));
   }
 
 }
