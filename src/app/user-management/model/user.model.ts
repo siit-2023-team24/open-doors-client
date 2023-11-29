@@ -2,7 +2,7 @@ export interface User {
     id?: number;
     email: string;
     password?: string;
-    role: string;
+    role?: string;
 
     imageId: number;
 
@@ -11,6 +11,8 @@ export interface User {
     
     country: string;
     city: string;
-    address: string;
+    street: string;
+    number: number;
     phone: string;
 }
+

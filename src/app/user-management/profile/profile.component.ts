@@ -16,17 +16,17 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = {
-      email: "test@email.com",
-      role: 'guest',
-      imageId: 1,
-      firstName: "first",
-      lastName: "last",
-      country: "co",
-      city: "city",
-      address: "addr",
-      phone: "5632842"
-    }
+    //autentification
+    const id = 1;
+    this.userService.getUser(id).subscribe({
+      
+      next: (data: User) => {
+        this.user = data
+      },
+
+      error: (_) => { console.log('Error in getUser'); }
+      
+    });
   }
 
 

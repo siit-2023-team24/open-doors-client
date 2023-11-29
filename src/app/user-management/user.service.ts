@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { User } from "./model/user.model"
-import { Observable } from "rxjs"
+import { User } from "./model/user.model";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../env/env";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +12,7 @@ export class UserService {
 
   private currentUser: User;
 
-  private userList: User[] = [];
-
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   getCurrentUser(): User {
     return this.currentUser;
@@ -21,4 +21,11 @@ export class UserService {
   setCurrentUser(newUser: User) {
     this.currentUser = newUser;
   }
+
+
+  getUser(id: number): Observable<User> {
+    return this.httpClient.get<User>(environment.apiHost + '/users/' + id);
+  }
+
+
 }

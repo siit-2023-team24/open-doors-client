@@ -27,9 +27,10 @@ export class ProfileEditComponent implements AfterViewInit {
       imageId: 1,
       firstName: "first",
       lastName: "last",
-      country: "1",
+      country: "co",
       city: "city",
-      address: "addr",
+      street: "street",
+      number: 45,
       phone: "5632842"
     }
 
@@ -39,7 +40,8 @@ export class ProfileEditComponent implements AfterViewInit {
       lastName: ['', Validators.required],
       country: ['', Validators.required],
       city: ['', Validators.required],
-      address: ['', Validators.required],
+      street: ['', Validators.required],
+      number: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern(/^(\+\d{1,3}\s?)?(\(\d{1,4}\)|\d{1,4})([-.\s]?\d{1,}){1,12}$/)]]
     });
 
