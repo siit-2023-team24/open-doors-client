@@ -28,6 +28,7 @@ footer{
 .footer-section h2 {
     font-size: 40px;
     margin: 0;
+    line-height: normal;
 }
 
 .footer-section ul {
@@ -66,6 +67,6 @@ footer{
     width: fit-content;
 }
 
-h2{
-    line-height: normal;
+.footer-section h3 {
+    font-size: large;
 }
