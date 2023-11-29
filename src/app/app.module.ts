@@ -25,12 +25,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserManagementModule } from './user-management/user-management.module';
 import { AccommodationCardComponent } from './accommodation-management/accommodation-card/accommodation-card.component';
 import { HomePageComponent } from './accommodation-management/home-page/home-page.component';
+import { AccommodationPageComponent } from './accommodation-management/accommodation-page/accommodation-page.component';
+import { MapViewComponent } from './accommodation-management/map-view/map-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AccommodationCardComponent,
-    HomePageComponent
+    HomePageComponent,
+    AccommodationPageComponent,
+    MapViewComponent
   ],
   imports: [
     BrowserModule,
