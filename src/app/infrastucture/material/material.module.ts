@@ -6,6 +6,7 @@ import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio'
 
 
 @NgModule({
@@ -16,9 +17,10 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule,
+    MatSelectModule    
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatRadioModule
   ],
 
   exports: [
@@ -28,7 +30,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatLabel,
     MatSelectModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatRadioModule
   ]
 
 })
