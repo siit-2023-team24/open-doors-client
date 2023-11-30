@@ -1,12 +1,10 @@
-
-
 <div class="imageSection">
   <div id="imgDiv">
     <img id="profileImg" src="../../assets/account.png">
   </div>
   
   <div id="imgButtons">
-    <div  class="dark-orange-button-wrapper">
+    <div class="dark-orange-button-wrapper">
         <button class="orangeBtn" mat-raised-button>Delete profile image</button>
     </div>
 
@@ -80,6 +78,6 @@
   </div>
 
     <div class="dark-blue-button-wrapper">
-        <button [routerLink]="['/profile']" [queryParams]="{title: 'My profile'}" class="blueBtn" mat-raised-button>Save changes</button>
+        <button class="blueBtn" (click)="saveChanges()" type="submit" mat-raised-button>Save changes</button>
     </div>
 </div>

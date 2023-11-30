@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from "../model/user.model"
 import { UserService } from '../user.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EditUserDTO } from '../model/editUserDTO';
 
 
 @Component({
@@ -12,10 +13,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class ProfileEditComponent {
   user: User;
+  userDto: EditUserDTO;
 
   editProfileForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder) {
   }
 
   
@@ -27,14 +29,12 @@ export class ProfileEditComponent {
       
       next: (data: User) => {
         this.user = data;
+        this.editProfileForm.patchValue(this.user);
       },
-
       error: (_) => { console.log('Error in getUser'); }
-      
     });
 
     this.editProfileForm = this.formBuilder.group({
-
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       country: ['', Validators.required],
@@ -46,8 +46,19 @@ export class ProfileEditComponent {
 
   }
   
-  ngDoCheck(): void {
-    this.editProfileForm.patchValue(this.user);
+  saveChanges(): void {
+    if (this.editProfileForm.valid) {
+      this.userDto = this.editProfileForm.value;
+      this.userDto.image = this.user.image;
+      this.userService.updateUser(this.userDto).subscribe(
+        {
+          next: () => {
+            this.router.navigate(['profile'], {queryParams: {title: 'My profile'}});
+          }
+        }
+      )
+
+    }
   }
 
 }
