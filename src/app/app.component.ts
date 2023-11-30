@@ -1,14 +1,28 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnDestroy } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'open-doors';
+
+export class AppComponent implements OnDestroy{
+  title: string = 'Open Doors';
+  private routeSubscription: Subscription;
+
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    this.routeSubscription = this.router.events.subscribe((event)=> {
+      if (event instanceof NavigationEnd) {
+        this.title = this.activatedRoute.snapshot.firstChild?.queryParamMap.get('title') || 'Open Doors';
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.routeSubscription.unsubscribe();
+  }
+
+
 }

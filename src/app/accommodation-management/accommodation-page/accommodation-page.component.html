@@ -1,0 +1,159 @@
+<div  style="padding: 0 100px;">
+  <div class="accommodation-name"><h1>Villa Lovelos</h1></div>
+  <div class="basic-info">
+    <div style="display: flex;">
+    <h2>Novi Sad, Serbia</h2>
+    <span class="basic-info-reviews">
+      <span class="rating">
+        <mat-icon>star</mat-icon>
+        <span>4.95</span>
+      </span>
+      <span class="review-number">9 reviews</span>
+    </span>
+  </div>
+    <a class="favorite-icon" (click)="toggleFavorite()">
+      <mat-icon [style.color]="isFavorite ? 'red' : 'grey'">favorite</mat-icon>
+    </a>
+  </div>
+  <div class="flex-container images-container">
+    <div class="flex-box box1">
+      <img src="{{ images[0].url }}" alt="{{ images[0].alt }}" class="large-image" />
+    </div>
+    <div class="flex-box box2">
+      <div class="flex-container">
+        <img src="{{ images[1].url }}" alt="{{ images[1].alt }}" class="grid-image" style="margin: 0 1px 1px 2px" />
+        <img src="{{ images[2].url }}" alt="{{ images[2].alt }}" class="grid-image" style="margin: 0 0 1px 1px"/>
+      </div>
+      <div class="flex-container">
+        <img src="{{ images[3].url }}" alt="{{ images[3].alt }}" class="grid-image" style="margin: 1px 1px 0 2px"/>
+        <img src="{{ images[4].url }}" alt="{{ images[4].alt }}" class="grid-image" style="margin: 1px 0 0 1px"/>
+      </div>
+    </div>
+  </div>
+  <div class="details flex-container">
+    <div class="description-text">
+      <span>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </span>
+    </div>
+    <div class="reservation-details">
+      <span class="reservation-details-first-line">
+        <h1>1500 rsd night</h1>
+        <span class="small-rating">
+          <mat-icon>star</mat-icon>
+          <span>4.95</span>
+          <span class="small-review-number">9 reviews</span>
+        </span>
+      </span>
+      <div class="preferences">
+        <div class="date-pickers">
+          <div>
+            <mat-form-field>
+              <input matInput [matDatepicker]="checkInDatePicker" placeholder="Check-In" />
+              <mat-datepicker-toggle matSuffix [for]="checkInDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #checkInDatePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field>
+              <input matInput [matDatepicker]="checkOutDatePicker" placeholder="Check-Out" />
+              <mat-datepicker-toggle matSuffix [for]="checkOutDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #checkOutDatePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+    
+        <div class="guest-number">
+          <mat-form-field>
+            <input matInput type="number" placeholder="Guests" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="reserve-button">
+        <button mat-button>
+          <span style="font-size: 20px;">Reserve</span>
+        </button>
+      </div>
+      <div class="cost-details">
+        <span>1500 rsd x 9 nights</span>
+        <span>13,500 rsd</span>
+      </div>
+    </div>
+  </div>
+  <hr class="horizontal-separator">
+  <div class="amenities">
+    <span style="font-size: 25px;">Amenities</span>
+    <mat-grid-list cols="4" rowHeight="100px" gutterSize="16px">
+      <mat-grid-tile>
+        <mat-icon>done_outline</mat-icon>
+        <span>Amenity 1</span>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-icon>done_outline</mat-icon>
+        <span>Amenity 2</span>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-icon>done_outline</mat-icon>
+        <span>Amenity 3</span>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-icon>done_outline</mat-icon>
+        <span>Amenity 3</span>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-icon>done_outline</mat-icon>
+        <span>Amenity 3</span>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-icon>done_outline</mat-icon>
+        <span>Amenity 3</span>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-icon>done_outline</mat-icon>
+        <span>Amenity 3</span>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <hr class="horizontal-separator">
+  <span style="font-size: 25px;">View on map</span>
+  <app-map-view></app-map-view>
+  <hr class="horizontal-separator">
+  <span style="font-size: 25px;">Reviews</span>
+  <span class="basic-info-reviews">
+    <span class="rating">
+      <mat-icon>star</mat-icon>
+      <span>4.95</span>
+    </span>
+    <span class="review-number">9 reviews</span>
+  </span>
+  <div class="reviews-container">
+    <mat-grid-list cols="2" rowHeight="150px" gutterSize="0px">
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <hr class="horizontal-separator">
+  <app-write-review-card></app-write-review-card>
+</div>
+
+

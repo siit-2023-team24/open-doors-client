@@ -1,0 +1,78 @@
+<div  style="padding: 0 100px;">
+    <!-- Search Bar -->
+    <div class="search-bar-container" style="margin-top: 50px;">
+      <div class="search-bar-content">
+        <div class="search-input">
+          <mat-form-field>
+            <input matInput placeholder="Location" />
+          </mat-form-field>
+        </div>
+    
+        <div class="search-input">
+          <mat-form-field>
+            <input matInput [matDatepicker]="checkInDatePicker" placeholder="Check-In Date" />
+            <mat-datepicker-toggle matSuffix [for]="checkInDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #checkInDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+    
+        <div class="search-input">
+          <mat-form-field>
+            <input matInput [matDatepicker]="checkOutDatePicker" placeholder="Check-Out Date" />
+            <mat-datepicker-toggle matSuffix [for]="checkOutDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #checkOutDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+    
+        <div class="search-input">
+          <mat-form-field>
+            <input matInput type="number" placeholder="Number of Guests" />
+          </mat-form-field>
+        </div>
+        
+        <div class="search-button">
+          <button mat-button>
+            <span>Search</span>
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="just-button-container">
+      <div class="filter-button">
+        <button mat-button>
+          <span>Filter</span>
+          <mat-icon>filter_list</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-grid-list gutterSize="16" cols="5" rowHeight="330">
+        <mat-grid-tile colspan="1">
+          <app-accommodation-card></app-accommodation-card>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+          <app-accommodation-card></app-accommodation-card>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+          <app-accommodation-card></app-accommodation-card>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+          <app-accommodation-card></app-accommodation-card>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+          <app-accommodation-card></app-accommodation-card>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+          <app-accommodation-card></app-accommodation-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <div class="just-button-container">
+      <div class="show-more-button">
+        <button mat-button>
+          <span>Show More</span>
+        </button>
+      </div>
+    </div>
+</div>

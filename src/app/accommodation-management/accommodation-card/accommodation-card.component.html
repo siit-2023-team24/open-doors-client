@@ -1,0 +1,26 @@
+<mat-card class="accommodation-card">
+
+  <button mat-icon-button class="favorite-button" (click)="toggleFavorite()">
+    <mat-icon [style.color]="isFavorite ? 'red' : 'black'">favorite</mat-icon>
+  </button>
+  <a [routerLink]="['../accommodation']" [queryParams]="{title: 'Accommodation'}">
+    <img src="../../../assets/image.jpg" alt="Accommodation Image" class="accommodation-image" />
+
+    <div class="details">
+      <div class="row">
+        <div class="location">Novi Sad, Srbija</div>
+        <div class="rating">
+          <mat-icon>star</mat-icon>
+          <span>5.00</span>
+        </div>
+      </div>
+
+      <div class="info">
+        <div class="row">
+          <span style="margin-right: 20px;">1500 rsd/night</span>
+          <span>7500 rsd total</span>
+        </div>
+      </div>
+    </div>
+  </a>
+</mat-card>

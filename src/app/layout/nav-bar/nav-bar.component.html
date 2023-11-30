@@ -1,0 +1,68 @@
+<div class="navbar">
+
+    <div class="transparent-button-wrapper">
+        <button class="tranparentBtn" [queryParams]="{title: 'Home'}" [routerLink]="['/home']" mat-flat-button>Home</button>
+    </div>
+
+
+
+    <div *ngIf="role=='admin'" class="transparent-button-wrapper">
+        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Users</button>
+    </div>
+
+    <div *ngIf="role=='admin'" class="transparent-button-wrapper">
+        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Comments</button>
+    </div>
+
+    <div *ngIf="role=='admin'" class="transparent-button-wrapper">
+        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Accommodations</button>
+    </div>
+
+
+
+    <div *ngIf="role=='host'" class="transparent-button-wrapper">
+        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Reservations</button>
+    </div>
+
+    <div *ngIf="role=='host'" class="transparent-button-wrapper">
+        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Comments</button>
+    </div>
+
+    <div *ngIf="role=='host'" class="transparent-button-wrapper">
+        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Accommodations</button>
+    </div>
+
+
+
+    <div *ngIf="role=='guest'" class="transparent-button-wrapper">
+        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Favorites</button>
+    </div>
+
+
+    <div *ngIf="role=='guest'" class="transparent-button-wrapper">
+        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Requests</button>
+    </div>
+
+    
+    <div *ngIf="role=='guest' || role=='host'" class="transparent-button-wrapper">
+        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Notifications</button>
+    </div>
+
+
+    <div *ngIf="!role" class="transparent-button-wrapper">
+        <button [routerLink]="['profile']" [queryParams]="{title: 'My profile'}" class="tranparentBtn" mat-flat-button >Profile</button>
+    </div>
+
+    <div *ngIf="!role" class="transparent-button-wrapper">
+        <button [routerLink]="['register']" [queryParams]="{title: 'Registration'}" class="tranparentBtn" mat-flat-button >Register</button>
+    </div>
+    
+    <div *ngIf="!role" class="dark-orange-button-wrapper">
+        <button [routerLink]="['login']" [queryParams]="{title: 'Login'}" class="orangeBtn" mat-flat-button >Login</button>
+    </div>
+
+    <div *ngIf="role" class="dark-orange-button-wrapper">
+        <button [routerLink]="['']" class="orangeBtn" mat-flat-button >Log out</button>
+    </div>
+
+</div>
