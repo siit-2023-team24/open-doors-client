@@ -1,17 +1,16 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from "../model/user.model"
 import { UserService } from '../user.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-declare var M: any;
 
 @Component({
   selector: 'app-profile.edit',
   templateUrl: './profile.edit.component.html',
   styleUrls: ['./profile.edit.component.css', '../../../styles.css']
 })
-export class ProfileEditComponent implements AfterViewInit {
+export class ProfileEditComponent {
   user: User;
 
   editProfileForm: FormGroup;
@@ -21,18 +20,18 @@ export class ProfileEditComponent implements AfterViewInit {
 
   
   ngOnInit(): void {
-    this.user = {
-      email: "test@email.com",
-      role: 'guest',
-      imageId: 1,
-      firstName: "first",
-      lastName: "last",
-      country: "co",
-      city: "city",
-      street: "street",
-      number: 45,
-      phone: "5632842"
-    }
+
+    //id from autentification
+    const id = 1;
+    this.userService.getUser(id).subscribe({
+      
+      next: (data: User) => {
+        this.user = data;
+      },
+
+      error: (_) => { console.log('Error in getUser'); }
+      
+    });
 
     this.editProfileForm = this.formBuilder.group({
 
@@ -45,11 +44,10 @@ export class ProfileEditComponent implements AfterViewInit {
       phone: ['', [Validators.required, Validators.pattern(/^(\+\d{1,3}\s?)?(\(\d{1,4}\)|\d{1,4})([-.\s]?\d{1,}){1,12}$/)]]
     });
 
-    this.editProfileForm.patchValue(this.user);
   }
   
-  ngAfterViewInit(): void {
-    M.FormSelect.init(document.querySelectorAll('select'));
+  ngDoCheck(): void {
+    this.editProfileForm.patchValue(this.user);
   }
 
 }
