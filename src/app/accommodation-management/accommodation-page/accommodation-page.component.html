@@ -16,20 +16,14 @@
     </a>
   </div>
   <div class="flex-container images-container">
-    <!-- Larger image -->
     <div class="flex-box box1">
       <img src="{{ images[0].url }}" alt="{{ images[0].alt }}" class="large-image" />
     </div>
-
-    <!-- Grid for smaller images -->
     <div class="flex-box box2">
-      <!-- First Row -->
       <div class="flex-container">
         <img src="{{ images[1].url }}" alt="{{ images[1].alt }}" class="grid-image" style="margin: 0 1px 1px 2px" />
         <img src="{{ images[2].url }}" alt="{{ images[2].alt }}" class="grid-image" style="margin: 0 0 1px 1px"/>
       </div>
-      
-      <!-- Second Row -->
       <div class="flex-container">
         <img src="{{ images[3].url }}" alt="{{ images[3].alt }}" class="grid-image" style="margin: 1px 1px 0 2px"/>
         <img src="{{ images[4].url }}" alt="{{ images[4].alt }}" class="grid-image" style="margin: 1px 0 0 1px"/>
@@ -123,6 +117,43 @@
   </div>
   <hr class="horizontal-separator">
   <span style="font-size: 25px;">View on map</span>
+  <app-map-view></app-map-view>
+  <hr class="horizontal-separator">
+  <span style="font-size: 25px;">Reviews</span>
+  <span class="basic-info-reviews">
+    <span class="rating">
+      <mat-icon>star</mat-icon>
+      <span>4.95</span>
+    </span>
+    <span class="review-number">9 reviews</span>
+  </span>
+  <div class="reviews-container">
+    <mat-grid-list cols="2" rowHeight="150px" gutterSize="0px">
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-review-card></app-review-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <hr class="horizontal-separator">
+  <app-write-review-card></app-write-review-card>
 </div>
 
 

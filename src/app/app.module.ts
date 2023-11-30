@@ -27,6 +27,8 @@ import { AccommodationCardComponent } from './accommodation-management/accommoda
 import { HomePageComponent } from './accommodation-management/home-page/home-page.component';
 import { AccommodationPageComponent } from './accommodation-management/accommodation-page/accommodation-page.component';
 import { MapViewComponent } from './accommodation-management/map-view/map-view.component';
+import { ReviewCardComponent } from './review-management/review-card/review-card.component';
+import { WriteReviewCardComponent } from './review-management/write-review-card/write-review-card.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { MapViewComponent } from './accommodation-management/map-view/map-view.c
     AccommodationCardComponent,
     HomePageComponent,
     AccommodationPageComponent,
-    MapViewComponent
+    MapViewComponent,
+    ReviewCardComponent,
+    WriteReviewCardComponent
   ],
   imports: [
     BrowserModule,
