@@ -33,7 +33,7 @@ export class UserService {
     return this.httpClient.put<EditUserDTO>(environment.apiHost + '/users', user);
   }
 
-  changePassword(dto: NewPasswordDTO): void {
-    this.httpClient.put<NewPasswordDTO>(environment.apiHost + '/users/new-password', dto);
+  changePassword(dto: NewPasswordDTO): Observable<NewPasswordDTO> {
+    return this.httpClient.put<NewPasswordDTO>(environment.apiHost + '/users/new-password', dto);
   }
 }
