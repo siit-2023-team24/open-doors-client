@@ -36,15 +36,14 @@
       <input matInput type="text" name="lastName" formControlName="lastName" />
     </mat-form-field>
 
-
-    <div class="input-field col s12">
-        <select>
-          <option value="" disabled selected>Choose your country</option>
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
-          <option value="3">Option 3</option>
-        </select>
-      </div>
+    <mat-form-field>
+      <mat-label>Country</mat-label>
+      <mat-select formControlName="country">
+        <div *ngFor="let c of this.countries">
+          <mat-option [value]="c">{{c}}</mat-option>
+        </div>
+      </mat-select>
+    </mat-form-field>
 
     <mat-form-field>
       <mat-label>City</mat-label>
@@ -70,7 +69,7 @@
 
   <div id="buttons">
     <div  class="dark-orange-button-wrapper">
-        <button [routerLink]="['change-password']" [queryParams]="{title: 'Changing password'}" class="orangeBtn" mat-raised-button>Change password</button>
+        <button [routerLink]="['change-password']" [queryParams]="{title: 'Create new password'}" class="orangeBtn" mat-raised-button>Change password</button>
     </div>
   
     <div  class="grey-button-wrapper">

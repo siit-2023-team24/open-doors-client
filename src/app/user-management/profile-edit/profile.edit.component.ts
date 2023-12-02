@@ -4,6 +4,7 @@ import { User } from "../model/user.model"
 import { UserService } from '../user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EditUserDTO } from '../model/editUserDTO';
+import { Country } from 'src/env/country';
 
 
 @Component({
@@ -17,8 +18,10 @@ export class ProfileEditComponent {
 
   editProfileForm: FormGroup;
 
-  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder) {
-  }
+  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder) {}
+
+  countries: string[];
+
 
   
   ngOnInit(): void {
@@ -33,6 +36,8 @@ export class ProfileEditComponent {
       },
       error: (_) => { console.log('Error in getUser'); }
     });
+
+    this.countries = Object.values(Country);
 
     this.editProfileForm = this.formBuilder.group({
       firstName: ['', Validators.required],
