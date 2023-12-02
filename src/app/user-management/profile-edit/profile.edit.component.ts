@@ -5,7 +5,7 @@ import { UserService } from '../user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EditUserDTO } from '../model/editUserDTO';
 import { Country } from 'src/env/country';
-import { environment } from 'src/env/env';
+import { ImageService } from 'src/app/image-management/image.service';
 
 
 @Component({
@@ -22,7 +22,8 @@ export class ProfileEditComponent {
   editProfileForm: FormGroup;
   countries: string[];
 
-  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder) {}
+  constructor(private router: Router, private userService: UserService,
+    private imageService: ImageService, private formBuilder: FormBuilder) {}
 
   
   ngOnInit(): void {
@@ -34,7 +35,7 @@ export class ProfileEditComponent {
       next: (data: User) => {
         this.user = data;
         this.editProfileForm.patchValue(this.user);
-        this.imgPath = environment.apiHost + '/image/' + data.image;
+        this.imgPath = this.imageService.getPath(data.image);
       },
       error: (_) => { console.log('Error in getUser'); }
     });
@@ -66,6 +67,13 @@ export class ProfileEditComponent {
       )
 
     }
+  }
+
+
+  deleteProfileImage(): void {
+    this.imageService.deleteImage(this.user.image);
+    this.user.image = this.imageService.defaultProfileImageId;
+    this.imgPath = this.imageService.getPath(this.user.image);
   }
 
 }
