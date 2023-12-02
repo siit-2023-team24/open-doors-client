@@ -18,6 +18,7 @@ export class ProfileEditComponent {
   userDto: EditUserDTO;
 
   imgPath: string = "";
+  selectedImage: File;
 
   editProfileForm: FormGroup;
   countries: string[];
@@ -58,14 +59,28 @@ export class ProfileEditComponent {
     if (this.editProfileForm.valid) {
       this.userDto = this.editProfileForm.value;
       this.userDto.image = this.user.image;
-      this.userService.updateUser(this.userDto).subscribe(
-        {
-          next: () => {
-            this.router.navigate(['profile'], {queryParams: {title: 'My profile'}});
-          }
-        }
-      )
 
+      if (this.selectedImage) {
+        const formData = new FormData();
+        formData.append('file', this.selectedImage);
+
+        this.imageService.uploadImage(formData).subscribe({
+          next: (newImageId: number) => { 
+            this.userDto.image = newImageId;
+            console.log("new image uploaded  " + newImageId);
+
+            this.userService.updateUser(this.userDto).subscribe(
+              { next: () => { this.router.navigate(['profile'], {queryParams: {title: 'My profile'}}); } })
+              
+          },
+          error: () => {console.log("error uploading image")}
+        });
+      }
+
+      else {
+        this.userService.updateUser(this.userDto).subscribe(
+          { next: () => { this.router.navigate(['profile'], {queryParams: {title: 'My profile'}}); } })
+      }
     }
   }
 
@@ -74,6 +89,12 @@ export class ProfileEditComponent {
     this.imageService.deleteImage(this.user.image);
     this.user.image = this.imageService.defaultProfileImageId;
     this.imgPath = this.imageService.getPath(this.user.image);
+  }
+
+  onFileSelected(event: any): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length) 
+      this.selectedImage = inputElement.files[0];
   }
 
 }

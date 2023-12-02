@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/env/env';
 
 @Injectable({
@@ -16,8 +17,8 @@ export class ImageService {
     return environment.apiHost + '/image/' + id;
   }
 
-  uploadImage(): void {
-    //todo
+  uploadImage(formData: FormData): Observable<number> {
+    return this.httpClient.post<number>(environment.apiHost + '/image', formData);
   }
 
   deleteImage(id: number): void {
