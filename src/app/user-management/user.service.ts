@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { User } from "./model/user.model";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../env/env";
 import { Observable } from "rxjs";
+import { User } from "./model/user.model";
 import { EditUserDTO } from './model/editUserDTO';
+import { NewPasswordDTO } from './model/newPasswordDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,7 @@ export class UserService {
     return this.httpClient.put<EditUserDTO>(environment.apiHost + '/users', user);
   }
 
-
+  changePassword(dto: NewPasswordDTO): void {
+    this.httpClient.put<NewPasswordDTO>(environment.apiHost + '/users/new-password', dto);
+  }
 }
