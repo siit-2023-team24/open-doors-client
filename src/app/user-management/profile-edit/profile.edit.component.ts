@@ -5,6 +5,7 @@ import { UserService } from '../user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EditUserDTO } from '../model/editUserDTO';
 import { Country } from 'src/env/country';
+import { environment } from 'src/env/env';
 
 
 @Component({
@@ -16,12 +17,12 @@ export class ProfileEditComponent {
   user: User;
   userDto: EditUserDTO;
 
+  imgPath: string = "";
+
   editProfileForm: FormGroup;
-
-  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder) {}
-
   countries: string[];
 
+  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder) {}
 
   
   ngOnInit(): void {
@@ -33,6 +34,7 @@ export class ProfileEditComponent {
       next: (data: User) => {
         this.user = data;
         this.editProfileForm.patchValue(this.user);
+        this.imgPath = environment.apiHost + '/image/' + data.image;
       },
       error: (_) => { console.log('Error in getUser'); }
     });
