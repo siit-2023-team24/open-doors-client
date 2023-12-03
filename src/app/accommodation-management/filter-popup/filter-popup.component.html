@@ -1,0 +1,37 @@
+<mat-dialog-content>
+    <h2 class="mat-h2">Filters</h2>
+  
+    <!-- Property Type Section -->
+    <mat-divider></mat-divider>
+    <h3 class="mat-h3">Property Type</h3>
+    <mat-checkbox *ngFor="let type of propertyTypes" [(ngModel)]="selectedPropertyTypes[type]">
+      {{ type }}
+    </mat-checkbox>
+  
+    <!-- Price Range Section -->
+    <mat-divider></mat-divider>
+    <h3 class="mat-h3">Price Range</h3>
+    <div class="price-range">
+      <mat-form-field appearance="fill">
+        <mat-label>Min Price</mat-label>
+        <input matInput type="number" [(ngModel)]="minPrice">
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Max Price</mat-label>
+        <input matInput type="number" [(ngModel)]="maxPrice">
+      </mat-form-field>
+    </div>
+  
+    <!-- Amenities Section -->
+    <mat-divider></mat-divider>
+    <h3 class="mat-h3">Amenities</h3>
+    <mat-checkbox *ngFor="let amenity of amenities" [(ngModel)]="selectedAmenities[amenity]">
+      {{ amenity }}
+    </mat-checkbox>
+</mat-dialog-content>
+  
+<mat-dialog-actions>
+    <button mat-button (click)="applyFilters()">Apply Filters</button>
+</mat-dialog-actions>
+  

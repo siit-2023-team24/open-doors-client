@@ -17,6 +17,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +33,7 @@ import { AccommodationPageComponent } from './accommodation-management/accommoda
 import { MapViewComponent } from './accommodation-management/map-view/map-view.component';
 import { ReviewCardComponent } from './review-management/review-card/review-card.component';
 import { WriteReviewCardComponent } from './review-management/write-review-card/write-review-card.component';
+import { FilterPopupComponent } from './accommodation-management/filter-popup/filter-popup.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +43,8 @@ import { WriteReviewCardComponent } from './review-management/write-review-card/
     AccommodationPageComponent,
     MapViewComponent,
     ReviewCardComponent,
-    WriteReviewCardComponent
+    WriteReviewCardComponent,
+    FilterPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +60,11 @@ import { WriteReviewCardComponent } from './review-management/write-review-card/
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatDividerModule,
+    MatDialogModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
