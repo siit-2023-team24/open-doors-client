@@ -13,7 +13,7 @@ export class HomePageComponent {
 
   openFilterDialog(): void {
     const dialogRef = this.dialog.open(FilterPopupComponent, {
-      width: '800px', // Adjust the width as needed
+      width: '800px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
