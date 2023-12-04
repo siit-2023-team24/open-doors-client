@@ -64,7 +64,7 @@ export class ProfileEditComponent {
         const formData = new FormData();
         formData.append('file', this.selectedImage);
 
-        this.imageService.uploadImage(formData).subscribe({
+        this.imageService.uploadImage(formData, true, this.user.id).subscribe({
           next: (newImageId: number) => { 
             this.userDto.image = newImageId;
             console.log("new image uploaded  " + newImageId);
@@ -95,6 +95,7 @@ export class ProfileEditComponent {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length) 
       this.selectedImage = inputElement.files[0];
+    console.log(this.selectedImage);
   }
 
 }

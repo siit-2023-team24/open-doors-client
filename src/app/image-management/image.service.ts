@@ -17,8 +17,9 @@ export class ImageService {
     return environment.apiHost + '/image/' + id;
   }
 
-  uploadImage(formData: FormData): Observable<number> {
-    return this.httpClient.post<number>(environment.apiHost + '/image', formData);
+  uploadImage(formData: FormData, isProfile: boolean, id: number): Observable<number> {
+    const path = environment.apiHost + '/image/for/' + id + '/' + isProfile;
+    return this.httpClient.post<number>(path, formData);
   }
 
   deleteImage(id: number): void {

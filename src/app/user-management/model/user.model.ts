@@ -1,7 +1,7 @@
 import { Country } from "src/env/country";
 
 export interface User {
-    id?: number;
+    id: number;
     email: string;
     password?: string;
     role?: string;
