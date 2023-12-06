@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<body class="page">
+    <main class="full-page">
+        
+        <form [formGroup]="accommodationForm">
+            <div fxLayout="column" fxLayoutGap="20px"  class="form">
+                <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
+                    <mat-form-field class="create-text-field">
+                        <mat-label>Name of accommodation</mat-label>
+                        <input matInput formControlName="name" type="text" name="name" placeholder="Enter the name of your accommodation" required maxlength="50">
+                        <mat-error *ngIf="accommodationForm.get('name')?.hasError('required')">
+                            Name is required.
+                        </mat-error>
+                        <mat-error *ngIf="accommodationForm.get('name')?.hasError('maxlength')">
+                            Maximum 50 characters allowed.
+                        </mat-error>
+                    </mat-form-field>
+                    
+                    <mat-radio-group class="create-text-field" formControlName="confirmation">
+                        <mat-label>Reservation conformation:</mat-label>
+                        <mat-radio-button color="primary" value="automatic">automatic</mat-radio-button>
+                        <mat-radio-button color="primary" value="manual">manual</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
+                    <mat-form-field class="create-text-field">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput placeholder="Enter a short description" maxlength="200" formControlName="description"></textarea>
+                        <mat-error *ngIf="accommodationForm.get('description')?.hasError('maxlength')">
+                            Maximum 200 characters allowed.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <div class="create-text-field special">
+                        <div class="upload">
+                            <label for="fileInput" class="upload-label">
+                                <mat-icon>upload</mat-icon>
+                                Choose Images
+                            </label>
+                            <input type="file" (change)="onFileChanged($event)" multiple accept="image/*" class="upload-input" id="fileInput">
+                        </div>
+                        <div *ngIf="selectedFiles.length > 0">
+                            <p>Selected Files:</p>
+                            <div class="file-list">
+                                <ul>
+                                    <li *ngFor="let file of selectedFiles">{{ file.name }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
+                    <mat-form-field class="create-text-field">
+                        <mat-label>Country</mat-label>
+                        <mat-select formControlName="selectedCountry">
+                            <mat-option value="none" selected disabled>Select your country</mat-option>
+                            <mat-option value="us">United States</mat-option>
+                            <mat-option value="ca">Canada</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="accommodationForm.get('selectedCountry')?.hasError('required')">
+                            Please select your country.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="create-text-field">
+                        <mat-label>City</mat-label>
+                        <input formControlName="city" matInput type="text" name="city" placeholder="Enter your city" required maxlength="200">
+                        <mat-error *ngIf="accommodationForm.get('city')?.hasError('required')">
+                            City is required.
+                        </mat-error>
+                        <mat-error *ngIf="accommodationForm.get('city')?.hasError('maxlength')">
+                            Maximum 200 characters allowed.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
+                    <mat-form-field class="create-text-field">
+                        <mat-label>Street</mat-label>
+                        <input matInput type="text" formControlName="street" name="street" placeholder="Enter your street" required maxlength="200">
+                        <mat-error *ngIf="accommodationForm.get('street')?.hasError('required')">
+                            Street is required.
+                        </mat-error>
+                        <mat-error *ngIf="accommodationForm.get('street')?.hasError('maxlength')">
+                            Maximum 200 characters allowed.
+                        </mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field class="create-text-field">
+                        <mat-label>Number</mat-label>
+                        <input matInput formControlName="number" type="number" name="number" placeholder="Enter your street number" min="1" required max="1000000">
+                        <mat-error *ngIf="accommodationForm.get('number')?.hasError('max')">
+                            Street number has to be under 1000000.
+                        </mat-error>
+                        <mat-error *ngIf="accommodationForm.get('number')?.hasError('min')">
+                            Street number has to be over 0.
+                        </mat-error>
+                        <mat-error *ngIf="accommodationForm.get('number')?.hasError('required')">
+                            Street number is required.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
+                    <mat-form-field class="create-text-field">
+                        <mat-label>Type of accommodation</mat-label>
+                        <mat-select formControlName="selectedType">
+                            <mat-option value="none" selected disabled>Select the type of your accommodation</mat-option>
+                            <mat-option value="entire-home">Entire home</mat-option>
+                            <mat-option value="apartment">Apartment</mat-option>
+                            <mat-option value="holiday-home">Holiday home</mat-option>
+                            <mat-option value="hotel">Hotel</mat-option>
+                            <mat-option value="villa">Villa</mat-option>
+                            <mat-option value="cottage">Cottage</mat-option>
+                            <mat-option value="studio-apartment">Studio apartment</mat-option>                            
+                            <mat-option value="room">Room</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="accommodationForm.get('selectedType')?.hasError('required')">
+                            Please select the type of your accommodation.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <section class="checkbox-column">
+                        <mat-label>Choose amenities</mat-label>
+                        <section class="create-text-field">
+                            <section class="checkbox-column">
+                                <mat-checkbox color="primary" value="WIFI">Wi-Fi</mat-checkbox>
+                                <mat-checkbox color="primary" value="PARKING">Parking</mat-checkbox>
+                                <mat-checkbox color="primary" value="POOL">Pool</mat-checkbox>
+                                <mat-checkbox color="primary" value="GYM">Gym</mat-checkbox>
+                                <mat-checkbox color="primary" value="AIR_CONDITIONING">Air Conditioning</mat-checkbox>
+                            </section>
+                            <section class="checkbox-column">
+                                <mat-checkbox color="primary" value="BREAKFAST_INCLUDED">Breakfast Included</mat-checkbox>
+                                <mat-checkbox color="primary" value="RESTAURANT">Restaurant</mat-checkbox>
+                                <mat-checkbox color="primary" value="PET_FRIENDLY">Pet Friendly</mat-checkbox>
+                                <mat-checkbox color="primary" value="SPA">Spa</mat-checkbox>
+                                <mat-checkbox color="primary" value="TV">TV</mat-checkbox>
+                            </section>
+                            <section class="checkbox-column">
+                                <mat-checkbox color="primary" value="KITCHENETTE">Kitchenette</mat-checkbox>
+                                <mat-checkbox color="primary" value="LAUNDRY">Laundry</mat-checkbox>
+                                <mat-checkbox color="primary" value="BALCONY">Balcony</mat-checkbox>
+                                <mat-checkbox color="primary" value="BAR">Bar</mat-checkbox>
+                                <mat-checkbox color="primary" value="SHUTTLE_SERVICE">Shuttle Service</mat-checkbox>
+                            </section>
+                            <section class="checkbox-column">
+                                <mat-checkbox color="primary" value="BUSINESS_CENTER">Business Center</mat-checkbox>
+                                <mat-checkbox color="primary" value="CONCIERGE">Concierge</mat-checkbox>
+                                <mat-checkbox color="primary" value="CHILDREN_PLAY_AREA">Children's Play Area</mat-checkbox>
+                                <mat-checkbox color="primary" value="MEETING_ROOMS">Meeting Rooms</mat-checkbox>
+                                <mat-checkbox color="primary" value="FITNESS_CLASSES">Fitness Classes</mat-checkbox>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
+                    <mat-form-field class="create-text-field">
+                        <mat-label>Minimal number of guests</mat-label>
+                        <input matInput formControlName="minNumber" type="number" name="min-number" min="1" max="100" required>
+                        <mat-error *ngIf="accommodationForm.get('minNumber')?.hasError('required')">
+                            Minimal number of guests is required.
+                        </mat-error>
+                        <mat-error *ngIf="accommodationForm.get('minNumber')?.hasError('max')">
+                            Minimal number of guests has to be under 100.
+                        </mat-error>
+                        <mat-error *ngIf="accommodationForm.get('minNumber')?.hasError('min')">
+                            Minimal number of guests has to be over 0.
+                        </mat-error>
+                    </mat-form-field>
+                    
+                    <mat-form-field class="create-text-field">
+                        <mat-label>Maximal number of guests</mat-label>
+                        <input matInput formControlName="maxNumber" type="number" name="max-number" min="1" max="100" required>
+                        <mat-error *ngIf="accommodationForm.get('maxNumber')?.hasError('max')">
+                            Maximal number of guests has to be under 100.
+                        </mat-error>
+                        <mat-error *ngIf="accommodationForm.get('maxNumber')?.hasError('min')">
+                            Maximal number of guests has to be over 0.
+                        </mat-error>
+                        <mat-error *ngIf="accommodationForm.get('maxNumber')?.hasError('required')">
+                            Maximal number of guests is required.
+                        </mat-error>
+                        <mat-error  *ngIf="accommodationForm.hasError('minMaxMismatch') && ( accommodationForm.get('maxNumber')?.touched || accommodationForm.get('minNumber')?.touched )">
+                            Maximal number of guests must be equal to or greater than the minimal number of guests.
+                        </mat-error>
+                    </mat-form-field>
+                
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
+                    <mat-form-field class="create-text-field">
+                        <mat-label>Deadline for booking a reservation (in days)</mat-label>
+                        <input matInput formControlName="deadline" type="number" name="deadline" min="0" required max="365">
+                        <mat-error *ngIf="accommodationForm.get('deadline')?.hasError('max')">
+                            Deadline has to be under 365 days.
+                        </mat-error>
+                        <mat-error *ngIf="accommodationForm.get('deadline')?.hasError('min')">
+                           Deadline has to be at least 0 days.
+                        </mat-error>
+                        <mat-error *ngIf="accommodationForm.get('deadline')?.hasError('required')">
+                            Booking deadline is required.
+                        </mat-error>
+                    </mat-form-field>
+                    
+                    <button mat-stroked-button class="button next-btn">Next</button>
+                </div>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
