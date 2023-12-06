@@ -18,9 +18,6 @@ export class FilterPopupComponent {
   constructor(public dialogRef: MatDialogRef<FilterPopupComponent>) {}
 
   applyFilters(): void {
-
-    // filter logic here
-
     this.dialogRef.close();
   }
 }
