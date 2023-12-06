@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from "@angular/router";
+import { MaterialModule } from '../infrastucture/material/material.module';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
-import { MaterialModule } from '../infrastucture/material/material.module';
-
-import { ReviewManagementModule } from '../review-management/review-management.module';
 
 import { AccommodationCardComponent } from './accommodation-card/accommodation-card.component';
 import { MapViewComponent } from './map-view/map-view.component';
@@ -15,6 +13,7 @@ import { MyAccommodationsComponent } from './my-accommodations/my-accommodations
 import { CreateAccommodationComponent } from './create-accommodation/create-accommodation.component';
 import { FilterPopupComponent } from './filter-popup/filter-popup.component';
 
+import { ReviewManagementModule } from '../review-management/review-management.module';
 
 @NgModule({
   declarations: [
