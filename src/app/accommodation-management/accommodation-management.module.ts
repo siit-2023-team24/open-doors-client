@@ -8,6 +8,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AccommodationPageComponent } from './accommodation-page/accommodation-page.component';
 import { MyAccommodationsComponent } from './my-accommodations/my-accommodations.component';
 import { ReviewManagementModule } from '../review-management/review-management.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { MatIconModule } from "@angular/material/icon";
@@ -33,6 +34,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     CreateAccommodationComponent
   ],
   imports: [
+    HttpClientModule,
     ReactiveFormsModule,
     RouterModule,
     CommonModule,
