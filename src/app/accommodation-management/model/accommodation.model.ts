@@ -1,5 +1,6 @@
 import { Amenity } from "src/env/amenity";
 import { AccommodationType } from "src/env/accommodation-type";
+import { DateRange } from "./date-range.model";
 
 export interface Accommodation {
     id: number;
@@ -22,11 +23,6 @@ export interface Accommodation {
 
 interface Image {
 // Define Image properties based on your actual implementation
-}
-
-interface DateRange {
-    startDate: Date;
-    endDate: Date;
 }
 
 interface Host {

@@ -31,7 +31,7 @@
         </div>
         
         <div class="search-button">
-          <button mat-button>
+          <button mat-button (click)="searchAndFilterAccommodations()">
             <span class="icon-button">
               Search
               <mat-icon>search</mat-icon>
@@ -53,23 +53,8 @@
     </div>
 
     <mat-grid-list gutterSize="16" cols="5" rowHeight="330">
-        <mat-grid-tile colspan="1">
-          <app-accommodation-card></app-accommodation-card>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1">
-          <app-accommodation-card></app-accommodation-card>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1">
-          <app-accommodation-card></app-accommodation-card>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1">
-          <app-accommodation-card></app-accommodation-card>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1">
-          <app-accommodation-card></app-accommodation-card>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1">
-          <app-accommodation-card></app-accommodation-card>
+        <mat-grid-tile *ngFor="let accommodation of accommodations" colspan="1">
+          <app-accommodation-card [accommodation]="accommodation"></app-accommodation-card>
         </mat-grid-tile>
     </mat-grid-list>
     <div class="just-button-container">

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AccommodationSearchDTO } from '../model/accommodationSearch';
 
 @Component({
   selector: 'app-accommodation-card',
@@ -8,6 +9,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AccommodationCardComponent {
   constructor(private snackBar: MatSnackBar) {}
+
+  @Input()
+  accommodation: AccommodationSearchDTO;
+
+  @Output()
+  clicked: EventEmitter<AccommodationSearchDTO> = new EventEmitter<AccommodationSearchDTO>();
+
+  onAccommodationClicked(): void {
+    this.clicked.emit(this.accommodation);
+  }
 
   isFavorite = false;
 
