@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Accommodation } from './model/accommodation.model';
 import { environment } from 'src/env/env';
 import { AccommodationSearchDTO } from './model/accommodationSearch';
+import { AccommodationWholeDTO } from './model/accommodationWhole';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,6 @@ export class AccommodationService {
     return this.httpClient.get<AccommodationSearchDTO[]>(environment.apiHost + "/accommodations")
   }
 
-  add(accommodation: Accommodation): Observable<Accommodation> {
-    return this.httpClient.post<Accommodation>(environment.apiHost + "/add", accommodation);
-  }
-
   getAccommodation(id: number): Observable<Accommodation> {
     return this.httpClient.get<Accommodation>(environment.apiHost + '/accommodations/' + id)
   }
@@ -30,5 +27,11 @@ export class AccommodationService {
     // Assume your backend has an endpoint for searching and filtering accommodations
     const searchEndpoint = environment.apiHost + "/accommodations/search";
     return this.httpClient.post<AccommodationSearchDTO[]>(searchEndpoint, filterParams);
+  }
+
+  add(accommodationDTO: AccommodationWholeDTO): Observable<AccommodationWholeDTO>{
+
+    return this.httpClient.post<AccommodationWholeDTO>(environment.apiHost + '/accommodations', accommodationDTO);
+
   }
 }

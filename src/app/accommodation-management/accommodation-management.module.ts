@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from "@angular/router";
 import { MaterialModule } from '../infrastucture/material/material.module';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from '@angular/common/http';
 
 import { AccommodationCardComponent } from './accommodation-card/accommodation-card.component';
 import { MapViewComponent } from './map-view/map-view.component';
@@ -27,6 +28,7 @@ import { AccommodationService } from './accommodation.service';
     FilterPopupComponent
   ],
   imports: [
+    HttpClientModule,
     ReactiveFormsModule,
     RouterModule,
     CommonModule,

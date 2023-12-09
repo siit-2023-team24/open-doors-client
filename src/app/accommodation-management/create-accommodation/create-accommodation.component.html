@@ -17,10 +17,10 @@
                         </mat-error>
                     </mat-form-field>
                     
-                    <mat-radio-group class="create-text-field" formControlName="confirmation">
+                    <mat-radio-group class="create-text-field" formControlName="isAutomatic">
                         <mat-label>Reservation conformation:</mat-label>
-                        <mat-radio-button color="primary" value="automatic">automatic</mat-radio-button>
-                        <mat-radio-button color="primary" value="manual">manual</mat-radio-button>
+                        <mat-radio-button color="primary" [value]="true">automatic</mat-radio-button>
+                        <mat-radio-button color="primary" [value]="false">manual</mat-radio-button>
                     </mat-radio-group>
                 </div>
 
@@ -55,10 +55,9 @@
                 <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
                     <mat-form-field class="create-text-field">
                         <mat-label>Country</mat-label>
-                        <mat-select formControlName="selectedCountry">
+                        <mat-select [(value)]="selectedCountry" formControlName="country">
                             <mat-option value="none" selected disabled>Select your country</mat-option>
-                            <mat-option value="us">United States</mat-option>
-                            <mat-option value="ca">Canada</mat-option>
+                            <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
                         </mat-select>
                         <mat-error *ngIf="accommodationForm.get('selectedCountry')?.hasError('required')">
                             Please select your country.
@@ -107,52 +106,20 @@
                 <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
                     <mat-form-field class="create-text-field">
                         <mat-label>Type of accommodation</mat-label>
-                        <mat-select formControlName="selectedType">
+                        <mat-select [(value)]="selectedType" formControlName="type">
                             <mat-option value="none" selected disabled>Select the type of your accommodation</mat-option>
-                            <mat-option value="entire-home">Entire home</mat-option>
-                            <mat-option value="apartment">Apartment</mat-option>
-                            <mat-option value="holiday-home">Holiday home</mat-option>
-                            <mat-option value="hotel">Hotel</mat-option>
-                            <mat-option value="villa">Villa</mat-option>
-                            <mat-option value="cottage">Cottage</mat-option>
-                            <mat-option value="studio-apartment">Studio apartment</mat-option>                            
+                            <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
                             <mat-option value="room">Room</mat-option>
                         </mat-select>
                         <mat-error *ngIf="accommodationForm.get('selectedType')?.hasError('required')">
                             Please select the type of your accommodation.
                         </mat-error>
                     </mat-form-field>
-
                     <section class="checkbox-column">
                         <mat-label>Choose amenities</mat-label>
-                        <section class="create-text-field">
-                            <section class="checkbox-column">
-                                <mat-checkbox color="primary" value="WIFI">Wi-Fi</mat-checkbox>
-                                <mat-checkbox color="primary" value="PARKING">Parking</mat-checkbox>
-                                <mat-checkbox color="primary" value="POOL">Pool</mat-checkbox>
-                                <mat-checkbox color="primary" value="GYM">Gym</mat-checkbox>
-                                <mat-checkbox color="primary" value="AIR_CONDITIONING">Air Conditioning</mat-checkbox>
-                            </section>
-                            <section class="checkbox-column">
-                                <mat-checkbox color="primary" value="BREAKFAST_INCLUDED">Breakfast Included</mat-checkbox>
-                                <mat-checkbox color="primary" value="RESTAURANT">Restaurant</mat-checkbox>
-                                <mat-checkbox color="primary" value="PET_FRIENDLY">Pet Friendly</mat-checkbox>
-                                <mat-checkbox color="primary" value="SPA">Spa</mat-checkbox>
-                                <mat-checkbox color="primary" value="TV">TV</mat-checkbox>
-                            </section>
-                            <section class="checkbox-column">
-                                <mat-checkbox color="primary" value="KITCHENETTE">Kitchenette</mat-checkbox>
-                                <mat-checkbox color="primary" value="LAUNDRY">Laundry</mat-checkbox>
-                                <mat-checkbox color="primary" value="BALCONY">Balcony</mat-checkbox>
-                                <mat-checkbox color="primary" value="BAR">Bar</mat-checkbox>
-                                <mat-checkbox color="primary" value="SHUTTLE_SERVICE">Shuttle Service</mat-checkbox>
-                            </section>
-                            <section class="checkbox-column">
-                                <mat-checkbox color="primary" value="BUSINESS_CENTER">Business Center</mat-checkbox>
-                                <mat-checkbox color="primary" value="CONCIERGE">Concierge</mat-checkbox>
-                                <mat-checkbox color="primary" value="CHILDREN_PLAY_AREA">Children's Play Area</mat-checkbox>
-                                <mat-checkbox color="primary" value="MEETING_ROOMS">Meeting Rooms</mat-checkbox>
-                                <mat-checkbox color="primary" value="FITNESS_CLASSES">Fitness Classes</mat-checkbox>
+                        <section class="checkbox-grid">
+                            <section class="checkbox-column" *ngFor="let amenity of amenities">
+                              <mat-checkbox color="primary">{{ amenity }}</mat-checkbox>
                             </section>
                         </section>
                     </section>
@@ -161,31 +128,31 @@
                 <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
                     <mat-form-field class="create-text-field">
                         <mat-label>Minimal number of guests</mat-label>
-                        <input matInput formControlName="minNumber" type="number" name="min-number" min="1" max="100" required>
-                        <mat-error *ngIf="accommodationForm.get('minNumber')?.hasError('required')">
+                        <input matInput formControlName="minGuests" type="number" name="min-guests" min="1" max="100" required>
+                        <mat-error *ngIf="accommodationForm.get('minGuests')?.hasError('required')">
                             Minimal number of guests is required.
                         </mat-error>
-                        <mat-error *ngIf="accommodationForm.get('minNumber')?.hasError('max')">
+                        <mat-error *ngIf="accommodationForm.get('minGuests')?.hasError('max')">
                             Minimal number of guests has to be under 100.
                         </mat-error>
-                        <mat-error *ngIf="accommodationForm.get('minNumber')?.hasError('min')">
+                        <mat-error *ngIf="accommodationForm.get('minGuests')?.hasError('min')">
                             Minimal number of guests has to be over 0.
                         </mat-error>
                     </mat-form-field>
                     
                     <mat-form-field class="create-text-field">
                         <mat-label>Maximal number of guests</mat-label>
-                        <input matInput formControlName="maxNumber" type="number" name="max-number" min="1" max="100" required>
-                        <mat-error *ngIf="accommodationForm.get('maxNumber')?.hasError('max')">
+                        <input matInput formControlName="maxGuests" type="number" name="max-guests" min="1" max="100" required>
+                        <mat-error *ngIf="accommodationForm.get('maxGuests')?.hasError('max')">
                             Maximal number of guests has to be under 100.
                         </mat-error>
-                        <mat-error *ngIf="accommodationForm.get('maxNumber')?.hasError('min')">
+                        <mat-error *ngIf="accommodationForm.get('maxGuests')?.hasError('min')">
                             Maximal number of guests has to be over 0.
                         </mat-error>
-                        <mat-error *ngIf="accommodationForm.get('maxNumber')?.hasError('required')">
+                        <mat-error *ngIf="accommodationForm.get('maxGuests')?.hasError('required')">
                             Maximal number of guests is required.
                         </mat-error>
-                        <mat-error  *ngIf="accommodationForm.hasError('minMaxMismatch') && ( accommodationForm.get('maxNumber')?.touched || accommodationForm.get('minNumber')?.touched )">
+                        <mat-error  *ngIf="accommodationForm.hasError('minMaxMismatch') && ( accommodationForm.get('maxGuests')?.touched || accommodationForm.get('minGuests')?.touched )">
                             Maximal number of guests must be equal to or greater than the minimal number of guests.
                         </mat-error>
                     </mat-form-field>
@@ -207,7 +174,7 @@
                         </mat-error>
                     </mat-form-field>
                     
-                    <button mat-stroked-button class="button next-btn">Next</button>
+                    <button mat-stroked-button class="button next-btn" (click)="onNextClick()">Next</button>
                 </div>
             </div>
         </form>
