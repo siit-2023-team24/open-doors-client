@@ -1,6 +1,6 @@
 export interface NewPasswordDTO {
-    id: number;
+    email: string;
     oldPassword: string;
-    newPAssword: string;
-    repeatPAssword: string;
+    newPassword: string;
+    repeatPassword: string;
 }

@@ -6,7 +6,7 @@ export interface User {
     password?: string;
     role?: string;
 
-    image: number;
+    imageId?: number;
 
     firstName: string;
     lastName: string;

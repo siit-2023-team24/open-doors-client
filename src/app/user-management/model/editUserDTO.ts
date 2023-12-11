@@ -1,7 +1,7 @@
 export interface EditUserDTO {
     id: number;
 
-    image: number;
+    imageId?: number;
 
     firstName: string;
     lastName: string;

@@ -4,6 +4,7 @@ import { User } from "../model/user.model"
 import { UserService } from '../user.service';
 import { environment } from 'src/env/env';
 import { Country } from 'src/env/country';
+import { ImageService } from 'src/app/image-management/image.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,11 +13,11 @@ import { Country } from 'src/env/country';
 })
 export class ProfileComponent implements OnInit {
 
-  user: User;
+  user: User = {email: "", firstName: "", lastName: "", id: 0, country: Country.VATICAN_CITY, city: "", street: "", number: 0, phone: ""}
 
   imgPath: string= "";
 
-  constructor(private route: ActivatedRoute, private userService: UserService) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private imageService: ImageService) {
   }
 
   ngOnInit(): void {
@@ -26,7 +27,7 @@ export class ProfileComponent implements OnInit {
       
       next: (data: User) => {
         this.user = data;
-        this.imgPath = environment.apiHost + '/image/' + data.image;
+        this.imgPath = this.imageService.getPath(data.imageId);
       },
 
       error: (_) => { console.log('Error in getUser'); }

@@ -50,14 +50,16 @@ export class ChangePasswordComponent {
     if (this.changePasswordForm.valid) {
       const dto: NewPasswordDTO = this.changePasswordForm.value;
       //autentication
-      dto.id = 1;
+      dto.email = "test@test.test";
+
+      console.log(dto);
 
       this.userService.changePassword(dto).subscribe({
         next: () => {
           this.router.navigate(['profile'], {queryParams: {title: 'My profile'}});
           alert("You have successfully changed your password.");
         },
-        error: () => { console.log("Error putting new password");}
+        error: () => { console.log("Error updating password");}
       })
 
     }
