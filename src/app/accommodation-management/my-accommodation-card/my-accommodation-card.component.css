@@ -1,0 +1,16 @@
+img {
+    width: 50px;
+    height: auto;
+}
+
+button {
+    background-color: #F1F0EF;
+    color: #0C4A60;
+    outline: 1pt;
+    outline-color: #0C4A60;
+}
+
+.frame {
+    outline: 1px;
+    outline-color: #EF6C33;
+}

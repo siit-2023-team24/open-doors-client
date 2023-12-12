@@ -2,3 +2,26 @@
     background-color: #0C4A60;
     color: white;
 }
+
+.orange-btn {
+    background-color: #EF6C33;
+    color: white;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.cards {
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.subtitle {
+    margin-left: 50px;
+    color: #0C4A60;
+    font-size: large;
+}
