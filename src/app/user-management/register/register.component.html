@@ -111,7 +111,7 @@
                     
                     <span>
                         <button mat-stroked-button [routerLink]="['../login']" class="button back-btn">Back</button>
-                        <button mat-raised-button color="primary" class="button sign-up-btn">Sign up</button>
+                        <button mat-raised-button color="primary" [queryParams]="{title: 'My profile'}" [routerLink]="['/home']" class="button sign-up-btn">Sign up</button>
                     </span>
                 </div>
             </div>
