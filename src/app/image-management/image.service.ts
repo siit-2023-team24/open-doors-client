@@ -10,11 +10,11 @@ export class ImageService {
   constructor(private httpClient: HttpClient) { }
 
 
-  getPath(id?: number): string {
+  getPath(id: number | undefined, isProfile: boolean): string {
     if (!id) {
       id = -1;
     }
-    return environment.apiHost + '/image/' + id;
+    return environment.apiHost + '/image/' + id + '/profile/' + isProfile;
   }
 
 }

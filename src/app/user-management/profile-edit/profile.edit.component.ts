@@ -38,7 +38,7 @@ export class ProfileEditComponent {
       next: (data: User) => {
         this.user = data;
         this.editProfileForm.patchValue(this.user);
-        this.imgPath = this.imageService.getPath(data.imageId);
+        this.imgPath = this.imageService.getPath(data.imageId, true);
       },
       error: (_) => { console.log('Error in getUser'); }
     });
@@ -97,7 +97,7 @@ export class ProfileEditComponent {
 
   deleteProfileImage(): void {
     this.user.imageId = undefined;
-    this.imgPath = this.imageService.getPath(this.user.imageId);
+    this.imgPath = this.imageService.getPath(this.user.imageId, true);
     this.deletedImage = true;
   }
 

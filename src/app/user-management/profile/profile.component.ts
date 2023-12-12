@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
       
       next: (data: User) => {
         this.user = data;
-        this.imgPath = this.imageService.getPath(data.imageId);
+        this.imgPath = this.imageService.getPath(data.imageId, true);
       },
 
       error: (_) => { console.log('Error in getUser'); }
