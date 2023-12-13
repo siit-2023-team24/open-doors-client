@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccommodationWholeDTO } from './model/accommodationWhole';
+import { AccommodationWhole } from './model/accommodation-whole';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +10,9 @@ export class AccommodationService {
 
   constructor(private http: HttpClient) { }
 
-  add(accommodationDTO: AccommodationWholeDTO): Observable<AccommodationWholeDTO>{
+  add(accommodationDTO: AccommodationWhole): Observable<AccommodationWhole>{
 
-    return this.http.post<AccommodationWholeDTO>('http://localhost:9090/open-doors/accommodations', accommodationDTO);
-
+    return this.http.post<AccommodationWhole>('http://localhost:9090/open-doors/accommodations', accommodationDTO);
+    
   }
 }

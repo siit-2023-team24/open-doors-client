@@ -47,7 +47,6 @@
 .checkbox-column {
     display: flex;
     flex-direction: column;
-    align-items: start;
 }
 
 .upload {
@@ -93,4 +92,25 @@
 
 .special {
     height: 200px;
+}
+
+.error {
+    color: red;
+}
+
+.scrollable-list {
+    height: 200px;
+    overflow-y: auto;
+}
+
+.demo-inline-calendar-card {
+    width: 300px;
+}
+
+.left {
+    justify-content: flex-start;
+}
+
+.right {
+    justify-content: flex-end;
 }
