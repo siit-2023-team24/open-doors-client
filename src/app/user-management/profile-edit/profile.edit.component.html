@@ -1,20 +1,18 @@
-
-
 <div class="imageSection">
   <div id="imgDiv">
-    <img id="profileImg" src="../../assets/account.png">
+    <img id="profileImg" src={{imgPath}}>
   </div>
   
   <div id="imgButtons">
-    <div  class="dark-orange-button-wrapper">
-        <button class="orangeBtn" mat-raised-button>Delete profile image</button>
+    <div class="dark-orange-button-wrapper">
+        <button (click)="deleteProfileImage()" class="orangeBtn" mat-raised-button>Delete profile image</button>
     </div>
 
     <div>
       <div class = "file-field input-field">
          <div class = "btn">
             <span>Upload image</span>
-            <input type = "file" />
+            <input type = "file" (change)="onFileSelected($event)"/>
          </div>
          
          <div class = "file-path-wrapper">
@@ -52,8 +50,12 @@
       <input matInput type="text" name="city" formControlName="city" />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Address</mat-label>
-      <input matInput type="text" name="address" formControlName="address" />
+      <mat-label>Street</mat-label>
+      <input matInput type="text" name="street" formControlName="street" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>House number</mat-label>
+      <input matInput type="number" name="number" formControlName="number" />
     </mat-form-field>
     <mat-form-field>
         <mat-label>Phone number</mat-label>
@@ -75,6 +77,6 @@
   </div>
 
     <div class="dark-blue-button-wrapper">
-        <button [routerLink]="['/profile']" [queryParams]="{title: 'My profile'}" class="blueBtn" mat-raised-button>Save changes</button>
+        <button class="blueBtn" (click)="saveChanges()" type="submit" mat-raised-button>Save changes</button>
     </div>
 </div>
