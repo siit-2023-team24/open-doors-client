@@ -1,7 +1,10 @@
 <mat-card>
-    <mat-card-content>
-        <img src="" alt="Accommodation Image">
+    <mat-card-content class="frame">
+        <img src={{imagePath}} alt="Accommodation Image">
         <b [routerLink]="['/accommodation', accommodation.id]">{{accommodation.name}} #{{accommodation.id}}</b>
-        <button mat-flat-button>Edit</button>
+        
+        <div class="transparent-button-wrapper">
+            <button class="tranparentBtn" mat-flat-button>Edit</button>
+        </div>
     </mat-card-content>
 </mat-card>

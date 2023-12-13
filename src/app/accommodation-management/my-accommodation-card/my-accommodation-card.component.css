@@ -1,16 +1,21 @@
 img {
-    width: 50px;
-    height: auto;
+    height: 100px;
+    width: auto;
+    margin-left: 10px;
 }
 
 button {
-    background-color: #F1F0EF;
-    color: #0C4A60;
-    outline: 1pt;
-    outline-color: #0C4A60;
+    border: solid;
+    border-color: #0C4A60;
+    margin-right: 10px;
 }
 
 .frame {
-    outline: 1px;
-    outline-color: #EF6C33;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: solid;
+    border-color: #EF6C33;
 }
