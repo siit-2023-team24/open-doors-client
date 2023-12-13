@@ -3,7 +3,7 @@
   <button mat-icon-button class="favorite-button" (click)="toggleFavorite()">
     <mat-icon [style.color]="isFavorite ? 'red' : 'black'">favorite</mat-icon>
   </button>
-  <a [routerLink]="['../accommodation']" [queryParams]="{title: 'Accommodation'}">
+  <a (click)="onAccommodationClicked()">
     <img src="accommodation.images.length > 0 ? accommodation.images[0] : '../../../assets/image.jpg'" alt="Accommodation Image" class="accommodation-image" />
 
     <div class="details">

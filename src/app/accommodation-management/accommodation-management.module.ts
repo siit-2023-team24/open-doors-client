@@ -14,8 +14,6 @@ import { CreateAccommodationComponent } from './create-accommodation/create-acco
 import { FilterPopupComponent } from './filter-popup/filter-popup.component';
 
 import { ReviewManagementModule } from '../review-management/review-management.module';
-import { HttpClientModule } from '@angular/common/http';
-import { AccommodationService } from './accommodation.service';
 
 @NgModule({
   declarations: [
@@ -44,9 +42,6 @@ import { AccommodationService } from './accommodation.service';
     AccommodationPageComponent,
     MyAccommodationsComponent,
     FilterPopupComponent
-  ],
-  providers: [
-    AccommodationService
   ]
 })
 export class AccommodationManagementModule { }

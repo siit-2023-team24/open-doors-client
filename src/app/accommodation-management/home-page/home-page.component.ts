@@ -3,6 +3,7 @@ import { AccommodationService } from '../accommodation.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterPopupComponent } from '../filter-popup/filter-popup.component';
 import { AccommodationSearchDTO } from '../model/accommodationSearch';
+import { SearchAndFilterDTO } from '../model/searchAndFilter';
 
 @Component({
   selector: 'app-home-page',
@@ -11,7 +12,7 @@ import { AccommodationSearchDTO } from '../model/accommodationSearch';
 })
 export class HomePageComponent implements OnInit {
   accommodations: AccommodationSearchDTO[] = [];
-  filterParams: any = {};
+  filterParams: SearchAndFilterDTO;
 
   constructor(public dialog: MatDialog, private accommodationService: AccommodationService) {}
 

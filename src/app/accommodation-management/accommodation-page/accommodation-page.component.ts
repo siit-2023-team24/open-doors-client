@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
+import { AccommodationService } from '../accommodation.service';
+import { AccommodationWithTotalPriceDTO } from '../model/accommodationWithTotalPrice';
 
 @Component({
   selector: 'app-accommodation-page',
@@ -7,15 +10,29 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./accommodation-page.component.css']
 })
 export class AccommodationPageComponent {
-  images: { url: string; alt: string }[] = [
-    { url: '../../assets/accommodation-images/acc1.jpg', alt: 'Image 1' },
-    { url: '../../assets/accommodation-images/acc2.jpg', alt: 'Image 2' },
-    { url: '../../assets/accommodation-images/acc4.jpg', alt: 'Image 3' },
-    { url: '../../assets/accommodation-images/acc5.jpg', alt: 'Image 4' },
-    { url: '../../assets/accommodation-images/acc7.jpg', alt: 'Image 5' }
-  ];
 
-  constructor(private snackBar: MatSnackBar) {}
+  accommodation: AccommodationWithTotalPriceDTO;
+
+  constructor(
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute,
+    private accommodationService: AccommodationService
+  ) {}
+
+  ngOnInit(): void {
+    const accommodationIdParam = this.route.snapshot.paramMap.get('id');
+    if(accommodationIdParam !== null) {
+      const accommodationId = +accommodationIdParam;
+      this.accommodationService
+    .getAccommodation(accommodationId)
+    .subscribe((details) => {
+      this.accommodation = details;
+      this.accommodation.images = this.accommodation.images || [];
+    });
+    } else {
+      console.error("Accommodation ID is null");
+    }
+  }
 
   isFavorite = false;
 
