@@ -46,6 +46,9 @@ export class CreateAccommodationComponent {
   seasonalRates : SeasonalRate[];
   priceError : string = '';
 
+  availabilityMessage : string = "Click a date to choose the start of an available period.";
+  isSelecting : boolean = false;
+  availableRangeStart : Date;
   availableDates : Date[] = [];
   availability : DateRange[] = [];
 
@@ -65,16 +68,51 @@ export class CreateAccommodationComponent {
     const dateIndex = this.availableDates.findIndex(
       (selectedDate) => selectedDate.getTime() === date.getTime()
     );
+    
+    if (this.isSelecting) {
+      if(date.getTime() < this.availableRangeStart.getTime()) {
+        this.availabilityMessage = "Please select a date equal to or after the starting date of the available period: " + this.availableRangeStart.toDateString();
+        return;
+      }
 
-    if (dateIndex === -1) {
-      this.availableDates.push(date);
-    } else {
-      this.availableDates.splice(dateIndex, 1);
+      if (dateIndex != -1) {
+        this.availabilityMessage = "Date " + date.toDateString() + " is already marked as available. Please select a different date for the end of the available period starting with " + this.availableRangeStart.toDateString() + ".";
+        return;
+      }
+
+      this.isSelecting = false;
+      this.availabilityMessage = "Accommodation is available from " + this.availableRangeStart.toDateString() + " to " + date.toDateString() + ".";
+      this.populateWithDates(this.availableRangeStart, date);
+    }
+    else {
+      if (dateIndex != -1) {
+        this.availabilityMessage = "Date " + date.toDateString() + " deleted.";
+        this.availableDates.splice(dateIndex, 1);
+      }
+      else {
+        this.isSelecting = true;
+        this.availabilityMessage = "Date " + date.toDateString() + " selected as start of available period. Please select the end of the available period.";
+        this.availableRangeStart=date;
+        return;
+      }
     }
     console.log(this.availableDates);
     this.generateAvailability();
   }
 
+  populateWithDates(startDate : Date, endDate : Date) {
+    let counterDate = new Date(startDate);
+    while (counterDate.getTime() <= endDate.getTime()) {
+      let dateIndex = this.availableDates.findIndex(
+        (selectedDate) => selectedDate.getTime() === counterDate.getTime()
+      );
+      if (dateIndex === -1) { 
+        this.availableDates.push(new Date(counterDate));
+      }
+      counterDate.setDate(counterDate.getDate() + 1);
+    }
+    console.log(this.availableDates);
+  }
   
   createDateRange(startDate: Date, endDate: Date): DateRange {
     return { startDate, endDate };
