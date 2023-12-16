@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccommodationService } from '../accommodation.service';
 import { HostListAccommodation } from '../model/host-list-accommodation';
+import { HostListPendingAccommodation } from '../model/host-list-pending-accommodation';
 
 @Component({
   selector: 'app-my-accommodations',
@@ -11,6 +12,8 @@ import { HostListAccommodation } from '../model/host-list-accommodation';
 export class MyAccommodationsComponent implements OnInit {
 
   accommodations: HostListAccommodation[];
+
+  pending: HostListPendingAccommodation[];
 
   constructor(private service: AccommodationService) {
   }
@@ -26,6 +29,22 @@ export class MyAccommodationsComponent implements OnInit {
         this.accommodations = data;
       },
       error: () => console.error("Error getting host's accommodations.")
-    })
+    });
+
+    this.service.getPendingForHost(userId).subscribe({
+      next: (data: HostListPendingAccommodation[]) => {
+        this.pending = data;
+      },
+      error: () => console.error("Error getting host's pending accommodations.")
+    });
+
+    
+    
   }
+
+  reloadParent(id: number): void {
+    this.ngOnInit();
+  }
+
+
 }

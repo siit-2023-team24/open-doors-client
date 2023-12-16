@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HostListAccommodation } from '../model/host-list-accommodation';
 import { ImageService } from 'src/app/image-management/image.service';
+import { AccommodationService } from '../accommodation.service';
 
 @Component({
   selector: 'app-my-accommodation-card',
@@ -15,11 +16,29 @@ export class MyAccommodationCardComponent {
 
   imagePath: string;
 
-  constructor(private imageService: ImageService) {
+  @Output()
+  reload: EventEmitter<number> = new EventEmitter();
+  
+  constructor(private service: AccommodationService, private imageService: ImageService) {
   }
 
   ngOnInit() {
     this.imagePath = this.imageService.getPath(this.accommodation.image, false);
+  }
+
+  onDelete() {
+    console.log("deleting active");
+    this.service.delete(this.accommodation.id).subscribe({
+      next: () => {
+        this.reload.emit(this.accommodation.id);
+        console.log('Deleted accommodation with id: ' + this.accommodation.id);
+      },
+    })
+
+  }
+
+  onEdit() {
+    console.log("Edit active acc.")
   }
 
 }
