@@ -3,6 +3,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { AccommodationService } from '../accommodation.service';
 import { AccommodationWithTotalPriceDTO } from '../model/accommodationWithTotalPrice';
+import { AccommodationType } from 'src/env/accommodationType';
+import { User } from 'src/app/user-management/model/user.model';
+import { Address } from '../model/address';
 
 @Component({
   selector: 'app-accommodation-page',
@@ -11,7 +14,27 @@ import { AccommodationWithTotalPriceDTO } from '../model/accommodationWithTotalP
 })
 export class AccommodationPageComponent {
 
-  accommodation: AccommodationWithTotalPriceDTO;
+  accommodation: AccommodationWithTotalPriceDTO = {
+    id: 0,
+    name: "",
+    description: "",
+    location: "",
+    amenities: [],
+    images: [],
+    minGuests: 0,
+    maxGuests: 0,
+    accommodationType: {} as AccommodationType,
+    availability: [],
+    price: 0,
+    seasonalRates: [],
+    isPricePerNight: false,
+    totalPrice: null,
+    averageRating: null,
+    host: {} as User,
+    address: {} as Address
+  };
+  accommodationAddress: string = "";
+  isAccommodationDetailsReady: boolean = false;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -24,11 +47,20 @@ export class AccommodationPageComponent {
     if(accommodationIdParam !== null) {
       const accommodationId = +accommodationIdParam;
       this.accommodationService
-    .getAccommodation(accommodationId)
-    .subscribe((details) => {
-      this.accommodation = details;
-      this.accommodation.images = this.accommodation.images || [];
-    });
+        .getAccommodation(accommodationId)
+        .subscribe(
+          (details) => {
+            this.accommodation = details;
+            console.log("iz subscribea:");
+            console.log(this.accommodation);
+            this.accommodation.images = this.accommodation.images || [];
+            this.accommodationAddress = this.accommodation.address.street + " " + this.accommodation.address.number + ", " + this.accommodation.address.city;
+            this.isAccommodationDetailsReady = true;
+          },
+          (error) => {
+            console.error("Error fetching accommodation details:", error);
+          }
+        );
     } else {
       console.error("Accommodation ID is null");
     }

@@ -4,11 +4,11 @@
     <mat-icon [style.color]="isFavorite ? 'red' : 'black'">favorite</mat-icon>
   </button>
   <a (click)="onAccommodationClicked()">
-    <img src="accommodation.images.length > 0 ? accommodation.images[0] : '../../../assets/image.jpg'" alt="Accommodation Image" class="accommodation-image" />
+    <img [src]="getImagePath()" alt="Accommodation Image" class="accommodation-image" />
 
     <div class="details">
       <div class="row">
-        <div class="location">{{accommodation.city}}, {{accommodation.country}}</div>
+        <div class="location">{{accommodation.city ? accommodation.city : 'No city'}}, {{accommodation.country ? accommodation.country : 'No country'}}</div>
         <div class="rating">
           <mat-icon>star</mat-icon>
           <span>{{accommodation.averageRating}}</span>
@@ -18,7 +18,9 @@
       <div class="info">
         <div class="row">
           <span style="margin-right: 20px;">{{accommodation.price}} rsd/night</span>
-          <span *ngIf="accommodation.totalPrice !== null">{{accommodation.totalPrice}} rsd total</span>
+          <span *ngIf="accommodation.totalPrice !== null && accommodation.totalPrice !==0.0;">
+            {{ accommodation.totalPrice }} rsd total
+          </span>
         </div>
       </div>
     </div>

@@ -40,6 +40,9 @@ export class HomePageComponent implements OnInit {
     this.accommodationService.getAll().subscribe(
       (accommodations: AccommodationSearchDTO[]) => {
         this.accommodations = accommodations;
+        accommodations.forEach(accommodation => {
+          console.log(accommodation);
+        });
       },
       error => {
         console.error("Error fetching accommodations: ", error);
