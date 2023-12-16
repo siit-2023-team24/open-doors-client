@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { HostListAccommodation } from '../model/host-list-accommodation';
 import { ImageService } from 'src/app/image-management/image.service';
 import { AccommodationService } from '../accommodation.service';
+import { HostListAccommodation } from '../model/host-list-accommodation';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-my-accommodation-card',
@@ -14,31 +16,69 @@ export class MyAccommodationCardComponent {
   @Input()
   accommodation: HostListAccommodation;
 
+  @Input()
+  pending: boolean;
+  //for active accommodations: id is accommodation id, accommodationId is false
+
   imagePath: string;
 
   @Output()
   reload: EventEmitter<number> = new EventEmitter();
   
-  constructor(private service: AccommodationService, private imageService: ImageService) {
+  constructor(private service: AccommodationService, private imageService: ImageService,
+    private dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.imagePath = this.imageService.getPath(this.accommodation.image, false);
   }
 
-  onDelete() {
-    console.log("deleting active");
-    this.service.delete(this.accommodation.id).subscribe({
-      next: () => {
-        this.reload.emit(this.accommodation.id);
-        console.log('Deleted accommodation with id: ' + this.accommodation.id);
-      },
+  openDialog(): void {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      question: "Are you sure you wish to delete this accommodation?"
+    }
+
+    const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe({
+      next: (answer: boolean) => {
+        if (answer) this.onDelete();
+      }
     })
+  }
+
+
+  onDelete() {
+    console.log("deleting accommodation");
+
+    if (this.pending) {
+      this.service.deletePending(this.accommodation.id).subscribe({
+        next: () => {
+          this.reload.emit(this.accommodation.id);
+          console.log('Deleted pending accommodation with id: ' + this.accommodation.id);
+        },
+        error: () => console.log("Error deleting pending accommodation: " + this.accommodation.id)
+      })
+
+    }
+    else {
+      this.service.delete(this.accommodation.id).subscribe({
+        next: () => {
+          this.reload.emit(this.accommodation.id);
+          console.log('Deleted accommodation with id: ' + this.accommodation.id);
+        },
+        error: () => console.log("Error deleting active accommodation: " + this.accommodation.id)
+      })
+    }
 
   }
 
   onEdit() {
-    console.log("Edit active acc.")
+    console.log("Edit acc.")
   }
 
 }

@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AccommodationWholeDTO } from './model/accommodationWhole';
-import { HostListAccommodation } from './model/host-list-accommodation';
 import { environment } from 'src/env/env';
-import { HostListPendingAccommodation } from './model/host-list-pending-accommodation';
+import { HostListAccommodation } from './model/host-list-accommodation';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +26,8 @@ export class AccommodationService {
     return this.http.get<HostListAccommodation[]>(environment.apiHost + '/accommodations/host/' + hostId)
   }
 
-  getPendingForHost(hostId: number): Observable<HostListPendingAccommodation[]> {
-    return this.http.get<HostListPendingAccommodation[]>(environment.apiHost + '/pending-accommodations/host/' + hostId)
+  getPendingForHost(hostId: number): Observable<HostListAccommodation[]> {
+    return this.http.get<HostListAccommodation[]>(environment.apiHost + '/pending-accommodations/host/' + hostId)
   }
 
   delete(id: number): Observable<Object> {
