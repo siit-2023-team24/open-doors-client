@@ -29,7 +29,7 @@
     </div>
 
     <div *ngIf="role=='host'" class="transparent-button-wrapper">
-        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Accommodations</button>
+        <button [routerLink]="['my-accommodations']" [queryParams]="{title: 'My accommodations'}" class="tranparentBtn" mat-flat-button >Accommodations</button>
     </div>
 
 
@@ -49,7 +49,7 @@
     </div>
 
 
-    <div *ngIf="!role" class="transparent-button-wrapper">
+    <div *ngIf="role" class="transparent-button-wrapper">
         <button [routerLink]="['profile']" [queryParams]="{title: 'My profile'}" class="tranparentBtn" mat-flat-button >Profile</button>
     </div>
 

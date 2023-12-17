@@ -25,7 +25,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule, 
+    MatSelectModule,
     MatToolbarModule,
     MatIconModule,
     MatRadioModule,
