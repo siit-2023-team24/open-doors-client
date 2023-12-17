@@ -19,7 +19,7 @@ const routes: Routes = [
     {component: ProfileEditComponent, path:"edit-profile"},
     {component: ChangePasswordComponent, path:"edit-profile/change-password"},
     {component: MyAccommodationsComponent, path:"my-accommodations"},
-    {component: CreateAccommodationComponent, path:"create-accommodation"}
+    {component: CreateAccommodationComponent, path:"create-accommodation/:id/:accommodationId"}
 ];
 
 

@@ -6,7 +6,6 @@ import { UserTokenState } from './model/user-token-state.model';
 import { Account } from './model/account';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from "../../env/env";
-import { Observable } from "rxjs";
 import { EditUserDTO } from './model/editUserDTO';
 import { NewPasswordDTO } from './model/newPasswordDTO';
 
@@ -18,12 +17,11 @@ export class UserService {
 
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    skip: 'true',
+    skip: 'false',
   });
 
   private currentUser: User;
 
-  private userList: User[] = [];
 
   user$ = new BehaviorSubject("");
   userState = this.user$.asObservable();

@@ -18,7 +18,10 @@ export class MyAccommodationCardComponent {
 
   @Input()
   pending: boolean;
-  //for active accommodations: id is accommodation id, accommodationId is false
+  //for active accommodations: id is accommodation id, accommodationId is undefined
+
+  id: number | undefined;
+  accommodationId: number | undefined;
 
   imagePath: string;
 
@@ -31,6 +34,13 @@ export class MyAccommodationCardComponent {
 
   ngOnInit() {
     this.imagePath = this.imageService.getPath(this.accommodation.image, false);
+    if (!this.pending) {
+      this.id = undefined;
+      this.accommodationId = this.accommodation.id;
+    } else {
+      this.id = this.accommodation.id;
+      this.accommodationId = this.accommodation.accommodationId;
+    }
   }
 
   openDialog(): void {
@@ -78,7 +88,7 @@ export class MyAccommodationCardComponent {
   }
 
   onEdit() {
-    console.log("Edit acc.")
+    console.log("Edit acc.");
   }
 
 }

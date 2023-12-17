@@ -14,12 +14,16 @@ export class AccommodationService {
 
   add(accommodationWhole: AccommodationWhole): Observable<AccommodationWhole>{
 
-    return this.http.post<AccommodationWhole>(environment.apiHost + '/accommodations', accommodationWhole);
+    return this.http.post<AccommodationWhole>(environment.apiHost + '/pending-accommodations', accommodationWhole);
     
   }
 
-  getPending(id: number): Observable<AccommodationWholeDTO> {
-    return this.http.get<AccommodationWholeDTO>(environment.apiHost + '/pending-accommodations/' + id)
+  get(id: number): Observable<AccommodationWhole> {
+    return this.http.get<AccommodationWhole>(environment.apiHost + '/accommodations/' + id);
+  }
+
+  getPending(id: number): Observable<AccommodationWhole> {
+    return this.http.get<AccommodationWhole>(environment.apiHost + '/pending-accommodations/' + id)
   }
 
   getForHost(hostId: number): Observable<HostListAccommodation[]> {

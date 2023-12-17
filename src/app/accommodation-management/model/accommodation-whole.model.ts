@@ -4,6 +4,7 @@ import { SeasonalRate } from "./seasonal-rate.model";
 import { DateRange } from "./date-range.model";
 export interface AccommodationWhole {
     id?: number,
+    accommodationId?: number,
     name: string,
     isAutomatic: boolean,
     description: string,
@@ -23,5 +24,7 @@ export interface AccommodationWhole {
     availability: DateRange[],
     price: number,
     isPricePerGuest: boolean,
-    seasonalRates: SeasonalRate[]
+    seasonalRates: SeasonalRate[],
+
+    hostUsername: string
 }
