@@ -1,22 +1,27 @@
 .full-page {
     width: 100%;
 }
+
+.amenities {
+    display: flex;
+    justify-content: center;
+}
 .next-btn {
     color: #0C4A60;
     background-color: #ABDFF1;
 }
 
-.back-btn {
+.prev-btn {
     background-color: #E1DDDB;
     color: #0C4A60;
 }
-.create-btn {
+.dark-btn {
     background-color: #0C4A60;
     color: white;
 }
 
 .input-field {
-    width: 60%;
+    width: 50%;
     margin: 25px 0;
     box-sizing: border-box;
     background-color: #E1DDDB;
@@ -47,7 +52,6 @@
 .checkbox-column {
     display: flex;
     flex-direction: column;
-    align-items: start;
 }
 
 .upload {
@@ -93,4 +97,25 @@
 
 .special {
     height: 200px;
+}
+
+.error {
+    color: red;
+}
+
+.scrollable-list {
+    height: 200px;
+    overflow-y: auto;
+}
+
+.demo-inline-calendar-card {
+    width: 300px;
+}
+
+.left {
+    justify-content: flex-start;
+}
+
+.right {
+    justify-content: flex-end;
 }

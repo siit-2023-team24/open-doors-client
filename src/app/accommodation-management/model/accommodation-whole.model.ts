@@ -1,9 +1,8 @@
 import { Country } from "src/env/country";
-import { AccommodationType } from "src/env/accommodationType";
-import { Amenity } from "src/env/amenity";
-import { Price } from "./price";
-import { DateRange } from "./date-range";
-export interface AccommodationWholeDTO {
+import { AccommodationType } from "src/env/accommodation-type";
+import { SeasonalRate } from "./seasonal-rate.model";
+import { DateRange } from "./date-range.model";
+export interface AccommodationWhole {
     id?: number,
     name: string,
     isAutomatic: boolean,
@@ -16,13 +15,13 @@ export interface AccommodationWholeDTO {
     minGuests: number,
     maxGuests: number,
     deadline: number
-    amenities: Amenity[],
+    amenities: string[],
 
     location: string,
     images: number[],
     
     availability: DateRange[],
     price: number,
-    seasonalRates: Price[]
-
+    isPricePerGuest: boolean,
+    seasonalRates: SeasonalRate[]
 }

@@ -1,18 +1,25 @@
 <div class="page">
     <main>
-        <div class="form">
-            <input type="email" id="email" name="email" class="input-field" autocomplete="email" placeholder="Email"><br>
-    
-            <input type="password" id="password" name="password" class="input-field" autocomplete="current-password" placeholder="Password"><br>
-            <button mat-raised-button id="login_button" class="button login-btn" [routerLink]="['/home']" [queryParams]="{title: 'Home'}">Sign in</button>
-            <p class="no-account">
-                Don't have an account yet?
-                <a class="register-link" [routerLink]="['/register']" [queryParams]="{title: 'Registration'}">
-                    Register now.
-                </a>
-
-            </p>
-            <button mat-stroked-button id="continue_button" class="button continue-btn" [routerLink]="['/home']" [queryParams]="{title: 'Home'}">Continue without signing in</button>
-        </div>
+        <form [formGroup]="loginForm">
+            <div class="form">
+                <mat-form-field>
+                    <input matInput type="email" formControlName="username" id="email" name="email" autocomplete="email" placeholder="Email">
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                    <input matInput type="password" formControlName="password" id="password" name="password" autocomplete="current-password" placeholder="Password">
+                </mat-form-field>
+                <br>
+                <button mat-raised-button id="login_button" class="button login-btn" (click)="login()">Sign in</button>
+                <p class="error">{{ errorMessage }}</p>
+                <p class="no-account">
+                    Don't have an account yet?
+                    <a class="register-link" [routerLink]="['/register']" [queryParams]="{title: 'Registration'}">
+                        Register now.
+                    </a>
+                </p>
+                <button mat-stroked-button id="continue_button" class="button continue-btn" [routerLink]="['/home']" [queryParams]="{title: 'Home'}">Continue without signing in</button>
+            </div>
+        </form>
     </main>
 </div>

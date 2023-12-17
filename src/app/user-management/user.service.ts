@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../env/env";
+import { User } from "./model/user.model"
+import { BehaviorSubject, Observable } from "rxjs"
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserTokenState } from './model/user-token-state.model';
+import { Account } from './model/account';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from "../../env/env";
 import { Observable } from "rxjs";
-import { User } from "./model/user.model";
 import { EditUserDTO } from './model/editUserDTO';
 import { NewPasswordDTO } from './model/newPasswordDTO';
 
@@ -12,7 +16,17 @@ import { NewPasswordDTO } from './model/newPasswordDTO';
 
 export class UserService {
 
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    skip: 'true',
+  });
+
   private currentUser: User;
+
+  private userList: User[] = [];
+
+  user$ = new BehaviorSubject("");
+  userState = this.user$.asObservable();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -24,7 +38,27 @@ export class UserService {
     this.currentUser = newUser;
   }
 
+  login(auth: Account): Observable<UserTokenState> {
+    return this.httpClient.post<UserTokenState>('http://localhost:9090/open-doors/auth/login', auth, {
+      headers: this.headers,
+    });
+  }
 
+  isLoggedIn(): boolean {
+    return localStorage.getItem('user') != null;
+  }
+  /*
+  getRole(): string {
+    if (!this.isLoggedIn()) return '';
+    const accessToken: any = localStorage.getItem('user');
+    const helper = new JwtHelperService();
+    return helper.decodeToken(accessToken).role[0].authority;
+  }
+
+  setUser(): void {
+    this.user$.next(this.getRole());
+  }
+    */
   getUser(id: number): Observable<User> {
     return this.httpClient.get<User>(environment.apiHost + '/users/' + id);
   }

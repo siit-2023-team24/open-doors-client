@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccommodationWholeDTO } from './model/accommodationWhole';
+import { AccommodationWhole } from './model/accommodation-whole.model';
 import { environment } from 'src/env/env';
 import { HostListAccommodation } from './model/host-list-accommodation';
 
@@ -9,13 +9,13 @@ import { HostListAccommodation } from './model/host-list-accommodation';
   providedIn: 'root'
 })
 export class AccommodationService {
-
+  
   constructor(private http: HttpClient) { }
 
-  add(accommodationDTO: AccommodationWholeDTO): Observable<AccommodationWholeDTO>{
+  add(accommodationWhole: AccommodationWhole): Observable<AccommodationWhole>{
 
-    return this.http.post<AccommodationWholeDTO>(environment.apiHost + '/accommodations', accommodationDTO);
-
+    return this.http.post<AccommodationWhole>(environment.apiHost + '/accommodations', accommodationWhole);
+    
   }
 
   getPending(id: number): Observable<AccommodationWholeDTO> {

@@ -27,3 +27,8 @@
 .no-account{
     margin: 15px 0 35px 0;
 }
+
+.error {
+    color: red;
+    height : 50px;
+}
