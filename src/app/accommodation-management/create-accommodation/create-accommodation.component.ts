@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AccommodationService } from '../accommodation.service';
 import { Country } from 'src/env/country';
-import { AccommodationWhole } from '../model/accommodation-whole';
+import { AccommodationWhole } from '../model/accommodation-whole.model';
 import { AccommodationType } from 'src/env/accommodation-type';
 import { Amenity } from 'src/env/amenity';
-import { DateRange } from '../model/date-range';
-import { SeasonalRate } from '../model/seasonal-rate';
+import { DateRange } from '../model/date-range.model';
+import { SeasonalRate } from '../model/seasonal-rate.model';
 
 const minMaxValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const minControl = control.get('minGuests');

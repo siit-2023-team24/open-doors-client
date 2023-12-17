@@ -1,7 +1,7 @@
 import { Country } from "src/env/country";
 import { AccommodationType } from "src/env/accommodation-type";
-import { SeasonalRate } from "./seasonal-rate";
-import { DateRange } from "./date-range";
+import { SeasonalRate } from "./seasonal-rate.model";
+import { DateRange } from "./date-range.model";
 export interface AccommodationWhole {
     id?: number,
     name: string,
