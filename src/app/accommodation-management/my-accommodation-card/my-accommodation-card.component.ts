@@ -81,8 +81,12 @@ export class MyAccommodationCardComponent {
           this.reload.emit(this.accommodation.id);
           console.log('Deleted accommodation with id: ' + this.accommodation.id);
         },
-        error: () => console.log("Error deleting active accommodation: " + this.accommodation.id)
-      })
+        error: (error) => {
+          console.error("Error deleting active accommodation: " + this.accommodation.id);
+          console.log(error.error.message);
+          //show snack with message TODO
+        }
+      });
     }
 
   }
