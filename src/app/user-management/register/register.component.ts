@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl} from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from '../user.service';
+import { UserAccount } from '../model/user-account.model';
+import { Country } from 'src/env/country';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const passwordControl = control.get('password');
@@ -39,16 +44,48 @@ export function phoneNumberValidator(): ValidatorFn {
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  errorMessage: string = '';
+  countries = Object.values(Country);
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, 
+    private snackBar: MatSnackBar) {
     this.registerForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      country: ['', Validators.required],
+      city: ['', [Validators.required, Validators.maxLength(200)]],
+      street: ['', [Validators.required, Validators.maxLength(200)]],
+      role: ['GUEST', []],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', Validators.required],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       number: ['1', Validators.min(1)],
       phone: ['', [Validators.required, phoneNumberValidator()]],
+      imageId: ['0', []]
     }, { validator: passwordMatchValidator });
   }
+
+  register(): void {
+    if(!this.registerForm.valid) {
+      this.errorMessage = 'Please fill out all the fields according to the validations.'
+      return;
+    }
+    this.errorMessage = '';
+    const user: UserAccount = this.registerForm.value;
+    this.userService.register(user).subscribe(
+      (response) => {
+        console.log("SUCCESS! " + user, response);
+        this.router.navigate(['login']);
+        this.snackBar.open('Registration successful! Please check your email address to verify your account.', 'Close', {
+          duration: 30000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        });
+      },
+      (error) => {
+        this.errorMessage="The username is taken. Please choose a different one.";
+      }
+    );
+  }
+
 }

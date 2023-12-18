@@ -9,6 +9,7 @@ import { ProfileEditComponent } from './user-management/profile-edit/profile.edi
 import { ChangePasswordComponent } from './user-management/change-password/change-password.component';
 import { MyAccommodationsComponent } from './accommodation-management/my-accommodations/my-accommodations.component';
 import { CreateAccommodationComponent } from './accommodation-management/create-accommodation/create-accommodation.component';
+import { AccountActivationComponent } from './user-management/account-activation/account-activation.component';
 
 const routes: Routes = [
     {component: LoginComponent, path:"login"},
@@ -20,6 +21,7 @@ const routes: Routes = [
     {component: ChangePasswordComponent, path:"edit-profile/change-password"},
     {component: MyAccommodationsComponent, path:"my-accommodations"},
     {component: CreateAccommodationComponent, path:"create-accommodation/:id/:accommodationId"}
+    {component: AccountActivationComponent, path:"activate-account"}
 ];
 
 
