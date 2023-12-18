@@ -13,6 +13,8 @@ export class AccommodationService {
   constructor(private http: HttpClient) { }
 
   add(accommodationWhole: AccommodationWhole): Observable<AccommodationWhole>{
+    console.log("in service:\n");
+    console.log(accommodationWhole);
 
     return this.http.post<AccommodationWhole>(environment.apiHost + '/pending-accommodations', accommodationWhole);
     

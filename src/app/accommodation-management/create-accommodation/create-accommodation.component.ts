@@ -264,6 +264,9 @@ export class CreateAccommodationComponent {
 
     //get from autentification
     accommodationDTO.hostUsername = "test@test.test";
+    
+    accommodationDTO.id = this.id;
+    accommodationDTO.accommodationId = this.accommodationId;
 
     console.log(accommodationDTO);
 
