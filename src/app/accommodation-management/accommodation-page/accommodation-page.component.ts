@@ -6,13 +6,16 @@ import { AccommodationWithTotalPriceDTO } from '../model/accommodationWithTotalP
 import { AccommodationType } from 'src/env/accommodationType';
 import { User } from 'src/app/user-management/model/user.model';
 import { Address } from '../model/address';
+import { ImageService } from 'src/app/image-management/image.service';
+import { AccommodationReviewDetailsDTO } from 'src/app/review-management/model/accommodationReviewDetails';
+import { ReviewService } from 'src/app/review-management/review.service';
 
 @Component({
   selector: 'app-accommodation-page',
   templateUrl: './accommodation-page.component.html',
   styleUrls: ['./accommodation-page.component.css']
 })
-export class AccommodationPageComponent {
+export class AccommodationPageComponent implements OnInit{
 
   accommodation: AccommodationWithTotalPriceDTO = {
     id: 0,
@@ -33,13 +36,17 @@ export class AccommodationPageComponent {
     host: {} as User,
     address: {} as Address
   };
+  imagePaths: string[] = [];
   accommodationAddress: string = "";
   isAccommodationDetailsReady: boolean = false;
+  reviews: AccommodationReviewDetailsDTO[] = [];
 
   constructor(
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    private accommodationService: AccommodationService
+    private accommodationService: AccommodationService,
+    private imageService: ImageService,
+    private reviewService: ReviewService
   ) {}
 
   ngOnInit(): void {
@@ -51,11 +58,15 @@ export class AccommodationPageComponent {
         .subscribe(
           (details) => {
             this.accommodation = details;
-            console.log("iz subscribea:");
-            console.log(this.accommodation);
             this.accommodation.images = this.accommodation.images || [];
             this.accommodationAddress = this.accommodation.address.street + " " + this.accommodation.address.number + ", " + this.accommodation.address.city;
             this.isAccommodationDetailsReady = true;
+            this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
+
+            this.reviewService.getReviewsForAccommodation(accommodationId)
+            .subscribe(reviews => {
+              this.reviews = reviews;
+            });
           },
           (error) => {
             console.error("Error fetching accommodation details:", error);

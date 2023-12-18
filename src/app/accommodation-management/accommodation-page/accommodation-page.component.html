@@ -8,27 +8,15 @@
         <mat-icon>star</mat-icon>
         <span>{{ accommodation.averageRating }}</span>
       </span>
-      <span class="review-number">9 reviews</span>
+      <span class="review-number">{{ reviews.length }} reviews</span>
     </span>
   </div>
     <a class="favorite-icon" (click)="toggleFavorite()">
       <mat-icon [style.color]="isFavorite ? 'red' : 'grey'">favorite</mat-icon>
     </a>
   </div>
-  <div class="flex-container images-container">
-    <div class="flex-box box1">
-      <img src="" alt="" class="large-image" />
-    </div>
-    <div class="flex-box box2">
-      <div class="flex-container">
-        <img src="" alt="" class="grid-image" style="margin: 0 1px 1px 2px" />
-        <img src="" alt="" class="grid-image" style="margin: 0 0 1px 1px"/>
-      </div>
-      <div class="flex-container">
-        <img src="" alt="" class="grid-image" style="margin: 1px 1px 0 2px"/>
-        <img src="" alt="" class="grid-image" style="margin: 1px 0 0 1px"/>
-      </div>
-    </div>
+  <div class="grid-container">
+    <img *ngFor="let imagePath of imagePaths.slice(0, 5)" [src]="imagePath" alt="accommodation image" class="grid-item">
   </div>
   <div class="details flex-container">
     <div class="description-text">
@@ -44,7 +32,7 @@
           <span>
             {{ accommodation.averageRating }}
           </span>
-          <span class="small-review-number">9 reviews</span>
+          <span class="small-review-number">{{ reviews.length }} reviews</span>
         </span>
       </span>
       <div class="preferences">
@@ -106,30 +94,12 @@
       <mat-icon>star</mat-icon>
       <span> {{ accommodation.averageRating }}</span>
     </span>
-    <span class="review-number">9 reviews</span>
+    <span class="review-number"> {{ reviews.length }} reviews</span>
   </span>
   <div class="reviews-container">
-    <mat-grid-list cols="2" rowHeight="150px" gutterSize="0px">
-      <mat-grid-tile>
-        <app-review-card></app-review-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-review-card></app-review-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-review-card></app-review-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-review-card></app-review-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-review-card></app-review-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-review-card></app-review-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-review-card></app-review-card>
+    <mat-grid-list cols="2" rowHeight="150px">
+      <mat-grid-tile *ngFor="let review of reviews">
+        <app-review-card [review]="review" style="width: calc(100% - 10px);"></app-review-card>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
