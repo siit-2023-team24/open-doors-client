@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from '../model/account';
 import { UserTokenState } from '../model/user-token-state.model';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorResponse } from 'src/env/error-response';
 
 @Component({
   selector: 'app-login',
@@ -30,16 +30,16 @@ export class LoginComponent {
     }
     this.errorMessage = '';
     const account : Account = this.loginForm.value;
-    this.userService.login(account).subscribe({
-      next: (response: UserTokenState) => {
+
+    this.userService.login(account).subscribe(
+      (response: UserTokenState) => {
         localStorage.setItem('user', response.accessToken);
-        // this.userService.setUser()
         this.router.navigate(['home'])
       },
-      error: (error: HttpErrorResponse) => {
+      (error) => {
         console.error('Login error:', error);
-        this.errorMessage = 'Unrecognized username or password.';
+        this.errorMessage = error.message;
       }
-    })
+    );
   }
 }

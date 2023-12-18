@@ -8,6 +8,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileEditComponent } from './profile-edit/profile.edit.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AccountActivationComponent } from './account-activation/account-activation.component';
 
 
 
@@ -17,7 +18,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     RegisterComponent,
     ProfileComponent,
     ProfileEditComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    AccountActivationComponent
   ],
   imports: [
     CommonModule,
