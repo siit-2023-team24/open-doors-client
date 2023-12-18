@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { User } from "./model/user.model"
 import { BehaviorSubject, Observable, throwError } from "rxjs"
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { UserTokenState } from './model/user-token-state.model';
 import { Account } from './model/account';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from "../../env/env";
-import { EditUserDTO } from './model/editUserDTO';
+import { EditUser } from './model/edit-user.model';
 import { NewPasswordDTO } from './model/newPasswordDTO';
 import { UserAccount } from './model/user-account.model';
 import { catchError } from 'rxjs/operators';
@@ -22,21 +21,12 @@ export class UserService {
     // skip: 'true',
   });
 
-  private currentUser: User;
-
 
   user$ = new BehaviorSubject("");
   userState = this.user$.asObservable();
 
   constructor(private httpClient: HttpClient) { }
 
-  getCurrentUser(): User {
-    return this.currentUser;
-  }
-
-  setCurrentUser(newUser: User) {
-    this.currentUser = newUser;
-  }
 
   login(auth: Account): Observable<UserTokenState> {
     return this.httpClient.post<UserTokenState>(environment.apiHost + '/auth/login', auth, {
@@ -73,8 +63,8 @@ export class UserService {
     return this.httpClient.post<String>(environment.apiHost + '/auth/activate-user/' + id, null, {headers: this.headers});
   }
   
-  getUser(id: number): Observable<User> {
-    return this.httpClient.get<User>(environment.apiHost + '/users/' + id);
+  getUser(id: number): Observable<EditUser> {
+    return this.httpClient.get<EditUser>(environment.apiHost + '/users/' + id);
   }
 
   updateUser(formData: FormData) {

@@ -53,7 +53,7 @@ export class RegisterComponent {
       country: ['', Validators.required],
       city: ['', [Validators.required, Validators.maxLength(200)]],
       street: ['', [Validators.required, Validators.maxLength(200)]],
-      role: ['GUEST', []],
+      role: ['ROLE_GUEST', []],
       username: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
@@ -61,7 +61,7 @@ export class RegisterComponent {
       lastName: ['', Validators.required],
       number: ['1', Validators.min(1)],
       phone: ['', [Validators.required, phoneNumberValidator()]],
-      imageId: ['0', []]
+      imageId: ['null', []]
     }, { validator: passwordMatchValidator });
   }
 

@@ -10,5 +10,5 @@ export interface UserAccount {
     number : number;
     city: string;
     country : string;
-    imageId : number;
+    imageId? : number;
 }

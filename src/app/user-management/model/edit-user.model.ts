@@ -1,4 +1,4 @@
-export interface EditUserDTO {
+export interface EditUser {
     id: number;
 
     imageId?: number;
