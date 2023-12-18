@@ -28,6 +28,10 @@ export class AccommodationService {
     return this.http.get<AccommodationWhole>(environment.apiHost + '/pending-accommodations/' + id)
   }
 
+  getAllPending(): Observable<HostListAccommodation[]> {
+    return this.http.get<HostListAccommodation[]>(environment.apiHost + '/pending-accommodations')
+  }
+
   getForHost(hostId: number): Observable<HostListAccommodation[]> {
     return this.http.get<HostListAccommodation[]>(environment.apiHost + '/accommodations/host/' + hostId)
   }
@@ -44,5 +48,8 @@ export class AccommodationService {
     return this.http.delete(environment.apiHost + '/pending-accommodations/' + id)
   }
 
+  approvePending(dto: HostListAccommodation): Observable<Object> {
+    return this.http.put(environment.apiHost + '/pending-accommodations', dto);
+  }
 
 }

@@ -15,6 +15,9 @@ import { FilterPopupComponent } from './filter-popup/filter-popup.component';
 
 import { ReviewManagementModule } from '../review-management/review-management.module';
 import { MyAccommodationCardComponent } from './my-accommodation-card/my-accommodation-card.component';
+import { PendingAccommodationsComponent } from './pending-accommodations/pending-accommodations.component';
+import { PendingAccommodationCardComponent } from './pending-accommodation-card/pending-accommodation-card.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { MyAccommodationCardComponent } from './my-accommodation-card/my-accommo
     MyAccommodationsComponent,
     CreateAccommodationComponent,
     FilterPopupComponent,
-    MyAccommodationCardComponent
+    MyAccommodationCardComponent,
+    PendingAccommodationsComponent,
+    PendingAccommodationCardComponent
   ],
   imports: [
     HttpClientModule,
@@ -34,7 +39,8 @@ import { MyAccommodationCardComponent } from './my-accommodation-card/my-accommo
     CommonModule,
     MaterialModule,
     FormsModule,
-    ReviewManagementModule
+    ReviewManagementModule,
+    SharedModule
   ],
   exports: [
     AccommodationCardComponent,
@@ -42,7 +48,8 @@ import { MyAccommodationCardComponent } from './my-accommodation-card/my-accommo
     HomePageComponent,
     AccommodationPageComponent,
     MyAccommodationsComponent,
-    FilterPopupComponent
+    FilterPopupComponent,
+    PendingAccommodationsComponent
   ]
 })
 export class AccommodationManagementModule { }
