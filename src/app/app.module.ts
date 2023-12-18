@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { UserManagementModule } from './user-management/user-management.module';
 import { AccommodationManagementModule } from './accommodation-management/accommodation-management.module';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { AccommodationManagementModule } from './accommodation-management/accomm
     LayoutModule,
     BrowserAnimationsModule,
     UserManagementModule,
-    AccommodationManagementModule
+    AccommodationManagementModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

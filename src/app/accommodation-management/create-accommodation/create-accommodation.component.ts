@@ -7,6 +7,7 @@ import { AccommodationType } from 'src/env/accommodation-type';
 import { Amenity } from 'src/env/amenity';
 import { DateRange } from '../model/date-range.model';
 import { SeasonalRate } from '../model/seasonal-rate.model';
+import { ActivatedRoute } from '@angular/router';
 
 const minMaxValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const minControl = control.get('minGuests');
@@ -33,6 +34,10 @@ const minMaxValidator: ValidatorFn = (control: AbstractControl): ValidationError
   styleUrls: ['./create-accommodation.component.css', '../../../styles.css']
 })
 export class CreateAccommodationComponent {
+
+  id: number | undefined;
+  accommodationId: number | undefined;
+
   page = 1;
 
   countries = Object.values(Country);
@@ -55,6 +60,44 @@ export class CreateAccommodationComponent {
   accommodationForm: FormGroup;
 
   selectedFiles: File[] = [];
+
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+
+      console.log(params);
+
+      this.id = +params['id'];
+      this.accommodationId = +params['accommodationId'];
+
+      //fill form if some edit
+      if (this.id) {   //editing pending accommodation
+        // this.id = +params['id'];
+        this.service.getPending(this.id).subscribe({
+          next: (data: AccommodationWhole) => {
+            this.fillForm(data);
+          },
+          error: () => console.error("Error getting pending accommodation with id: " + this.id)
+        })
+        
+      } else if (this.accommodationId) {  //edit active
+        this.service.get(this.accommodationId).subscribe({
+          next: (data: AccommodationWhole) => {
+            this.fillForm(data);
+          },
+          error: () => console.error("Error getting active accommodation with id: " + this.accommodationId)
+        })
+      }
+      
+    })
+  }
+
+  fillForm(data: AccommodationWhole): void {
+
+    //TODO
+
+  }
+
   onFileChanged(event: any) {
       const files: FileList = event.target.files;
       if (files && files.length > 0) {
@@ -218,6 +261,13 @@ export class CreateAccommodationComponent {
     accommodationDTO.amenities = this.selectedAmenities;
     accommodationDTO.availability = this.availability;
     accommodationDTO.seasonalRates = this.seasonalRates;
+
+    //get from autentification
+    accommodationDTO.hostUsername = "test@test.test";
+    
+    accommodationDTO.id = this.id;
+    accommodationDTO.accommodationId = this.accommodationId;
+
     console.log(accommodationDTO);
 
     this.service.add(accommodationDTO).subscribe(
@@ -230,7 +280,8 @@ export class CreateAccommodationComponent {
     );
   }
 
-  constructor(private formBuilder: FormBuilder, private service: AccommodationService) {
+  constructor(private formBuilder: FormBuilder, private service: AccommodationService,
+              private route: ActivatedRoute) {
     
     this.accommodationForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],

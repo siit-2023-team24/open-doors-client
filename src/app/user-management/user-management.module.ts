@@ -8,6 +8,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileEditComponent } from './profile-edit/profile.edit.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
 import { AccountActivationComponent } from './account-activation/account-activation.component';
 
 
@@ -25,7 +27,9 @@ import { AccountActivationComponent } from './account-activation/account-activat
     CommonModule,
     RouterModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    SharedModule
   ],
   exports: [
     LoginComponent,

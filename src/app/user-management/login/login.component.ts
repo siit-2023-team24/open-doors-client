@@ -5,7 +5,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from '../model/account';
 import { UserTokenState } from '../model/user-token-state.model';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { ErrorResponse } from 'src/env/error-response';
+
 
 @Component({
   selector: 'app-login',
@@ -35,6 +38,11 @@ export class LoginComponent {
       (response: UserTokenState) => {
         localStorage.setItem('user', response.accessToken);
         this.router.navigate(['home'])
+        
+        //debugging
+        const helper = new JwtHelperService();
+        console.log(helper.decodeToken(response.accessToken));
+
       },
       (error) => {
         console.error('Login error:', error);

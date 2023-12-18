@@ -5,6 +5,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { UserTokenState } from './model/user-token-state.model';
 import { Account } from './model/account';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from "../../env/env";
+import { EditUserDTO } from './model/editUserDTO';
+import { NewPasswordDTO } from './model/newPasswordDTO';
 import { UserAccount } from './model/user-account.model';
 import { catchError } from 'rxjs/operators';
 
@@ -21,12 +24,11 @@ export class UserService {
 
   private currentUser: User;
 
-  private userList: User[] = [];
 
   user$ = new BehaviorSubject("");
   userState = this.user$.asObservable();
-  constructor(private httpClient: HttpClient) { }
 
+  constructor(private httpClient: HttpClient) { }
 
   getCurrentUser(): User {
     return this.currentUser;
@@ -37,7 +39,7 @@ export class UserService {
   }
 
   login(auth: Account): Observable<UserTokenState> {
-    return this.httpClient.post<UserTokenState>('http://localhost:9090/open-doors/auth/login', auth, {
+    return this.httpClient.post<UserTokenState>(environment.apiHost + '/auth/login', auth, {
       headers: this.headers,
     }).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -62,12 +64,24 @@ export class UserService {
   // }
 
   register(user: UserAccount): Observable<UserAccount> {
-    return this.httpClient.post<UserAccount>('http://localhost:9090/open-doors/auth/register', user, {
+    return this.httpClient.post<UserAccount>(environment.apiHost + '/auth/register', user, {
       headers: this.headers,
     });
   }
 
   activateUser(id: number): Observable<String> {
-    return this.httpClient.post<String>('http://localhost:9090/open-doors/auth/activate-user/' + id, null, {headers: this.headers});
+    return this.httpClient.post<String>(environment.apiHost + '/auth/activate-user/' + id, null, {headers: this.headers});
+  }
+  
+  getUser(id: number): Observable<User> {
+    return this.httpClient.get<User>(environment.apiHost + '/users/' + id);
+  }
+
+  updateUser(formData: FormData) {
+    return this.httpClient.put(environment.apiHost + '/users', formData);
+  }
+
+  changePassword(dto: NewPasswordDTO): Observable<NewPasswordDTO> {
+    return this.httpClient.put<NewPasswordDTO>(environment.apiHost + '/users/new-password', dto);
   }
 }
