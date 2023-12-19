@@ -15,6 +15,7 @@ import { FilterPopupComponent } from './filter-popup/filter-popup.component';
 
 import { ReviewManagementModule } from '../review-management/review-management.module';
 import { MyAccommodationCardComponent } from './my-accommodation-card/my-accommodation-card.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MyAccommodationCardComponent } from './my-accommodation-card/my-accommo
     CommonModule,
     MaterialModule,
     FormsModule,
-    ReviewManagementModule
+    ReviewManagementModule,
+    SharedModule
   ],
   exports: [
     AccommodationCardComponent,

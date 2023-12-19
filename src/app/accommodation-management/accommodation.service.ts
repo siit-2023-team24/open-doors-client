@@ -12,6 +12,7 @@ export class AccommodationService {
   
   constructor(private http: HttpClient) { }
 
+
   add(accommodationWhole: AccommodationWhole): Observable<AccommodationWhole>{
     console.log("in service:\n");
     console.log(accommodationWhole);
@@ -43,6 +44,4 @@ export class AccommodationService {
   deletePending(id: number): Observable<Object> {
     return this.http.delete(environment.apiHost + '/pending-accommodations/' + id)
   }
-
-
 }

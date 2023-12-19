@@ -13,16 +13,26 @@ export class AccountActivationComponent implements OnInit {
     private userService: UserService
   ) {}
 
+  outcomeMessage : string = '';
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      const id: number = params['id'];
+      const timestamp : number = +params['timestamp'];
+      const now : Date = new Date();
+      const difference = now.getTime()-timestamp;
+      console.log(difference);
+      if(difference > 1000 * 60 * 60 * 24){ // milliseconds to one day = 1000 * 60 * 60 * 24
+        this.outcomeMessage = "Your account activation has expired. Please redo the registration process."
+        return;
+      }
+      const id: number = +params['id'];
       if (id) {
         this.userService.activateUser(id).subscribe(
           next => {
-            console.log("User successfully activated.");
+            this.outcomeMessage = ("Your account has been activated successfully!");
           },
           error => {
             console.log(error);
+            this.outcomeMessage = "Your account has not been found in our database."
           }
         );
       }
