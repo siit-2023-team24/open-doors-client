@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AccommodationSearchDTO } from '../model/accommodationSearch';
+import { Router } from '@angular/router';
+import { ImageService } from 'src/app/image-management/image.service';
 
 @Component({
   selector: 'app-accommodation-card',
@@ -7,7 +10,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./accommodation-card.component.css']
 })
 export class AccommodationCardComponent {
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private snackBar: MatSnackBar, private router: Router, private imageService: ImageService) {}
+
+  @Input()
+  accommodation: AccommodationSearchDTO;
+
+  @Output()
+  clicked: EventEmitter<AccommodationSearchDTO> = new EventEmitter<AccommodationSearchDTO>();
+
+  onAccommodationClicked(): void {
+    this.router.navigate(["/accommodation", this.accommodation.id]);
+  }
+
+  getImagePath(): string {
+    return this.imageService.getPath(this.accommodation.image, false);
+  }
 
   isFavorite = false;
 

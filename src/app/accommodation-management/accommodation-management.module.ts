@@ -32,7 +32,8 @@ import { ReviewManagementModule } from '../review-management/review-management.m
     CommonModule,
     MaterialModule,
     FormsModule,
-    ReviewManagementModule
+    ReviewManagementModule,
+    HttpClientModule
   ],
   exports: [
     AccommodationCardComponent,
