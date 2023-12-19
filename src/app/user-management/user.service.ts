@@ -68,4 +68,8 @@ export class UserService {
   changePassword(dto: NewPasswordDTO): Observable<NewPasswordDTO> {
     return this.httpClient.put<NewPasswordDTO>(environment.apiHost + '/users/new-password', dto);
   }
+
+  delete(id: number): Observable<Object> {
+    return this.httpClient.delete(environment.apiHost + '/users/' + id);
+  }
 }
