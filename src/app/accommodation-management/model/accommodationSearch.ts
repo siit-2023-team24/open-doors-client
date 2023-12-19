@@ -5,7 +5,7 @@ export interface AccommodationSearchDTO {
     averageRating: number;
     price: number;
     isPricePerNight: boolean;
-    totalPrice: number;
+    totalPrice: number | null;
     city: string;
     country: string;
 }
