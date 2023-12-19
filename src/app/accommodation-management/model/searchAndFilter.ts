@@ -1,13 +1,10 @@
-import { AccommodationType } from "src/env/accommodationType";
-import { Amenity } from "src/env/amenity";
-
 export interface SearchAndFilterDTO {
-  location: string;
-  guestNumber: number;
-  startDate: Date;
-  endDate: Date;
-  startPrice: number;
-  endPrice: number;
+  location: string | null;
+  guestNumber: number | null;
+  startDate: Date | null;
+  endDate: Date | null;
+  startPrice: number | null;
+  endPrice: number | null;
   types: string[];
   amenities: string[];
 }

@@ -34,10 +34,10 @@ export class AccommodationService {
   }
 
   getAccommodationTypes(): Observable<string[]> {
-    return this.httpClient.get<string[]>(environment.apiHost + '/accommodationTypes');
+    return this.httpClient.get<string[]>(environment.apiHost + '/accommodations/accommodationTypes');
   }
 
   getAmenities(): Observable<string[]> {
-    return this.httpClient.get<string[]>(environment.apiHost + '/amenities');
+    return this.httpClient.get<string[]>(environment.apiHost + '/accommodations/amenities');
   }
 }

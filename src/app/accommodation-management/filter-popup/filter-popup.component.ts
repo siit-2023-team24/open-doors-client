@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SearchAndFilterDTO } from '../model/searchAndFilter';
 import { AccommodationService } from '../accommodation.service';
@@ -8,7 +8,7 @@ import { AccommodationService } from '../accommodation.service';
   templateUrl: './filter-popup.component.html',
   styleUrls: ['./filter-popup.component.css']
 })
-export class FilterPopupComponent {
+export class FilterPopupComponent implements OnInit{
   propertyTypes: string[] = [];
   amenities: string[] = [];
 
@@ -23,7 +23,6 @@ export class FilterPopupComponent {
   ) {}
 
   ngOnInit(): void {
-    // Load property types and amenities from the backend
     this.loadPropertyTypes();
     this.loadAmenities();
   }
@@ -69,12 +68,12 @@ export class FilterPopupComponent {
     const selectedAmenities = Object.keys(this.selectedAmenities).filter(amenity => this.selectedAmenities[amenity]);
 
     const filterParams: SearchAndFilterDTO = {
-      location: '', // Add the actual location value
-      guestNumber: 0, // Add the actual guest number value
-      startDate: new Date(), // Add the actual start date value
-      endDate: new Date(), // Add the actual end date value
-      startPrice: this.minPrice || 0,
-      endPrice: this.maxPrice || 0,
+      location: null,
+      guestNumber: null,
+      startDate: null,
+      endDate: null,
+      startPrice: this.minPrice,
+      endPrice: this.maxPrice,
       types: selectedTypes,
       amenities: selectedAmenities
     };

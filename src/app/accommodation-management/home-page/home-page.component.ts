@@ -12,7 +12,8 @@ import { SearchAndFilterDTO } from '../model/searchAndFilter';
 })
 export class HomePageComponent implements OnInit {
   accommodations: AccommodationSearchDTO[] = [];
-  filterParams: SearchAndFilterDTO;
+  filterParams: SearchAndFilterDTO = { location: null, guestNumber: null, startDate: null, endDate: null, startPrice: null, endPrice: null, types: [], amenities: [] };
+  searchBarValues: SearchAndFilterDTO = { location: null, guestNumber: null, startDate: null, endDate: null, startPrice: null, endPrice: null, types: [], amenities: [] };
 
   constructor(public dialog: MatDialog, private accommodationService: AccommodationService) {}
 
@@ -26,13 +27,10 @@ export class HomePageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The filter dialog was closed');
-       // If the filter dialog returns filter parameters, update the filterParams object
-       if (result) {
+      if (result) {
         this.filterParams = result;
-        // Call the method to search and filter accommodations
         this.searchAndFilterAccommodations();
-       }
+      }
     });
   }
 
@@ -52,18 +50,31 @@ export class HomePageComponent implements OnInit {
   }
 
   searchAndFilterAccommodations(): void {
-    this.accommodationService.searchAndFilterAccommodations(this.filterParams)
+    const searchBarValues = this.searchBarValues;
+
+    const combinedParams: SearchAndFilterDTO = {
+      location: searchBarValues.location,
+      guestNumber: searchBarValues.guestNumber,
+      startDate: searchBarValues.startDate,
+      endDate: searchBarValues.endDate,
+      startPrice: this.filterParams.startPrice,
+      endPrice: this.filterParams.endPrice,
+      types: this.filterParams.types,
+      amenities: this.filterParams.amenities,
+    };
+
+    console.log(combinedParams);
+
+    this.accommodationService.searchAndFilterAccommodations(combinedParams)
     .subscribe(
       (data) => {
-        // Handle the response data from the beckend
         console.log("Backend Response:", data);
-        // Update your component with the received data
-        // For example, you might have an accommodation array that you bind to in your HTML
-        // this.accoommodations = data;
+        this.accommodations = data;
       },
       (error) => {
         console.error("Error:", error);
       }
     );
   }
+
 }
