@@ -15,8 +15,8 @@ export class ProfileComponent implements OnInit {
   
   user: EditUser = {firstName: "", lastName: "", id: 0, country: Country.VATICAN_CITY, city: "", street: "", number: 0, phone: ""}
 
-  username: string = "";
-
+  username: string = this.userService.getUsername();
+  
   imgPath: string= "";
 
   constructor(private userService: UserService, private imageService: ImageService,
@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     
     //authentification
-    const id = 1;
+    const id = this.userService.getId();
     this.userService.getUser(id).subscribe({
       
       next: (data: EditUser) => {

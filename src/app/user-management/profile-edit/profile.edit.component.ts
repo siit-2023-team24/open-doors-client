@@ -29,8 +29,7 @@ export class ProfileEditComponent {
   
   ngOnInit(): void {
 
-    //id from authentification
-    const id = 1;
+    const id = this.userService.getId();
     this.userService.getUser(id).subscribe({
       
       next: (data: EditUser) => {

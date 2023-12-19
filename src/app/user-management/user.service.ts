@@ -21,6 +21,7 @@ export class UserService {
     // skip: 'true',
   });
 
+  helper: JwtHelperService = new JwtHelperService();
 
   user$ = new BehaviorSubject("");
   userState = this.user$.asObservable();
@@ -42,16 +43,16 @@ export class UserService {
     return localStorage.getItem('user') != null;
   }
 
-  // getRole(): string {
-  //   if (!this.isLoggedIn()) return '';
-  //   const accessToken: any = localStorage.getItem('user');
-  //   const helper = new JwtHelperService();
-  //   return helper.decodeToken(accessToken).role[0].authority;
-  // }
+  getRole(): string {
+    if (!this.isLoggedIn()) return '';
+    const accessToken: any = localStorage.getItem('user');
+    const helper = new JwtHelperService();
+    return helper.decodeToken(accessToken).role[0].authority;
+  }
 
-  // setUser(): void {
-  //   this.user$.next(this.getRole());
-  // }
+  setUser(): void {
+    this.user$.next(this.getRole());
+  }
 
   register(user: UserAccount): Observable<UserAccount> {
     return this.httpClient.post<UserAccount>(environment.apiHost + '/auth/register', user, {
@@ -64,6 +65,9 @@ export class UserService {
   }
   
   getUser(id: number): Observable<EditUser> {
+    const helper = new JwtHelperService();
+    console.log(helper.decodeToken(localStorage.getItem('user') || ''));
+    console.log(id);
     return this.httpClient.get<EditUser>(environment.apiHost + '/users/' + id);
   }
 
@@ -73,5 +77,14 @@ export class UserService {
 
   changePassword(dto: NewPasswordDTO): Observable<NewPasswordDTO> {
     return this.httpClient.put<NewPasswordDTO>(environment.apiHost + '/users/new-password', dto);
+  }
+
+  getId(): number {
+
+    return this.helper.decodeToken(localStorage.getItem('user') || '').id;
+  }
+
+  getUsername(): string {
+    return this.helper.decodeToken(localStorage.getItem('user') || '').sub;
   }
 }
