@@ -53,9 +53,33 @@
                                         <li *ngFor="let file of selectedFiles">{{ file.name }}</li>
                                     </ul>
                                 </div>
+                                <button mat-flat-button (click)="resetUploaded()">Reset uploaded</button>
                             </div>
                         </div>
                     </div>
+                    
+                    <div *ngIf="currentImages.length > 0">
+                        <p>Images before edit: (Click on an image to delete it.)</p>
+                        <div id="imageContainer" >
+
+                            <div *ngFor="let image of currentImages">
+                                <img src={{getPath(image)}} class="single-image" (click)="deleteImage(image)" alt={{image}} name={{image}}>
+                            </div>
+                        </div>
+
+                        <div class="delete-info" *ngIf="toDeleteImages.length > 0">
+                            <p>Images to be deleted:</p>
+                            <div>
+                                <ul>
+                                    <li *ngFor="let imageDel of toDeleteImages">{{ imageDel }}</li>
+                                </ul>
+                                <button mat-flat-button (click)="resetToDelete()">Reset deleted</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
 
                     <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
                         <mat-form-field class="create-text-field left">

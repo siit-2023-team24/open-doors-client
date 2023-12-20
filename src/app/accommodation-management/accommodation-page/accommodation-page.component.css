@@ -161,3 +161,28 @@
 .reviews-container {
   margin-top: 30px;
 }
+
+.grid-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 0.5fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.grid-item {
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 15px;
+}
+
+.grid-item:first-child {
+  grid-row: span 2;
+}
+
+mat-grid-tile.half-width-review-card {
+  width: 100%;
+  box-sizing: border-box;
+}

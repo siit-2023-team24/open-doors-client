@@ -16,7 +16,6 @@ const routes: Routes = [
     {component: LoginComponent, path:"login"},
     {component: RegisterComponent, path:"register"},
     {component: HomePageComponent, path:"home"},
-    {component: AccommodationPageComponent, path:"accommodation"},
     {component: ProfileComponent, path:"profile", canActivate: [AuthGuard], data : {role: ['ROLE_ADMIN', 'ROLE_HOST', 'ROLE_GUEST']}},
     {component: ProfileEditComponent, path:"edit-profile", canActivate: [AuthGuard], data : {role: ['ROLE_ADMIN', 'ROLE_HOST', 'ROLE_GUEST']}},
     {component: ChangePasswordComponent, path:"edit-profile/change-password", canActivate: [AuthGuard], data : {role: ['ROLE_ADMIN', 'ROLE_HOST', 'ROLE_GUEST']}},
@@ -24,7 +23,8 @@ const routes: Routes = [
     {component: CreateAccommodationComponent, path:"create-accommodation/:id/:accommodationId", canActivate: [AuthGuard], data : {role: ['ROLE_HOST']}},
     {component: AccountActivationComponent, path:"activate-account"},
     { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: '**', redirectTo: 'home' }
+    { path: '**', redirectTo: 'home' },
+    {component: AccommodationPageComponent, path:"accommodation/:id"},
 ];
 
 

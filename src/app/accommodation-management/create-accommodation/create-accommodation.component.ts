@@ -3,13 +3,17 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 import { AccommodationService } from '../accommodation.service';
 import { Country } from 'src/env/country';
 import { AccommodationWhole } from '../model/accommodation-whole.model';
-import { AccommodationType } from 'src/env/accommodation-type';
 import { Amenity } from 'src/env/amenity';
 import { DateRange } from '../model/date-range.model';
 import { SeasonalRate } from '../model/seasonal-rate.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { MapComponent } from 'src/app/shared/map/map.component';
+import { ActivatedRoute } from '@angular/router';
+import { Image } from '../model/image.model';
+import { ImageService } from 'src/app/image-management/image.service';
+import { AccommodationWholeEdited } from '../model/accommodation-whole-edited-model';
+import { AccommodationType } from 'src/env/accommodation-type';
 
 const minMaxValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const minControl = control.get('minGuests');
@@ -63,7 +67,9 @@ export class CreateAccommodationComponent {
 
   accommodationForm: FormGroup;
 
-  selectedFiles: File[] = [];
+  selectedFiles: File[] = []; //new images
+  currentImages: number[] = [];  //current images
+  toDeleteImages: number[] = [];  //images to delete
 
   address: string = "";
   coordinates: string = "";
@@ -111,9 +117,15 @@ export class CreateAccommodationComponent {
   }
 
   fillForm(data: AccommodationWhole): void {
+    console.log(data);
 
-    //TODO
+    this.currentImages = data.images;
+    this.accommodationForm.patchValue(data);
+    this.selectedAmenities = data.amenities;
+    this.retrieveAvailability(data.availability);
+    this.retrieveSeasonalRates(data.seasonalRates);
 
+    console.log(this.availableDates);
   }
 
   onFileChanged(event: any) {
@@ -213,6 +225,22 @@ export class CreateAccommodationComponent {
     return (dates[j].getTime() - dates[i].getTime() <= range);
   }
 
+
+  retrieveAvailability(availability: DateRange[]) {
+    this.availability = availability;
+    for(let period of availability){
+      let startDate = new Date(period.startDate);
+      let endDate = new Date(period.endDate);
+      let counterDate = new Date(startDate);
+
+      while (counterDate.getTime() <= endDate.getTime()) {
+          this.availableDates.push(new Date(counterDate));
+          counterDate.setDate(counterDate.getDate() + 1);
+      }
+    }
+  }
+
+
   priceDateSelected(date: Date) {
     if(this.seasonalRatePrice===null || this.seasonalRatePrice<0) {
       this.priceError = 'Please enter a non-negative monetary value for the seasonal rate.'
@@ -261,6 +289,28 @@ export class CreateAccommodationComponent {
     }
     console.log(this.seasonalRates);
   }
+
+  retrieveSeasonalRates(seasonalRates: SeasonalRate[]) {
+    this.seasonalRates = seasonalRates;
+    for(let seasonalRate of seasonalRates){
+      let startDate = new Date(seasonalRate.period.startDate);
+      let endDate = new Date(seasonalRate.period.endDate);
+      let counterDate = new Date(startDate);
+
+      while (counterDate.getTime() <= endDate.getTime()) {
+
+        const newDate = new Date(counterDate);
+
+        this.priceDates.push(newDate);
+        this.priceValues.set(newDate, seasonalRate.price);
+
+
+        console.log(this.priceValues);
+
+        counterDate.setDate(counterDate.getDate() + 1);
+      }
+    }
+  }
   
   onCheckboxChange(value: string, isChecked: boolean) {
     if (isChecked) {
@@ -286,9 +336,12 @@ export class CreateAccommodationComponent {
     }
   }
 
+
   createAccommodation(): void {
 
-    let accommodationDTO: AccommodationWhole = this.accommodationForm.value;
+    if (this.accommodationForm.invalid) return;
+
+    let accommodationDTO: AccommodationWholeEdited = this.accommodationForm.value;
     accommodationDTO.amenities = this.selectedAmenities;
     accommodationDTO.availability = this.availability;
     accommodationDTO.seasonalRates = this.seasonalRates;
@@ -301,18 +354,30 @@ export class CreateAccommodationComponent {
 
     console.log(accommodationDTO);
 
-    this.service.add(accommodationDTO).subscribe(
-      (response) => {
+    accommodationDTO.toDeleteImages = this.toDeleteImages;
+    accommodationDTO.images = this.currentImages;
+
+    const formData: FormData = new FormData();
+    for (let file of this.selectedFiles) {
+      formData.append('images', file);
+    }
+
+    console.log(this.selectedFiles);
+
+    this.service.add(accommodationDTO).subscribe({
+      next: (response: AccommodationWholeEdited) => {
         console.log("SUCCESS! " + accommodationDTO, response);
+        this.service.addImages(response.id || 0, formData).subscribe({
+          next: () => {console.log("Sent images")},
+          error: () => {console.error("Error sending images for pending accommodation")}
+        })
       },
-      (error) => {
-        console.error('Error occurred:', error);
-      }
-    );
+      error: (error) => {console.error(error)}
+    }); 
   }
 
   constructor(private formBuilder: FormBuilder, private service: AccommodationService,
-              private route: ActivatedRoute, private router: Router, private authService: AuthService) {
+              private route: ActivatedRoute, private router: Router, private authService: AuthService, private imageService: ImageService) {
     
     this.accommodationForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
@@ -332,6 +397,23 @@ export class CreateAccommodationComponent {
       price: ['0', [Validators.required, Validators.min(0)]],
       isPricePerGuest: [true, []]
     }, { validator : minMaxValidator });
+  }
+
+
+  deleteImage(image: number) {
+    this.toDeleteImages.push(image);
+  }
+
+  resetToDelete() {
+    this.toDeleteImages = [];
+  }
+
+  resetUploaded() {
+    this.selectedFiles = [];
+  }
+
+  getPath(image: number): string {
+    return this.imageService.getPath(image, false);
   }
 
 }
