@@ -371,6 +371,10 @@ export class CreateAccommodationComponent {
     this.toDeleteImages.push(image);
   }
 
+  resetToDelete() {
+    this.toDeleteImages = [];
+  }
+
   getPath(image: number): string {
     return this.imageService.getPath(image, false);
   }

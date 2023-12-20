@@ -57,8 +57,8 @@
                         </div>
                     </div>
                     
-                    <div *ngIf="currentImages">
-                        <p>Images the before edit: (Click on an image to delete it.)</p>
+                    <div *ngIf="currentImages.length > 0">
+                        <p>Images before edit: (Click on an image to delete it.)</p>
                         <div id="imageContainer" >
 
                             <div *ngFor="let image of currentImages">
@@ -72,6 +72,7 @@
                                 <ul>
                                     <li *ngFor="let imageDel of toDeleteImages">{{ imageDel }}</li>
                                 </ul>
+                                <button mat-flat-button (click)="resetToDelete()">Reset deleted</button>
                             </div>
                         </div>
 
