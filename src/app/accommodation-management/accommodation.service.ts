@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AccommodationWhole } from './model/accommodation-whole.model';
@@ -12,13 +12,19 @@ export class AccommodationService {
   
   constructor(private http: HttpClient) { }
 
-  add(accommodationWhole: AccommodationWhole): Observable<AccommodationWhole>{
-    console.log("in service:\n");
-    console.log(accommodationWhole);
+  add(dto: AccommodationWhole): Observable<AccommodationWhole>{
+    console.log("in service:");
+    console.log(dto);
 
-    return this.http.post<AccommodationWhole>(environment.apiHost + '/pending-accommodations', accommodationWhole);
+    return this.http.post<AccommodationWhole>(environment.apiHost + '/pending-accommodations', dto);
     
   }
+
+  addImages(id: number, formData: FormData): Observable<AccommodationWhole> {
+    console.error(formData);
+    return this.http.post<AccommodationWhole>(environment.apiHost + '/pending-accommodations/' + id + '/images', formData);
+  }
+
 
   get(id: number): Observable<AccommodationWhole> {
     return this.http.get<AccommodationWhole>(environment.apiHost + '/accommodations/' + id);
@@ -43,6 +49,7 @@ export class AccommodationService {
   deletePending(id: number): Observable<Object> {
     return this.http.delete(environment.apiHost + '/pending-accommodations/' + id)
   }
+  
 
 
 }

@@ -119,3 +119,15 @@
 .right {
     justify-content: flex-end;
 }
+
+.single-image {
+    height: 60px;
+    width: auto;
+}
+
+#imageContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: #0C4A60;
+}

@@ -3,7 +3,7 @@ import { AccommodationType } from "src/env/accommodation-type";
 import { SeasonalRate } from "./seasonal-rate.model";
 import { DateRange } from "./date-range.model";
 import { Image } from "./image.model";
-export interface AccommodationWhole {
+export interface AccommodationWholeEdited {
     id?: number,
     accommodationId?: number,
     name: string,
@@ -27,5 +27,7 @@ export interface AccommodationWhole {
     isPricePerGuest: boolean,
     seasonalRates: SeasonalRate[],
 
-    hostUsername: string
+    hostUsername: string,
+
+    toDeleteImages: Image[]
 }

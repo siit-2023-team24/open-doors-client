@@ -8,6 +8,9 @@ import { Amenity } from 'src/env/amenity';
 import { DateRange } from '../model/date-range.model';
 import { SeasonalRate } from '../model/seasonal-rate.model';
 import { ActivatedRoute } from '@angular/router';
+import { Image } from '../model/image.model';
+import { ImageService } from 'src/app/image-management/image.service';
+import { AccommodationWholeEdited } from '../model/accommodation-whole-edited-model';
 
 const minMaxValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const minControl = control.get('minGuests');
@@ -59,7 +62,9 @@ export class CreateAccommodationComponent {
 
   accommodationForm: FormGroup;
 
-  selectedFiles: File[] = [];
+  selectedFiles: File[] = []; //new images
+  currentImages: Image[] = [];  //current images
+  toDeleteImages: Image[] = [];  //images to delete
 
 
   ngOnInit(): void {
@@ -70,7 +75,6 @@ export class CreateAccommodationComponent {
       this.id = +params['id'];
       this.accommodationId = +params['accommodationId'];
 
-      //fill form if some edit
       if (this.id) {   //editing pending accommodation
         // this.id = +params['id'];
         this.service.getPending(this.id).subscribe({
@@ -93,6 +97,9 @@ export class CreateAccommodationComponent {
   }
 
   fillForm(data: AccommodationWhole): void {
+
+    this.currentImages = data.images;
+    this.accommodationForm.patchValue(data);
 
     //TODO
 
@@ -255,9 +262,12 @@ export class CreateAccommodationComponent {
     }
   }
 
+
   createAccommodation(): void {
 
-    let accommodationDTO: AccommodationWhole = this.accommodationForm.value;
+    if (this.accommodationForm.invalid) return;
+
+    let accommodationDTO: AccommodationWholeEdited = this.accommodationForm.value;
     accommodationDTO.amenities = this.selectedAmenities;
     accommodationDTO.availability = this.availability;
     accommodationDTO.seasonalRates = this.seasonalRates;
@@ -270,18 +280,31 @@ export class CreateAccommodationComponent {
 
     console.log(accommodationDTO);
 
-    this.service.add(accommodationDTO).subscribe(
-      (response) => {
+    accommodationDTO.toDeleteImages = this.toDeleteImages;
+    accommodationDTO.images = this.currentImages;
+
+    const formData: FormData = new FormData();
+    // formData.append("PendingAccommodationWholeEditedDTO", JSON.stringify(accommodationDTO));
+    for (let file of this.selectedFiles) {
+      formData.append('images', file);
+    }
+
+    console.log(this.selectedFiles);
+
+    this.service.add(accommodationDTO).subscribe({
+      next: (response: AccommodationWhole) => {
         console.log("SUCCESS! " + accommodationDTO, response);
+        this.service.addImages(response.id || 0, formData).subscribe({
+          next: () => {console.log("Sent images")},
+          error: () => {console.error("Error sending images for pending accommodation")}
+        })
       },
-      (error) => {
-        console.error('Error occurred:', error);
-      }
-    );
+      error: (error) => {console.error(error)}
+    }); 
   }
 
   constructor(private formBuilder: FormBuilder, private service: AccommodationService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute, private imageService: ImageService) {
     
     this.accommodationForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
@@ -301,6 +324,15 @@ export class CreateAccommodationComponent {
       price: ['0', [Validators.required, Validators.min(0)]],
       isPricePerGuest: [true, []]
     }, { validator : minMaxValidator });
+  }
+
+
+  deleteImage(image: Image) {
+    this.toDeleteImages.push(image);
+  }
+
+  getPath(image: Image): string {
+    return this.imageService.getPath(image.id, false);
   }
 
 }
