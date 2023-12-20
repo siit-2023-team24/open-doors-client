@@ -20,7 +20,6 @@ export interface AccommodationWholeEdited {
     amenities: string[],
 
     location: string,
-    images: Image[],
     
     availability: DateRange[],
     price: number,
@@ -28,6 +27,7 @@ export interface AccommodationWholeEdited {
     seasonalRates: SeasonalRate[],
 
     hostUsername: string,
-
-    toDeleteImages: Image[]
+    
+    images: number[],
+    toDeleteImages: number[]
 }

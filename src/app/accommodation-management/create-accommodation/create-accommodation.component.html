@@ -57,17 +57,20 @@
                         </div>
                     </div>
                     
-                    <div fxLayout="row" fxLayoutGap="20px" class="section create-section" *ngIf="currentImages">
+                    <div *ngIf="currentImages">
                         <p>Images the before edit: (Click on an image to delete it.)</p>
-                        <div id="imageContainer" *ngFor="let image of currentImages">
-                            <img src={{getPath(image)}} class="single-image" (click)="deleteImage(image)" alt={{image.name}} name={{image.name}}>
+                        <div id="imageContainer" >
+
+                            <div *ngFor="let image of currentImages">
+                                <img src={{getPath(image)}} class="single-image" (click)="deleteImage(image)" alt={{image}} name={{image}}>
+                            </div>
                         </div>
 
-                        <div *ngIf="toDeleteImages.length > 0">
+                        <div class="delete-info" *ngIf="toDeleteImages.length > 0">
                             <p>Images to be deleted:</p>
-                            <div class="file-list">
+                            <div>
                                 <ul>
-                                    <li *ngFor="let imageDel of toDeleteImages">{{ imageDel.name }}</li>
+                                    <li *ngFor="let imageDel of toDeleteImages">{{ imageDel }}</li>
                                 </ul>
                             </div>
                         </div>

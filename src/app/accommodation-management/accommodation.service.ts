@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AccommodationWhole } from './model/accommodation-whole.model';
 import { environment } from 'src/env/env';
 import { HostListAccommodation } from './model/host-list-accommodation';
+import { AccommodationWholeEdited } from './model/accommodation-whole-edited-model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,11 @@ export class AccommodationService {
   
   constructor(private http: HttpClient) { }
 
-  add(dto: AccommodationWhole): Observable<AccommodationWhole>{
+  add(dto: AccommodationWholeEdited): Observable<AccommodationWholeEdited>{
     console.log("in service:");
     console.log(dto);
 
-    return this.http.post<AccommodationWhole>(environment.apiHost + '/pending-accommodations', dto);
+    return this.http.post<AccommodationWholeEdited>(environment.apiHost + '/pending-accommodations', dto);
     
   }
 

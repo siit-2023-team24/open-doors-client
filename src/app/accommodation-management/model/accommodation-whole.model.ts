@@ -20,7 +20,7 @@ export interface AccommodationWhole {
     amenities: string[],
 
     location: string,
-    images: Image[],
+    images: number[],
     
     availability: DateRange[],
     price: number,

@@ -63,8 +63,8 @@ export class CreateAccommodationComponent {
   accommodationForm: FormGroup;
 
   selectedFiles: File[] = []; //new images
-  currentImages: Image[] = [];  //current images
-  toDeleteImages: Image[] = [];  //images to delete
+  currentImages: number[] = [];  //current images
+  toDeleteImages: number[] = [];  //images to delete
 
 
   ngOnInit(): void {
@@ -284,7 +284,6 @@ export class CreateAccommodationComponent {
     accommodationDTO.images = this.currentImages;
 
     const formData: FormData = new FormData();
-    // formData.append("PendingAccommodationWholeEditedDTO", JSON.stringify(accommodationDTO));
     for (let file of this.selectedFiles) {
       formData.append('images', file);
     }
@@ -292,7 +291,7 @@ export class CreateAccommodationComponent {
     console.log(this.selectedFiles);
 
     this.service.add(accommodationDTO).subscribe({
-      next: (response: AccommodationWhole) => {
+      next: (response: AccommodationWholeEdited) => {
         console.log("SUCCESS! " + accommodationDTO, response);
         this.service.addImages(response.id || 0, formData).subscribe({
           next: () => {console.log("Sent images")},
@@ -327,12 +326,13 @@ export class CreateAccommodationComponent {
   }
 
 
-  deleteImage(image: Image) {
+  deleteImage(image: number) {
     this.toDeleteImages.push(image);
   }
 
-  getPath(image: Image): string {
-    return this.imageService.getPath(image.id, false);
+  getPath(image: number): string {
+    console.log(image);
+    return this.imageService.getPath(image, false);
   }
 
 }
