@@ -17,11 +17,11 @@ export class AccommodationService {
   
   constructor(private http: HttpClient) { }
 
+
   add(dto: AccommodationWholeEdited): Observable<AccommodationWholeEdited>{
     console.log("in service:");
     console.log(dto);
     return this.http.post<AccommodationWholeEdited>(environment.apiHost + '/pending-accommodations', dto);
-    
   }
 
 

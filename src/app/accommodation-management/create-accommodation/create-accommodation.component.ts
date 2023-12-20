@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AccommodationService } from '../accommodation.service';
 import { Country } from 'src/env/country';
@@ -6,6 +6,9 @@ import { AccommodationWhole } from '../model/accommodation-whole.model';
 import { Amenity } from 'src/env/amenity';
 import { DateRange } from '../model/date-range.model';
 import { SeasonalRate } from '../model/seasonal-rate.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
+import { MapComponent } from 'src/app/shared/map/map.component';
 import { ActivatedRoute } from '@angular/router';
 import { Image } from '../model/image.model';
 import { ImageService } from 'src/app/image-management/image.service';
@@ -38,6 +41,8 @@ const minMaxValidator: ValidatorFn = (control: AbstractControl): ValidationError
 })
 export class CreateAccommodationComponent {
 
+  @ViewChild(MapComponent) mapComponent: MapComponent;
+
   id: number | undefined;
   accommodationId: number | undefined;
 
@@ -66,6 +71,8 @@ export class CreateAccommodationComponent {
   currentImages: number[] = [];  //current images
   toDeleteImages: number[] = [];  //images to delete
 
+  address: string = "";
+  coordinates: string = "";
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -76,20 +83,33 @@ export class CreateAccommodationComponent {
       this.accommodationId = +params['accommodationId'];
 
       if (this.id) {   //editing pending accommodation
-        // this.id = +params['id'];
         this.service.getPending(this.id).subscribe({
           next: (data: AccommodationWhole) => {
+            if (data.hostUsername!=this.authService.getUsername())  {
+              this.router.navigate(['home']);
+              return;
+            }
             this.fillForm(data);
           },
-          error: () => console.error("Error getting pending accommodation with id: " + this.id)
+          error: () => {
+            console.error("Error getting pending accommodation with id: " + this.id)
+            this.router.navigate(['home']);
+          }
         })
         
       } else if (this.accommodationId) {  //edit active
         this.service.get(this.accommodationId).subscribe({
           next: (data: AccommodationWhole) => {
+            if (data.hostUsername!=this.authService.getUsername())  {
+              this.router.navigate(['home']);
+              return;
+            }
             this.fillForm(data);
           },
-          error: () => console.error("Error getting active accommodation with id: " + this.accommodationId)
+          error: () => {
+            console.error("Error getting active accommodation with id: " + this.accommodationId);
+            this.router.navigate(['home'])
+          }
         })
       }
       
@@ -116,6 +136,19 @@ export class CreateAccommodationComponent {
           }
       }
   }
+
+  updateAddress() {
+    this.address = this.accommodationForm.value.street + ' ' +
+                  this.accommodationForm.value.number + ', ' +
+                  this.accommodationForm.value.city + ', ' +
+                  this.accommodationForm.value.country;
+    console.log(this.accommodationForm.value.country);
+
+    if (this.mapComponent) {
+      this.mapComponent.search(this.address);
+      this.coordinates = this.mapComponent.coordinates;
+    }
+   }
 
   availableDateSelected(date: Date) {
     const dateIndex = this.availableDates.findIndex(
@@ -312,9 +345,9 @@ export class CreateAccommodationComponent {
     accommodationDTO.amenities = this.selectedAmenities;
     accommodationDTO.availability = this.availability;
     accommodationDTO.seasonalRates = this.seasonalRates;
+    accommodationDTO.location = this.coordinates;
 
-    //get from autentification
-    accommodationDTO.hostUsername = "test@test.test";
+    accommodationDTO.hostUsername = this.authService.getUsername();
     
     accommodationDTO.id = this.id;
     accommodationDTO.accommodationId = this.accommodationId;
@@ -344,7 +377,7 @@ export class CreateAccommodationComponent {
   }
 
   constructor(private formBuilder: FormBuilder, private service: AccommodationService,
-              private route: ActivatedRoute, private imageService: ImageService) {
+              private route: ActivatedRoute, private router: Router, private authService: AuthService, private imageService: ImageService) {
     
     this.accommodationForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],

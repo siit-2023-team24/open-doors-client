@@ -3,7 +3,6 @@ import { BehaviorSubject, Observable, throwError } from "rxjs"
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { UserTokenState } from './model/user-token-state.model';
 import { Account } from './model/account';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from "../../env/env";
 import { EditUser } from './model/edit-user.model';
 import { NewPasswordDTO } from './model/newPasswordDTO';
@@ -18,9 +17,8 @@ export class UserService {
 
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    // skip: 'true',
+    skip: 'true',
   });
-
 
   user$ = new BehaviorSubject("");
   userState = this.user$.asObservable();
@@ -41,17 +39,6 @@ export class UserService {
   isLoggedIn(): boolean {
     return localStorage.getItem('user') != null;
   }
-
-  // getRole(): string {
-  //   if (!this.isLoggedIn()) return '';
-  //   const accessToken: any = localStorage.getItem('user');
-  //   const helper = new JwtHelperService();
-  //   return helper.decodeToken(accessToken).role[0].authority;
-  // }
-
-  // setUser(): void {
-  //   this.user$.next(this.getRole());
-  // }
 
   register(user: UserAccount): Observable<UserAccount> {
     return this.httpClient.post<UserAccount>(environment.apiHost + '/auth/register', user, {

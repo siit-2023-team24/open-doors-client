@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,26 +10,34 @@ import { filter } from 'rxjs/operators';
 })
 export class NavBarComponent implements OnInit {
 
-  role: string = "";
-  isLoggedIn : boolean;
+  role: string;
   constructor(private router: Router) {
   }
 
   ngOnInit(): void {
-    this.refreshNavbar();
+
+    const helper : JwtHelperService = new JwtHelperService();
+    const token = localStorage.getItem('user');
+    if (token == null) {
+      this.role = 'NO_USER';
+    }
+    else {
+      const role = helper.decodeToken(token).role;
+      this.role = role
+    }
 
     this.router.events.pipe(
       filter((event: Event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      this.refreshNavbar();
+      this.ngOnInit();
     });
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('user');
     this.router.navigate(['login'])
   }
   refreshNavbar() {
-    this.isLoggedIn=localStorage.getItem('user')!=null;
+    
   }
 }

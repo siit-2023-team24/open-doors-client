@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EditUser } from '../model/edit-user.model';
 import { Country } from 'src/env/country';
 import { ImageService } from 'src/app/image-management/image.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 @Component({
@@ -24,13 +25,12 @@ export class ProfileEditComponent {
   countries: string[];
 
   constructor(private router: Router, private userService: UserService,
-    private imageService: ImageService, private formBuilder: FormBuilder) {}
+    private imageService: ImageService, private formBuilder: FormBuilder, private authService: AuthService) {}
 
   
   ngOnInit(): void {
 
-    //id from authentification
-    const id = 1;
+    const id = this.authService.getId();
     this.userService.getUser(id).subscribe({
       
       next: (data: EditUser) => {
