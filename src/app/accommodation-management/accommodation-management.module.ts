@@ -14,6 +14,10 @@ import { CreateAccommodationComponent } from './create-accommodation/create-acco
 import { FilterPopupComponent } from './filter-popup/filter-popup.component';
 
 import { ReviewManagementModule } from '../review-management/review-management.module';
+import { MyAccommodationCardComponent } from './my-accommodation-card/my-accommodation-card.component';
+import { PendingAccommodationsComponent } from './pending-accommodations/pending-accommodations.component';
+import { PendingAccommodationCardComponent } from './pending-accommodation-card/pending-accommodation-card.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,10 @@ import { ReviewManagementModule } from '../review-management/review-management.m
     AccommodationPageComponent,
     MyAccommodationsComponent,
     CreateAccommodationComponent,
-    FilterPopupComponent
+    FilterPopupComponent,
+    MyAccommodationCardComponent,
+    PendingAccommodationsComponent,
+    PendingAccommodationCardComponent
   ],
   imports: [
     HttpClientModule,
@@ -33,7 +40,7 @@ import { ReviewManagementModule } from '../review-management/review-management.m
     MaterialModule,
     FormsModule,
     ReviewManagementModule,
-    HttpClientModule
+    SharedModule
   ],
   exports: [
     AccommodationCardComponent,
@@ -41,7 +48,8 @@ import { ReviewManagementModule } from '../review-management/review-management.m
     HomePageComponent,
     AccommodationPageComponent,
     MyAccommodationsComponent,
-    FilterPopupComponent
+    FilterPopupComponent,
+    PendingAccommodationsComponent
   ]
 })
 export class AccommodationManagementModule { }

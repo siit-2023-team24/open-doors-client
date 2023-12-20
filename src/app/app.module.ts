@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { UserManagementModule } from './user-management/user-management.module';
 import { AccommodationManagementModule } from './accommodation-management/accommodation-management.module';
+import { SharedModule } from './shared/shared.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Interceptor } from './user-management/interceptor';
 
 
 @NgModule({
@@ -18,9 +21,16 @@ import { AccommodationManagementModule } from './accommodation-management/accomm
     LayoutModule,
     BrowserAnimationsModule,
     UserManagementModule,
-    AccommodationManagementModule
+    AccommodationManagementModule,
+    SharedModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

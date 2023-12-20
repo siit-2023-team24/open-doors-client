@@ -2,7 +2,7 @@
 
     <div id="buttons">
         <div  class="dark-orange-button-wrapper">
-            <button class="orangeBtn" mat-raised-button>Delete profile</button>
+            <button (click)="openDialog()" class="orangeBtn" mat-raised-button>Delete profile</button>
         </div>
         <div class="dark-blue-button-wrapper">
             <button [routerLink]="['/edit-profile']" [queryParams]="{title: 'Edit profile'}" class="blueBtn" mat-raised-button>Edit</button>
@@ -26,12 +26,12 @@
             </div>
         
             <div id="profileData" class="data">
-                <p>{{user.email}}</p>
+                <p>{{ username }}</p>
                 <p>{{user.firstName}}</p>
                 <p>{{user.lastName}}</p>
                 <p>{{user.country}}</p>
                 <p>{{user.city}}</p>
-                <address>{{user.street + ' ' + user.number}}</address>
+                <address>{{ user.street + ' ' + user.number }}</address>
                 <p>{{user.phone}}</p>
             </div>
         </div>

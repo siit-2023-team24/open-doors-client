@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from "../model/user.model"
 import { UserService } from '../user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EditUserDTO } from '../model/editUserDTO';
+import { EditUser } from '../model/edit-user.model';
 import { Country } from 'src/env/country';
 import { ImageService } from 'src/app/image-management/image.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 @Component({
@@ -15,9 +15,8 @@ import { ImageService } from 'src/app/image-management/image.service';
 })
 export class ProfileEditComponent {
   
-  user: User = {email: "", firstName: "", lastName: "", id: 0, country: Country.VATICAN_CITY, city: "", street: "", number: 0, phone: ""}
-  userDto: EditUserDTO;
-
+  userDto: EditUser = {firstName: "", lastName: "", id: 0, country: Country.VATICAN_CITY, city: "", street: "", number: 0, phone: ""}
+ 
   imgPath: string = "";
   selectedImage: File;
   deletedImage: boolean = false;
@@ -26,18 +25,17 @@ export class ProfileEditComponent {
   countries: string[];
 
   constructor(private router: Router, private userService: UserService,
-    private imageService: ImageService, private formBuilder: FormBuilder) {}
+    private imageService: ImageService, private formBuilder: FormBuilder, private authService: AuthService) {}
 
   
   ngOnInit(): void {
 
-    //id from autentification
-    const id = 1;
+    const id = this.authService.getId();
     this.userService.getUser(id).subscribe({
       
-      next: (data: User) => {
-        this.user = data;
-        this.editProfileForm.patchValue(this.user);
+      next: (data: EditUser) => {
+        this.userDto = data;
+        this.editProfileForm.patchValue(this.userDto);
         this.imgPath = this.imageService.getPath(data.imageId, true);
       },
       error: (_) => { console.log('Error in getUser'); }
@@ -47,6 +45,7 @@ export class ProfileEditComponent {
     this.countries = Object.values(Country);
 
     this.editProfileForm = this.formBuilder.group({
+      id : [id.toString(), []],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       country: ['', Validators.required],
@@ -62,10 +61,7 @@ export class ProfileEditComponent {
     if (this.editProfileForm.valid) {
       this.userDto = this.editProfileForm.value;
       
-      console.log(this.user);
       console.log(this.userDto);
-      this.userDto.id = this.user.id;
-      this.userDto.imageId = this.user.imageId;
 
       const formData = new FormData();
       
@@ -96,8 +92,8 @@ export class ProfileEditComponent {
 
 
   deleteProfileImage(): void {
-    this.user.imageId = undefined;
-    this.imgPath = this.imageService.getPath(this.user.imageId, true);
+    this.userDto.imageId = undefined;
+    this.imgPath = this.imageService.getPath(this.userDto.imageId, true);
     this.deletedImage = true;
   }
 
