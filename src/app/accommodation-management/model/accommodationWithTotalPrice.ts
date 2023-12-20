@@ -19,7 +19,7 @@ export interface AccommodationWithTotalPriceDTO {
     availability: DateRange[];
     price: number;
     seasonalRates: Price[];
-    isPricePerNight: boolean;
+    pricePerNight: boolean;
     totalPrice: number | null;
     averageRating: number | null;
     host: User;

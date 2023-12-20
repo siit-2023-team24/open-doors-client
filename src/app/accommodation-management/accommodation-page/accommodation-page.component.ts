@@ -9,6 +9,7 @@ import { Address } from '../model/address';
 import { ImageService } from 'src/app/image-management/image.service';
 import { AccommodationReviewDetailsDTO } from 'src/app/review-management/model/accommodationReviewDetails';
 import { ReviewService } from 'src/app/review-management/review.service';
+import { MakeReservationRequestDTO } from '../model/reservationRequest';
 
 @Component({
   selector: 'app-accommodation-page',
@@ -30,7 +31,7 @@ export class AccommodationPageComponent implements OnInit{
     availability: [],
     price: 0,
     seasonalRates: [],
-    isPricePerNight: false,
+    pricePerNight: false,
     totalPrice: null,
     averageRating: null,
     host: {} as User,
@@ -40,6 +41,21 @@ export class AccommodationPageComponent implements OnInit{
   accommodationAddress: string = "";
   isAccommodationDetailsReady: boolean = false;
   reviews: AccommodationReviewDetailsDTO[] = [];
+  request: MakeReservationRequestDTO;
+  isReservationButtonDisabled: boolean = true;
+
+  selectedStartDate: Date;
+  selectedEndDate: Date;
+  selectedGuestNumber: number;
+  numberOfNights: number;
+
+  startDateFilter = (date: Date | null): boolean => {
+    return date ? date >= new Date() && (!this.selectedEndDate || date <= this.selectedEndDate) : true;
+  };  
+
+  endDateFilter = (date: Date | null): boolean => {
+    return date ? date >= (this.selectedStartDate || new Date()) : true;
+  };
 
   constructor(
     private snackBar: MatSnackBar,
@@ -77,6 +93,34 @@ export class AccommodationPageComponent implements OnInit{
     }
   }
 
+  onInput(){
+    if(this.selectedStartDate == null || this.selectedEndDate == null || this.selectedGuestNumber == null ||
+      (this.selectedGuestNumber < this.accommodation.minGuests) || (this.selectedGuestNumber > this.accommodation.maxGuests))
+       { this.isReservationButtonDisabled = true;}
+    else {
+        this.isReservationButtonDisabled = false;
+        this.numberOfNights = this.calculateNightsBetweenDates(this.selectedStartDate, this.selectedEndDate);
+        this.accommodation.totalPrice = this.accommodation.price * this.numberOfNights;
+        console.log(this.accommodation); // normal has pricePerNight set to true
+        console.log(this.accommodation.pricePerNight); // undefined
+        if(!this.accommodation.pricePerNight) {
+          this.accommodation.totalPrice *= this.selectedGuestNumber;
+        }
+    }
+  }
+
+  makeReservationRequest() {
+    this.request = {
+      accommodationId: this.accommodation.id,
+      guestId: null,
+      numberOfGuests: this.selectedGuestNumber,
+      startDate: this.selectedStartDate,
+      endDate: this.selectedEndDate,
+      totalPrice: this.accommodation.totalPrice
+    }
+    
+  }
+
   isFavorite = false;
 
   toggleFavorite() {
@@ -92,5 +136,16 @@ export class AccommodationPageComponent implements OnInit{
     this.snackBar.open(message, 'Close', {
       duration: 3000,
     });
+  }
+
+  private calculateNightsBetweenDates(startDate: Date, endDate: Date): number {
+    const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
+  
+    const startUtc = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+    const endUtc = Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+  
+    const timeDifferenceInDays = Math.floor((endUtc - startUtc) / oneDayInMilliseconds);
+  
+    return timeDifferenceInDays;
   }
 }
