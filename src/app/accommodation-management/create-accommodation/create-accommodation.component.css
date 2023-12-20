@@ -119,3 +119,27 @@
 .right {
     justify-content: flex-end;
 }
+
+.single-image {
+    height: 100px;
+    width: auto;
+    border: solid;
+    border-color: #0C4A60;
+    margin: 0px;
+}
+
+#imageContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: solid;
+    border-color: #0C4A60;
+    background-color: #0C4A60;
+    width: fit-content;
+    justify-content: space-evenly;
+}
+
+.delete-info {
+    color: #EF6C33;
+    margin-top: 5px;
+}

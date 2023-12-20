@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from "../model/user.model"
 import { UserService } from '../user.service';
 import { Country } from 'src/env/country';
 import { ImageService } from 'src/app/image-management/image.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
+import { EditUser } from '../model/edit-user.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,21 +13,23 @@ import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
   styleUrls: ['./profile.component.css', '../../../styles.css']
 })
 export class ProfileComponent implements OnInit {
+  
+  user: EditUser = {firstName: "", lastName: "", id: 0, country: Country.VATICAN_CITY, city: "", street: "", number: 0, phone: ""}
 
-  user: User = {email: "", firstName: "", lastName: "", id: 0, country: Country.VATICAN_CITY, city: "", street: "", number: 0, phone: ""}
-
+  username: string = this.authService.getUsername();
+  
   imgPath: string= "";
 
   constructor(private userService: UserService, private imageService: ImageService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog, private authService: AuthService) {
   }
 
   ngOnInit(): void {
-    //autentification
-    const id = 1;
+    
+    const id = this.authService.getId();
     this.userService.getUser(id).subscribe({
       
-      next: (data: User) => {
+      next: (data: EditUser) => {
         this.user = data;
         this.imgPath = this.imageService.getPath(data.imageId, true);
       },

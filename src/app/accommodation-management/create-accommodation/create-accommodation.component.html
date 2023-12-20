@@ -23,7 +23,7 @@
                         </mat-form-field>
                         
                         <mat-radio-group class="create-text-field right" formControlName="isAutomatic">
-                            <mat-label>Reservation conformation:</mat-label>
+                            <mat-label>Reservation confirmation:</mat-label>
                             <mat-radio-button color="primary" [value]="true">automatic</mat-radio-button>
                             <mat-radio-button color="primary" [value]="false">manual</mat-radio-button>
                         </mat-radio-group>
@@ -53,15 +53,39 @@
                                         <li *ngFor="let file of selectedFiles">{{ file.name }}</li>
                                     </ul>
                                 </div>
+                                <button mat-flat-button (click)="resetUploaded()">Reset uploaded</button>
                             </div>
                         </div>
                     </div>
+                    
+                    <div *ngIf="currentImages.length > 0">
+                        <p>Images before edit: (Click on an image to delete it.)</p>
+                        <div id="imageContainer" >
+
+                            <div *ngFor="let image of currentImages">
+                                <img src={{getPath(image)}} class="single-image" (click)="deleteImage(image)" alt={{image}} name={{image}}>
+                            </div>
+                        </div>
+
+                        <div class="delete-info" *ngIf="toDeleteImages.length > 0">
+                            <p>Images to be deleted:</p>
+                            <div>
+                                <ul>
+                                    <li *ngFor="let imageDel of toDeleteImages">{{ imageDel }}</li>
+                                </ul>
+                                <button mat-flat-button (click)="resetToDelete()">Reset deleted</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
 
                     <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
                         <mat-form-field class="create-text-field left">
                             <mat-label>Country</mat-label>
-                            <mat-select formControlName="country">
-                                <mat-option value="none" selected disabled>Select your country</mat-option>
+                            <mat-select formControlName="country" (selectionChange)="updateAddress()">
+                                <mat-option value="none" selected disabled>Location of the accommodation: country</mat-option>
                                 <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="accommodationForm.get('country')?.hasError('required')">
@@ -71,7 +95,7 @@
 
                         <mat-form-field class="create-text-field right">
                             <mat-label>City</mat-label>
-                            <input formControlName="city" matInput type="text" name="city" placeholder="Enter your city" required maxlength="200">
+                            <input formControlName="city" matInput type="text" name="city" placeholder="Location of the accommodation: city" required maxlength="200" (change)="updateAddress()">
                             <mat-error *ngIf="accommodationForm.get('city')?.hasError('required')">
                                 City is required.
                             </mat-error>
@@ -84,7 +108,7 @@
                     <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
                         <mat-form-field class="create-text-field left">
                             <mat-label>Street</mat-label>
-                            <input matInput type="text" formControlName="street" name="street" placeholder="Enter your street" required maxlength="200">
+                            <input matInput type="text" formControlName="street" name="street" placeholder="Location of the accommodation: street" required maxlength="200" (change)="updateAddress()">
                             <mat-error *ngIf="accommodationForm.get('street')?.hasError('required')">
                                 Street is required.
                             </mat-error>
@@ -95,7 +119,7 @@
             
                         <mat-form-field class="create-text-field right">
                             <mat-label>Number</mat-label>
-                            <input matInput formControlName="number" type="number" name="number" placeholder="Enter your street number" min="1" required max="1000000">
+                            <input matInput formControlName="number" type="number" name="number" placeholder="Location of the accommodation: street number" min="1" required max="1000000" (change)="updateAddress()">
                             <mat-error *ngIf="accommodationForm.get('number')?.hasError('max')">
                                 Street number has to be under 1000000.
                             </mat-error>
@@ -107,7 +131,10 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-
+                        
+                    <app-map [address]="address"></app-map>
+                    <h2 class = "amenities">{{ coordinates }}</h2>
+                    
                     <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
                         <mat-form-field class="create-text-field left">
                             <mat-label>Type of accommodation</mat-label>
