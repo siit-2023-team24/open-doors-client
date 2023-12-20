@@ -10,6 +10,7 @@ import { ImageService } from 'src/app/image-management/image.service';
 import { AccommodationReviewDetailsDTO } from 'src/app/review-management/model/accommodationReviewDetails';
 import { ReviewService } from 'src/app/review-management/review.service';
 import { MakeReservationRequestDTO } from '../model/reservationRequest';
+import { ReservationRequestService } from '../reservation-request.service';
 
 @Component({
   selector: 'app-accommodation-page',
@@ -62,7 +63,8 @@ export class AccommodationPageComponent implements OnInit{
     private route: ActivatedRoute,
     private accommodationService: AccommodationService,
     private imageService: ImageService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private reservationService: ReservationRequestService
   ) {}
 
   ngOnInit(): void {
@@ -119,6 +121,15 @@ export class AccommodationPageComponent implements OnInit{
       totalPrice: this.accommodation.totalPrice
     }
     
+    this.reservationService.makeReservation(this.request).subscribe(
+      (response) => {
+        this.showSnackBar('Reservation request successful!');
+      },
+      (error) => {
+        console.error('Error making reservation request:', error);
+        this.showSnackBar('Error making reservation request. Please try again.');
+      }
+    );
   }
 
   isFavorite = false;
