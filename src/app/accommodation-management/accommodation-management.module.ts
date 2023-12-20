@@ -14,6 +14,7 @@ import { CreateAccommodationComponent } from './create-accommodation/create-acco
 import { FilterPopupComponent } from './filter-popup/filter-popup.component';
 
 import { ReviewManagementModule } from '../review-management/review-management.module';
+import { MyAccommodationCardComponent } from './my-accommodation-card/my-accommodation-card.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ReviewManagementModule } from '../review-management/review-management.m
     AccommodationPageComponent,
     MyAccommodationsComponent,
     CreateAccommodationComponent,
-    FilterPopupComponent
+    FilterPopupComponent,
+    MyAccommodationCardComponent
   ],
   imports: [
     HttpClientModule,

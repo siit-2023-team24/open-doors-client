@@ -3,8 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { AccommodationService } from '../accommodation.service';
 import { AccommodationWithTotalPriceDTO } from '../model/accommodationWithTotalPrice';
-import { AccommodationType } from 'src/env/accommodationType';
-import { User } from 'src/app/user-management/model/user.model';
+import { AccommodationType } from 'src/env/accommodation-type';
 import { Address } from '../model/address';
 import { ImageService } from 'src/app/image-management/image.service';
 import { AccommodationReviewDetailsDTO } from 'src/app/review-management/model/accommodationReviewDetails';
@@ -33,7 +32,7 @@ export class AccommodationPageComponent implements OnInit{
     isPricePerNight: false,
     totalPrice: null,
     averageRating: null,
-    host: {} as User,
+    host: "",
     address: {} as Address
   };
   imagePaths: string[] = [];
@@ -50,6 +49,9 @@ export class AccommodationPageComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+
+    //todo
+
     const accommodationIdParam = this.route.snapshot.paramMap.get('id');
     if(accommodationIdParam !== null) {
       const accommodationId = +accommodationIdParam;

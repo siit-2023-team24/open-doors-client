@@ -29,7 +29,7 @@
     </div>
 
     <div *ngIf="role=='host'" class="transparent-button-wrapper">
-        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Accommodations</button>
+        <button [routerLink]="['my-accommodations']" [queryParams]="{title: 'My accommodations'}" class="tranparentBtn" mat-flat-button >Accommodations</button>
     </div>
 
 
@@ -49,20 +49,20 @@
     </div>
 
 
-    <div *ngIf="!role" class="transparent-button-wrapper">
+    <div *ngIf="isLoggedIn" class="transparent-button-wrapper">
         <button [routerLink]="['profile']" [queryParams]="{title: 'My profile'}" class="tranparentBtn" mat-flat-button >Profile</button>
     </div>
 
-    <div *ngIf="!role" class="transparent-button-wrapper">
+    <div *ngIf="!isLoggedIn" class="transparent-button-wrapper">
         <button [routerLink]="['register']" [queryParams]="{title: 'Registration'}" class="tranparentBtn" mat-flat-button >Register</button>
     </div>
     
-    <div *ngIf="!role" class="dark-orange-button-wrapper">
-        <button [routerLink]="['login']" [queryParams]="{title: 'Login'}" class="orangeBtn" mat-flat-button >Login</button>
+    <div *ngIf="!isLoggedIn" class="dark-orange-button-wrapper">
+        <button [routerLink]="['login']" [queryParams]="{title: 'Login'}" class="orangeBtn" mat-flat-button >Log in</button>
     </div>
 
-    <div *ngIf="role" class="dark-orange-button-wrapper">
-        <button [routerLink]="['']" class="orangeBtn" mat-flat-button >Log out</button>
+    <div *ngIf="isLoggedIn" class="dark-orange-button-wrapper">
+        <button [routerLink]="['log out']" [queryParams]="{title: 'Logout'}" (click)="logout()" class="orangeBtn" mat-flat-button >Log out</button>
     </div>
 
 </div>

@@ -9,6 +9,8 @@ import { ProfileEditComponent } from './profile-edit/profile.edit.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
+import { AccountActivationComponent } from './account-activation/account-activation.component';
 
 
 
@@ -18,14 +20,16 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterComponent,
     ProfileComponent,
     ProfileEditComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    AccountActivationComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     MaterialModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   exports: [
     LoginComponent,
