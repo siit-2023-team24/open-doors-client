@@ -97,12 +97,15 @@ export class CreateAccommodationComponent {
   }
 
   fillForm(data: AccommodationWhole): void {
+    console.log(data);
 
     this.currentImages = data.images;
     this.accommodationForm.patchValue(data);
+    this.selectedAmenities = data.amenities;
+    this.retrieveAvailability(data.availability);
+    this.retrieveSeasonalRates(data.seasonalRates);
 
-    //TODO
-
+    console.log(this.availableDates);
   }
 
   onFileChanged(event: any) {
@@ -189,6 +192,22 @@ export class CreateAccommodationComponent {
     return (dates[j].getTime() - dates[i].getTime() <= range);
   }
 
+
+  retrieveAvailability(availability: DateRange[]) {
+    this.availability = availability;
+    for(let period of availability){
+      let startDate = new Date(period.startDate);
+      let endDate = new Date(period.endDate);
+      let counterDate = new Date(startDate);
+
+      while (counterDate.getTime() <= endDate.getTime()) {
+          this.availableDates.push(new Date(counterDate));
+          counterDate.setDate(counterDate.getDate() + 1);
+      }
+    }
+  }
+
+
   priceDateSelected(date: Date) {
     if(this.seasonalRatePrice===null || this.seasonalRatePrice<0) {
       this.priceError = 'Please enter a non-negative monetary value for the seasonal rate.'
@@ -236,6 +255,28 @@ export class CreateAccommodationComponent {
       i=j;
     }
     console.log(this.seasonalRates);
+  }
+
+  retrieveSeasonalRates(seasonalRates: SeasonalRate[]) {
+    this.seasonalRates = seasonalRates;
+    for(let seasonalRate of seasonalRates){
+      let startDate = new Date(seasonalRate.period.startDate);
+      let endDate = new Date(seasonalRate.period.endDate);
+      let counterDate = new Date(startDate);
+
+      while (counterDate.getTime() <= endDate.getTime()) {
+
+        const newDate = new Date(counterDate);
+
+        this.priceDates.push(newDate);
+        this.priceValues.set(newDate, seasonalRate.price);
+
+
+        console.log(this.priceValues);
+
+        counterDate.setDate(counterDate.getDate() + 1);
+      }
+    }
   }
   
   onCheckboxChange(value: string, isChecked: boolean) {
@@ -331,7 +372,6 @@ export class CreateAccommodationComponent {
   }
 
   getPath(image: number): string {
-    console.log(image);
     return this.imageService.getPath(image, false);
   }
 
