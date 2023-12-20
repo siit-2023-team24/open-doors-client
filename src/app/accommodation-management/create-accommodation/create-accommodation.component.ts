@@ -9,7 +9,6 @@ import { SeasonalRate } from '../model/seasonal-rate.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { MapComponent } from 'src/app/shared/map/map.component';
-import { ActivatedRoute } from '@angular/router';
 import { Image } from '../model/image.model';
 import { ImageService } from 'src/app/image-management/image.service';
 import { AccommodationWholeEdited } from '../model/accommodation-whole-edited-model';
