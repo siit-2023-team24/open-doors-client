@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 import { AccommodationService } from '../accommodation.service';
 import { Country } from 'src/env/country';
 import { AccommodationWhole } from '../model/accommodation-whole.model';
-import { AccommodationType } from 'src/env/accommodation-type';
 import { Amenity } from 'src/env/amenity';
 import { DateRange } from '../model/date-range.model';
 import { SeasonalRate } from '../model/seasonal-rate.model';
@@ -11,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Image } from '../model/image.model';
 import { ImageService } from 'src/app/image-management/image.service';
 import { AccommodationWholeEdited } from '../model/accommodation-whole-edited-model';
+import { AccommodationType } from 'src/env/accommodation-type';
 
 const minMaxValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const minControl = control.get('minGuests');

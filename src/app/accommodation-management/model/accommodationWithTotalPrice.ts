@@ -1,9 +1,8 @@
 import { Amenity } from "src/env/amenity";
-import { AccommodationType } from "src/env/accommodationType";
-import { DateRange } from "./date-range";
-import { Price } from "./price";
-import { User } from "../../user-management/model/user.model";
 import { Address } from "./address";
+import { DateRange } from "./date-range.model";
+import { SeasonalRate } from "./seasonal-rate.model";
+import { AccommodationType } from "src/env/accommodation-type";
 
 
 export interface AccommodationWithTotalPriceDTO {
@@ -18,10 +17,10 @@ export interface AccommodationWithTotalPriceDTO {
     accommodationType: AccommodationType;
     availability: DateRange[];
     price: number;
-    seasonalRates: Price[];
+    seasonalRates: SeasonalRate[];
     isPricePerNight: boolean;
     totalPrice: number | null;
     averageRating: number | null;
-    host: User;
+    host: string;
     address: Address;
   }
