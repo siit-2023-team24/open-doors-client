@@ -20,9 +20,12 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "@types/leaflet": "^1.9.8",
+    "leaflet": "^1.9.4",
     "@auth0/angular-jwt": "^5.2.0",
     "angular-calendar": "^0.31.0",
     "materialize-css": "^1.0.0",
+    "ng-carousel": "^0.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

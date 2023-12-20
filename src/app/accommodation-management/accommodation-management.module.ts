@@ -34,7 +34,8 @@ import { MyAccommodationCardComponent } from './my-accommodation-card/my-accommo
     CommonModule,
     MaterialModule,
     FormsModule,
-    ReviewManagementModule
+    ReviewManagementModule,
+    HttpClientModule
   ],
   exports: [
     AccommodationCardComponent,
