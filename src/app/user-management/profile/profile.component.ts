@@ -69,6 +69,7 @@ export class ProfileComponent implements OnInit {
       },
       error: (error) => {
         console.error(error.error.message);
+        alert(error.error.message)
       }
     })
   }

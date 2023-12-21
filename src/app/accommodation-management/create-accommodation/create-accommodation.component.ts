@@ -371,7 +371,11 @@ export class CreateAccommodationComponent {
           error: () => {console.error("Error sending images for pending accommodation")}
         })
       },
-      error: (error) => {console.error(error)}
+      error: (error) => {
+        console.error(error)
+        alert(error.error.message)
+      }
+        
     });
   }
 
