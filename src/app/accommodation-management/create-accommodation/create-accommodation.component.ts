@@ -391,7 +391,7 @@ export class CreateAccommodationComponent {
       minGuests: ['1', [Validators.required, Validators.max(100), Validators.min(1)]],
       maxGuests: ['1', [Validators.required, Validators.max(100), Validators.min(1)]],
       deadline: ['0', [Validators.required, Validators.max(365), Validators.min(0)]],
-      id: null,
+      // id: null,
       location: "",
       images: [],
       price: ['0', [Validators.required, Validators.min(0)]],

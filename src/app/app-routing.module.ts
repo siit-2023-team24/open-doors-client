@@ -11,6 +11,7 @@ import { MyAccommodationsComponent } from './accommodation-management/my-accommo
 import { CreateAccommodationComponent } from './accommodation-management/create-accommodation/create-accommodation.component';
 import { AccountActivationComponent } from './user-management/account-activation/account-activation.component';
 import { AuthGuard } from './auth/guard';
+import { PendingAccommodationsComponent } from './accommodation-management/pending-accommodations/pending-accommodations.component';
 
 const routes: Routes = [
     {component: LoginComponent, path:"login"},
@@ -25,6 +26,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', redirectTo: 'home' },
     {component: AccommodationPageComponent, path:"accommodation/:id"},
+    {component: PendingAccommodationsComponent, path: "pending-accommodations"}
 ];
 
 
