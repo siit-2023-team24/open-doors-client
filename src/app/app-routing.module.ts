@@ -23,10 +23,10 @@ const routes: Routes = [
     {component: MyAccommodationsComponent, path:"my-accommodations", canActivate: [AuthGuard], data : {role: ['ROLE_HOST']}},
     {component: CreateAccommodationComponent, path:"create-accommodation/:id/:accommodationId", canActivate: [AuthGuard], data : {role: ['ROLE_HOST']}},
     {component: AccountActivationComponent, path:"activate-account"},
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: '**', redirectTo: 'home' },
     {component: AccommodationPageComponent, path:"accommodation/:id"},
-    {component: PendingAccommodationsComponent, path: "pending-accommodations"}
+    {component: PendingAccommodationsComponent, path: "pending-accommodations"},
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '**', redirectTo: 'home' }
 ];
 
 

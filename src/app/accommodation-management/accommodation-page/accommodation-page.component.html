@@ -2,7 +2,7 @@
   <div class="accommodation-name"><h1>{{ accommodation.name }}</h1></div>
   <div class="basic-info">
     <div style="display: flex;">
-    <h2>{{ accommodation.address.city }}, {{ accommodation.address.country }}</h2>
+    <h2>{{ accommodation.city }}, {{ accommodation.country }}</h2>
     <span class="basic-info-reviews">
       <span class="rating">
         <mat-icon>star</mat-icon>
@@ -24,7 +24,7 @@
         {{ accommodation.description }}
       </span>
     </div>
-    <div class="reservation-details">
+    <div class="reservation-details" *ngIf="isGuest">
       <span class="reservation-details-first-line">
         <h1> {{ accommodation.price }} rsd night</h1>
         <span class="small-rating">
@@ -67,7 +67,7 @@
       <div class="cost-details" *ngIf="!isReservationButtonDisabled">
         <span>
           <span>{{ accommodation.price }} rsd x {{ numberOfNights }} nights</span> 
-          <span *ngIf="!accommodation.pricePerNight"> x {{ selectedGuestNumber }} guests</span>
+          <span *ngIf="!accommodation.isPricePerGuest"> x {{ selectedGuestNumber }} guests</span>
         </span>
         <span>{{ accommodation.totalPrice }} rsd</span>
       </div>

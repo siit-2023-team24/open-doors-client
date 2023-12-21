@@ -10,6 +10,8 @@ import { AccommodationReviewDetailsDTO } from 'src/app/review-management/model/a
 import { ReviewService } from 'src/app/review-management/review.service';
 import { MakeReservationRequestDTO } from '../model/reservationRequest';
 import { ReservationRequestService } from '../reservation-request.service';
+import { Country } from 'src/env/country';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-accommodation-page',
@@ -31,11 +33,14 @@ export class AccommodationPageComponent implements OnInit{
     availability: [],
     price: 0,
     seasonalRates: [],
-    pricePerNight: false,
+    isPricePerGuest: false,
     totalPrice: null,
     averageRating: null,
     host: "",
-    address: {} as Address
+    country: {} as Country,
+    city: "",
+    street: "",
+    number: 0
   };
   imagePaths: string[] = [];
   accommodationAddress: string = "";
@@ -43,6 +48,7 @@ export class AccommodationPageComponent implements OnInit{
   reviews: AccommodationReviewDetailsDTO[] = [];
   request: MakeReservationRequestDTO;
   isReservationButtonDisabled: boolean = true;
+  isGuest: boolean = false;
 
   selectedStartDate: Date;
   selectedEndDate: Date;
@@ -63,12 +69,15 @@ export class AccommodationPageComponent implements OnInit{
     private accommodationService: AccommodationService,
     private imageService: ImageService,
     private reviewService: ReviewService,
-    private reservationService: ReservationRequestService
+    private reservationService: ReservationRequestService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
 
     //todo
+
+    this.isGuest = (this.authService.getRole() || "") == "ROLE_GUEST";
 
     const accommodationIdParam = this.route.snapshot.paramMap.get('id');
     if(accommodationIdParam !== null) {
@@ -79,7 +88,8 @@ export class AccommodationPageComponent implements OnInit{
           (details) => {
             this.accommodation = details;
             this.accommodation.images = this.accommodation.images || [];
-            this.accommodationAddress = this.accommodation.address.street + " " + this.accommodation.address.number + ", " + this.accommodation.address.city;
+            console.log(this.accommodation);
+            this.accommodationAddress = this.accommodation.street + " " + this.accommodation.number + ", " + this.accommodation.city;
             this.isAccommodationDetailsReady = true;
             this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
 
@@ -106,8 +116,8 @@ export class AccommodationPageComponent implements OnInit{
         this.numberOfNights = this.calculateNightsBetweenDates(this.selectedStartDate, this.selectedEndDate);
         this.accommodation.totalPrice = this.accommodation.price * this.numberOfNights;
         console.log(this.accommodation); // normal has pricePerNight set to true
-        console.log(this.accommodation.pricePerNight); // undefined
-        if(!this.accommodation.pricePerNight) {
+        console.log(this.accommodation.isPricePerGuest); // undefined
+        if(!this.accommodation.isPricePerGuest) {
           this.accommodation.totalPrice *= this.selectedGuestNumber;
         }
     }
@@ -116,12 +126,14 @@ export class AccommodationPageComponent implements OnInit{
   makeReservationRequest() {
     this.request = {
       accommodationId: this.accommodation.id,
-      guestId: null,
+      guestId: this.authService.getId(),
       numberOfGuests: this.selectedGuestNumber,
       startDate: this.selectedStartDate,
       endDate: this.selectedEndDate,
       totalPrice: this.accommodation.totalPrice
     }
+
+    console.log(this.request);
     
     this.reservationService.makeReservation(this.request).subscribe(
       (response) => {
