@@ -1,8 +1,8 @@
-import { Country } from "src/env/country";
+import { Country } from "src/app/shared/model/country";
 import { SeasonalRate } from "./seasonal-rate.model";
 import { DateRange } from "./date-range.model";
 import { Image } from "./image.model";
-import { AccommodationType } from "src/env/accommodation-type";
+import { AccommodationType } from "src/app/accommodation-management/model/accommodation-type";
 export interface AccommodationWholeEdited {
     id?: number,
     accommodationId?: number,

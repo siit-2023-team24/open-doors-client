@@ -1,8 +1,8 @@
-import { Amenity } from "src/env/amenity";
+import { AccommodationType } from "src/app/accommodation-management/model/accommodation-type";
+import { Amenity } from "./amenity";
 import { DateRange } from "./date-range.model";
 import { SeasonalRate } from "./seasonal-rate.model";
-import { AccommodationType } from "src/env/accommodation-type";
-import { Country } from "src/env/country";
+import { Country } from "src/app/shared/model/country";
 
 
 export interface AccommodationWithTotalPriceDTO {

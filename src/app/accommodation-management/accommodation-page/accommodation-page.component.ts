@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { AccommodationService } from '../accommodation.service';
-import { AccommodationWithTotalPriceDTO } from '../model/accommodationWithTotalPrice';
-import { AccommodationType } from 'src/env/accommodation-type';
+import { AccommodationWithTotalPriceDTO } from '../model/accommodation-with-total-price.model';
+import { AccommodationType } from 'src/app/accommodation-management/model/accommodation-type';
 import { Address } from '../model/address';
 import { ImageService } from 'src/app/image-management/image.service';
 import { AccommodationReviewDetailsDTO } from 'src/app/review-management/model/accommodationReviewDetails';
 import { ReviewService } from 'src/app/review-management/review.service';
 import { MakeReservationRequestDTO } from '../model/reservationRequest';
 import { ReservationRequestService } from '../reservation-request.service';
-import { Country } from 'src/env/country';
+import { Country } from 'src/app/shared/model/country';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({

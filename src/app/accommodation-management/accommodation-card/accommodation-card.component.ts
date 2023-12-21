@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AccommodationSearchDTO } from '../model/accommodationSearch';
+import { AccommodationSearchDTO } from '../model/accommodation-search.model';
 import { Router } from '@angular/router';
 import { ImageService } from 'src/app/image-management/image.service';
 

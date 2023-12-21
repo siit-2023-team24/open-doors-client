@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EditUser } from '../model/edit-user.model';
-import { Country } from 'src/env/country';
+import { Country } from 'src/app/shared/model/country';
 import { ImageService } from 'src/app/image-management/image.service';
 import { AuthService } from 'src/app/auth/auth.service';
 

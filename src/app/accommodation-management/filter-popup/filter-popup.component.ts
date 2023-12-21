@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { SearchAndFilterDTO } from '../model/searchAndFilter';
+import { SearchAndFilterDTO } from '../model/search-and-filter.model';
 import { AccommodationService } from '../accommodation.service';
 
 @Component({
