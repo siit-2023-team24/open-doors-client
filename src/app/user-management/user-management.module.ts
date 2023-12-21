@@ -10,6 +10,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
+import { AccountActivationComponent } from './account-activation/account-activation.component';
 
 
 
@@ -19,7 +20,8 @@ import { SharedModule } from '../shared/shared.module';
     RegisterComponent,
     ProfileComponent,
     ProfileEditComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    AccountActivationComponent
   ],
   imports: [
     CommonModule,

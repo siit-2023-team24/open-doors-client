@@ -3,22 +3,24 @@
   <button mat-icon-button class="favorite-button" (click)="toggleFavorite()">
     <mat-icon [style.color]="isFavorite ? 'red' : 'black'">favorite</mat-icon>
   </button>
-  <a [routerLink]="['../accommodation']" [queryParams]="{title: 'Accommodation'}">
-    <img src="../../../assets/image.jpg" alt="Accommodation Image" class="accommodation-image" />
+  <a (click)="onAccommodationClicked()">
+    <img [src]="getImagePath()" alt="Accommodation Image" class="accommodation-image" />
 
     <div class="details">
       <div class="row">
-        <div class="location">Novi Sad, Srbija</div>
+        <div class="location">{{accommodation.city ? accommodation.city : 'No city'}}, {{accommodation.country ? accommodation.country : 'No country'}}</div>
         <div class="rating">
           <mat-icon>star</mat-icon>
-          <span>5.00</span>
+          <span>{{accommodation.averageRating}}</span>
         </div>
       </div>
 
       <div class="info">
         <div class="row">
-          <span style="margin-right: 20px;">1500 rsd/night</span>
-          <span>7500 rsd total</span>
+          <span style="margin-right: 20px;">{{accommodation.price}} rsd/night</span>
+          <span *ngIf="accommodation.totalPrice !== null && accommodation.totalPrice !== 0.0;">
+            {{ accommodation.totalPrice }} rsd total
+          </span>
         </div>
       </div>
     </div>

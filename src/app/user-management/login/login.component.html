@@ -1,13 +1,19 @@
 <div class="page">
     <main>
         <form [formGroup]="loginForm">
-            <div class="form">
+            <div class="form login">
                 <mat-form-field>
                     <input matInput type="email" formControlName="username" id="email" name="email" autocomplete="email" placeholder="Email">
+                    <mat-error *ngIf="loginForm.get('username')?.hasError('email') && !loginForm.get('email')?.hasError('required')">
+                        Please enter a valid email address.
+                    </mat-error>
                 </mat-form-field>
                 <br>
                 <mat-form-field>
                     <input matInput type="password" formControlName="password" id="password" name="password" autocomplete="current-password" placeholder="Password">
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+                        Password must be at least 3 characters long.
+                    </mat-error>
                 </mat-form-field>
                 <br>
                 <button mat-raised-button id="login_button" class="button login-btn" (click)="login()">Sign in</button>
