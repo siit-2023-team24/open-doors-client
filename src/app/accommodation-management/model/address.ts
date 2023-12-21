@@ -1,4 +1,4 @@
-import { Country } from "src/env/country";
+import { Country } from "src/app/shared/model/country";
 
 export interface Address {
     street: string;

@@ -1,18 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AccommodationService } from '../accommodation.service';
-import { Country } from 'src/env/country';
+import { Country } from 'src/app/shared/model/country';
 import { AccommodationWhole } from '../model/accommodation-whole.model';
-import { Amenity } from 'src/env/amenity';
+import { Amenity } from 'src/app/accommodation-management/model/amenity';
 import { DateRange } from '../model/date-range.model';
 import { SeasonalRate } from '../model/seasonal-rate.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
-import { MapComponent } from 'src/app/shared/map/map.component';
+import { MapViewComponent } from '../map-view/map-view.component';
 import { Image } from '../model/image.model';
 import { ImageService } from 'src/app/image-management/image.service';
 import { AccommodationWholeEdited } from '../model/accommodation-whole-edited-model';
-import { AccommodationType } from 'src/env/accommodation-type';
+import { AccommodationType } from 'src/app/accommodation-management/model/accommodation-type';
 
 const minMaxValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const minControl = control.get('minGuests');
@@ -40,7 +40,7 @@ const minMaxValidator: ValidatorFn = (control: AbstractControl): ValidationError
 })
 export class CreateAccommodationComponent {
 
-  @ViewChild(MapComponent) mapComponent: MapComponent;
+  @ViewChild(MapViewComponent) mapComponent: MapViewComponent;
 
   id: number | undefined;
   accommodationId: number | undefined;
@@ -366,13 +366,14 @@ export class CreateAccommodationComponent {
     this.service.add(accommodationDTO).subscribe({
       next: (response: AccommodationWholeEdited) => {
         console.log("SUCCESS! " + accommodationDTO, response);
+        this.router.navigate(['my-accommodations'])
         this.service.addImages(response.id || 0, formData).subscribe({
           next: () => {console.log("Sent images")},
           error: () => {console.error("Error sending images for pending accommodation")}
         })
       },
       error: (error) => {console.error(error)}
-    }); 
+    });
   }
 
   constructor(private formBuilder: FormBuilder, private service: AccommodationService,

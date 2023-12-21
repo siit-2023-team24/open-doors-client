@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { Country } from 'src/env/country';
+import { Country } from 'src/app/shared/model/country';
 import { ImageService } from 'src/app/image-management/image.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';

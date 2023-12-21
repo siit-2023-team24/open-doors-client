@@ -8,8 +8,9 @@ import { MapService } from './map.service';
   styleUrls: ['./map-view.component.css']
 })
 export class MapViewComponent implements AfterViewInit {
-  private map: any;
-
+  private map: L.Map;
+  coordinates : string;
+  
   @Input() accommodationAddress: string;
 
   constructor(private mapService: MapService) {}
@@ -46,11 +47,16 @@ export class MapViewComponent implements AfterViewInit {
     this.mapService.search(address).subscribe({
       next: (result) => {
         console.log(result);
+        this.map.eachLayer(layer => {
+          if (layer instanceof L.Marker) {
+            this.map.removeLayer(layer);
+          }
+        });
         L.marker([result[0].lat, result[0].lon])
           .addTo(this.map)
           .bindPopup(address)
           .openPopup();
-
+        this.coordinates = result[0].lat + " " + result[0].lon;
         this.map.setView([result[0].lat, result[0].lon], 13);
         },
       error: () => {},

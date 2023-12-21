@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, Abst
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { UserAccount } from '../model/user-account.model';
-import { Country } from 'src/env/country';
+import { Country } from 'src/app/shared/model/country';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {

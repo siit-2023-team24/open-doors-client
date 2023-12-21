@@ -1,8 +1,8 @@
-import { Amenity } from "src/env/amenity";
-import { Address } from "./address";
+import { Amenity } from "src/app/accommodation-management/model/amenity";
 import { DateRange } from "./date-range.model";
 import { SeasonalRate } from "./seasonal-rate.model";
-import { AccommodationType } from "src/env/accommodation-type";
+import { AccommodationType } from "src/app/accommodation-management/model/accommodation-type";
+import { Address } from "./address";
 
 
 export interface AccommodationWithTotalPriceDTO {
@@ -22,5 +22,5 @@ export interface AccommodationWithTotalPriceDTO {
     totalPrice: number | null;
     averageRating: number | null;
     host: string;
-    address: Address;
+    address: Address
   }

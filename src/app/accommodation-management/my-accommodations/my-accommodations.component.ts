@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccommodationService } from '../accommodation.service';
-import { HostListAccommodation } from '../model/host-list-accommodation';
+import { HostListAccommodation } from '../model/host-list-accommodation.model';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({

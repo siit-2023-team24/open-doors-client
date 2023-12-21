@@ -132,7 +132,7 @@
                         </mat-form-field>
                     </div>
                         
-                    <app-map [address]="address"></app-map>
+                    <app-map-view [accommodationAddress]="address"></app-map-view>
                     <h2 class = "amenities">{{ coordinates }}</h2>
                     
                     <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
@@ -238,7 +238,7 @@
                 </form>
             </div>
 
-            <div *ngIf="page === 2">
+            <div class="form" *ngIf="page === 2">
 
                 <h1>Define availability</h1>
 
@@ -248,7 +248,7 @@
                         <mat-card class="demo-inline-calendar-card">
                             <mat-calendar (selectedChange)="availableDateSelected($event)"></mat-calendar>
                         </mat-card>
-                        <p>{{ availabilityMessage }}</p>
+                        <div class="instructions"><p>{{ availabilityMessage }}</p></div>
                     </div>
                     <ul class="scrollable-list">
                     <li *ngFor="let range of availability">Available period: {{ range.startDate | date }} to {{ range.endDate | date }}</li>
@@ -265,7 +265,7 @@
                 </div>
             </div>
 
-            <div *ngIf="page === 3">
+            <div class="form" *ngIf="page === 3">
                 <h1>Add seasonal rates</h1>
                 
                 <mat-form-field class="create-text-field left">
@@ -282,7 +282,7 @@
                         <mat-card class="demo-inline-calendar-card">
                             <mat-calendar (selectedChange)="priceDateSelected($event)"></mat-calendar>
                         </mat-card>
-                        <p class="error">{{ priceError }}</p>
+                        <div class="instructions"><p class="error">{{ priceError }}</div>
                     </div>
                     <ul class="scrollable-list">
                     <li *ngFor="let rate of seasonalRates">A new price of {{ rate.price }} from {{ rate.period.startDate | date }} to {{ rate.period.endDate | date }}</li>

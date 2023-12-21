@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccommodationSearchDTO } from './model/accommodationSearch';
+import { AccommodationSearchDTO } from './model/accommodation-search.model';
 import { AccommodationWhole } from './model/accommodation-whole.model';
 import { environment } from 'src/env/env';
-import { HostListAccommodation } from './model/host-list-accommodation';
+import { HostListAccommodation } from './model/host-list-accommodation.model';
 import { AccommodationWholeEdited } from './model/accommodation-whole-edited-model';
-import { AccommodationWithTotalPriceDTO } from './model/accommodationWithTotalPrice';
-import { SearchAndFilterDTO } from './model/searchAndFilter';
+import { AccommodationWithTotalPriceDTO } from './model/accommodation-with-total-price.model';
+import { SearchAndFilterDTO } from './model/search-and-filter.model';
 
 @Injectable({
   providedIn: 'root'

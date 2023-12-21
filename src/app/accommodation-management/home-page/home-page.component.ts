@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AccommodationService } from '../accommodation.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterPopupComponent } from '../filter-popup/filter-popup.component';
-import { AccommodationSearchDTO } from '../model/accommodationSearch';
-import { SearchAndFilterDTO } from '../model/searchAndFilter';
+import { AccommodationSearchDTO } from '../model/accommodation-search.model';
+import { SearchAndFilterDTO } from '../model/search-and-filter.model';
 
 @Component({
   selector: 'app-home-page',

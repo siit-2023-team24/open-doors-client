@@ -1,5 +1,5 @@
-import { Country } from "src/env/country";
-import { AccommodationType } from "src/env/accommodation-type";
+import { Country } from "src/app/shared/model/country";
+import { AccommodationType } from "src/app/accommodation-management/model/accommodation-type";
 import { SeasonalRate } from "./seasonal-rate.model";
 import { DateRange } from "./date-range.model";
 export interface AccommodationWhole {
