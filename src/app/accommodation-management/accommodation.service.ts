@@ -44,8 +44,8 @@ export class AccommodationService {
   }
 
 
-  get(id: number): Observable<AccommodationWhole> {
-    return this.http.get<AccommodationWhole>(environment.apiHost + '/accommodations/' + id);
+  getEditable(id: number): Observable<AccommodationWhole> {
+    return this.http.get<AccommodationWhole>(environment.apiHost + '/accommodations/editable/' + id);
   }
 
   getPending(id: number): Observable<AccommodationWhole> {
@@ -70,6 +70,10 @@ export class AccommodationService {
 
   deletePending(id: number): Observable<Object> {
     return this.http.delete(environment.apiHost + '/pending-accommodations/' + id)
+  }
+
+  denyPending(id: number): Observable<Object> {
+    return this.http.delete(environment.apiHost + '/pending-accommodations/deny/' + id)
   }
   
   getAccommodationTypes(): Observable<string[]> {
