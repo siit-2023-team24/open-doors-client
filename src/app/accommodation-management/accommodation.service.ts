@@ -71,6 +71,10 @@ export class AccommodationService {
   deletePending(id: number): Observable<Object> {
     return this.http.delete(environment.apiHost + '/pending-accommodations/' + id)
   }
+
+  denyPending(id: number): Observable<Object> {
+    return this.http.delete(environment.apiHost + '/pending-accommodations/deny/' + id)
+  }
   
   getAccommodationTypes(): Observable<string[]> {
     return this.http.get<string[]>(environment.apiHost + '/accommodations/accommodationTypes');
