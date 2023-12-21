@@ -1,6 +1,5 @@
 
   .review {
-    width: calc(100% - 10px);
     margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ddd;
@@ -23,6 +22,10 @@
 
   .user-text {
     display: flex;
+  }
+
+  .review-card {
+    margin: 0;
   }
 
   .rating {

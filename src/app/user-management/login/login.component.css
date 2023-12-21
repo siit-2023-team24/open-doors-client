@@ -13,6 +13,9 @@
     background-color: #E1DDDB;
 }
 
+.login {
+    width: 500px;
+}
 
 .input-field {
     width: 80%;
@@ -26,4 +29,9 @@
 }
 .no-account{
     margin: 15px 0 35px 0;
+}
+
+.error {
+    color: red;
+    height : 50px;
 }

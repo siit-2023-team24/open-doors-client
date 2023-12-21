@@ -4,13 +4,13 @@
       <div class="search-bar-content">
         <div class="search-input">
           <mat-form-field>
-            <input matInput placeholder="Location" />
+            <input matInput placeholder="Location" [(ngModel)]="searchBarValues.location"/>
           </mat-form-field>
         </div>
     
         <div class="search-input">
           <mat-form-field>
-            <input matInput [matDatepicker]="checkInDatePicker" placeholder="Check-In Date" />
+            <input matInput [matDatepicker]="checkInDatePicker" placeholder="Check-In Date" [(ngModel)]="searchBarValues.startDate" [matDatepickerFilter]="startDateFilter"/>
             <mat-datepicker-toggle matSuffix [for]="checkInDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #checkInDatePicker></mat-datepicker>
           </mat-form-field>
@@ -18,7 +18,7 @@
     
         <div class="search-input">
           <mat-form-field>
-            <input matInput [matDatepicker]="checkOutDatePicker" placeholder="Check-Out Date" />
+            <input matInput [matDatepicker]="checkOutDatePicker" placeholder="Check-Out Date" [(ngModel)]="searchBarValues.endDate" [matDatepickerFilter]="endDateFilter"/>
             <mat-datepicker-toggle matSuffix [for]="checkOutDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #checkOutDatePicker></mat-datepicker>
           </mat-form-field>
@@ -26,14 +26,16 @@
     
         <div class="search-input">
           <mat-form-field>
-            <input matInput type="number" placeholder="Number of Guests" />
+            <input id="not-a-pass-field" matInput type="number" placeholder="Number of Guests" [(ngModel)]="searchBarValues.guestNumber" autocomplete="off"/>
           </mat-form-field>
         </div>
         
         <div class="search-button">
-          <button mat-button>
-            <span>Search</span>
-            <mat-icon>search</mat-icon>
+          <button mat-button (click)="searchAndFilterAccommodations()">
+            <span class="icon-button">
+              Search
+              <mat-icon>search</mat-icon>
+            </span>
           </button>
         </div>
       </div>
@@ -41,31 +43,18 @@
   
     <div class="just-button-container">
       <div class="filter-button">
-        <button mat-button>
-          <span>Filter</span>
-          <mat-icon>filter_list</mat-icon>
+        <button mat-button class="button icon-button" (click)="openFilterDialog()">
+            <span class="icon-button">
+            Filter
+            <mat-icon>filter_list</mat-icon>
+          </span>
         </button>
       </div>
     </div>
 
     <mat-grid-list gutterSize="16" cols="5" rowHeight="330">
-        <mat-grid-tile colspan="1">
-          <app-accommodation-card></app-accommodation-card>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1">
-          <app-accommodation-card></app-accommodation-card>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1">
-          <app-accommodation-card></app-accommodation-card>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1">
-          <app-accommodation-card></app-accommodation-card>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1">
-          <app-accommodation-card></app-accommodation-card>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1">
-          <app-accommodation-card></app-accommodation-card>
+        <mat-grid-tile *ngFor="let accommodation of accommodations" colspan="1">
+          <app-accommodation-card [accommodation]="accommodation"></app-accommodation-card>
         </mat-grid-tile>
     </mat-grid-list>
     <div class="just-button-container">
