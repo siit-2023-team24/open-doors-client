@@ -9,7 +9,6 @@ import { SeasonalRate } from '../model/seasonal-rate.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { MapComponent } from 'src/app/shared/map/map.component';
-import { ActivatedRoute } from '@angular/router';
 import { Image } from '../model/image.model';
 import { ImageService } from 'src/app/image-management/image.service';
 import { AccommodationWholeEdited } from '../model/accommodation-whole-edited-model';
@@ -98,7 +97,7 @@ export class CreateAccommodationComponent {
         })
         
       } else if (this.accommodationId) {  //edit active
-        this.service.get(this.accommodationId).subscribe({
+        this.service.getEditable(this.accommodationId).subscribe({
           next: (data: AccommodationWhole) => {
             if (data.hostUsername!=this.authService.getUsername())  {
               this.router.navigate(['home']);
@@ -124,8 +123,7 @@ export class CreateAccommodationComponent {
     this.selectedAmenities = data.amenities;
     this.retrieveAvailability(data.availability);
     this.retrieveSeasonalRates(data.seasonalRates);
-
-    console.log(this.availableDates);
+    this.updateAddress();
   }
 
   onFileChanged(event: any) {
@@ -391,7 +389,7 @@ export class CreateAccommodationComponent {
       minGuests: ['1', [Validators.required, Validators.max(100), Validators.min(1)]],
       maxGuests: ['1', [Validators.required, Validators.max(100), Validators.min(1)]],
       deadline: ['0', [Validators.required, Validators.max(365), Validators.min(0)]],
-      id: null,
+      // id: null,
       location: "",
       images: [],
       price: ['0', [Validators.required, Validators.min(0)]],

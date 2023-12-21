@@ -16,7 +16,6 @@ export class MapComponent implements AfterViewInit {
   constructor(private mapService: MapService) {}
 
   private initMap(): void {
-    this.search(this.address);
     this.map = L.map('map', {
       center: [0,0],
       zoom: 13
@@ -29,6 +28,7 @@ export class MapComponent implements AfterViewInit {
     });
     
 
+    this.search(this.address);
     tiles.addTo(this.map);
   }
 
