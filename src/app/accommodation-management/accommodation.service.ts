@@ -29,8 +29,15 @@ export class AccommodationService {
     return this.http.get<AccommodationSearchDTO[]>(environment.apiHost + "/accommodations")
   }
 
-  getAccommodation(id: number): Observable<AccommodationWithTotalPriceDTO> {
-    return this.http.get<AccommodationWithTotalPriceDTO>(environment.apiHost + '/accommodations/' + id)
+  getAccommodation(id: number | null, accommodationId: number | null): Observable<AccommodationWithTotalPriceDTO> {
+    if (!id) {
+      console.log(id, accommodationId, "PRVI")
+      return this.http.get<AccommodationWithTotalPriceDTO>(environment.apiHost + '/accommodations/' + accommodationId)
+    }
+    else {
+      console.log(id, accommodationId, "DRUGI")
+      return this.http.get<AccommodationWithTotalPriceDTO>(environment.apiHost + '/pending-accommodations/' + id)
+    }
   }
 
   searchAndFilterAccommodations(filterParams: SearchAndFilterDTO): Observable<AccommodationSearchDTO[]> {

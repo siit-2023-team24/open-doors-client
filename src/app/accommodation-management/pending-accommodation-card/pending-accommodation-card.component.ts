@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { HostListAccommodation } from '../model/host-list-accommodation';
+import { HostListAccommodation } from '../model/host-list-accommodation.model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AccommodationService } from '../accommodation.service';
 import { ImageService } from 'src/app/image-management/image.service';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HostListAccommodation } from '../model/host-list-accommodation';
+import { HostListAccommodation } from '../model/host-list-accommodation.model';
 import { AccommodationService } from '../accommodation.service';
 
 @Component({

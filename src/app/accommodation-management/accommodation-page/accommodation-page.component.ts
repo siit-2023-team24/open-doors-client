@@ -79,32 +79,40 @@ export class AccommodationPageComponent implements OnInit{
 
     this.isGuest = (this.authService.getRole() || "") == "ROLE_GUEST";
 
-    const accommodationIdParam = this.route.snapshot.paramMap.get('id');
-    if(accommodationIdParam !== null) {
-      const accommodationId = +accommodationIdParam;
-      this.accommodationService
-        .getAccommodation(accommodationId)
-        .subscribe(
-          (details) => {
-            this.accommodation = details;
-            this.accommodation.images = this.accommodation.images || [];
-            console.log(this.accommodation);
-            this.accommodationAddress = this.accommodation.street + " " + this.accommodation.number + ", " + this.accommodation.city;
-            this.isAccommodationDetailsReady = true;
-            this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
-
-            this.reviewService.getReviewsForAccommodation(accommodationId)
-            .subscribe(reviews => {
-              this.reviews = reviews;
-            });
-          },
-          (error) => {
-            console.error("Error fetching accommodation details:", error);
-          }
-        );
+    const pendingParam = this.route.snapshot.paramMap.get('id');
+    const accommodationIdParam = this.route.snapshot.paramMap.get('accommodationId');
+    let accommodationId: number | null;
+    let pendingId : number | null
+    if (accommodationIdParam == null) {
+      accommodationId = null;
     } else {
-      console.error("Accommodation ID is null");
+      accommodationId = + accommodationIdParam;
     }
+    
+    if (pendingParam == null) {
+      pendingId = null;
+    } else {
+      pendingId = + pendingParam;
+    }
+
+    this.accommodationService.getAccommodation(pendingId, accommodationId).subscribe(
+      (details) => {
+        this.accommodation = details;
+        this.accommodation.images = this.accommodation.images || [];
+        console.log(this.accommodation);
+        this.accommodationAddress = this.accommodation.street + " " + this.accommodation.number + ", " + this.accommodation.city;
+        this.isAccommodationDetailsReady = true;
+        this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
+        if (accommodationId!==null){
+          this.reviewService.getReviewsForAccommodation(accommodationId).subscribe(reviews => {
+            this.reviews = reviews;
+          });
+        }
+      },
+      (error) => {
+        console.error("Error fetching accommodation details:", error);
+      }
+    );
   }
 
   onInput(){

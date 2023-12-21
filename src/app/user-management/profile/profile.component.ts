@@ -63,13 +63,12 @@ export class ProfileComponent implements OnInit {
       next: () => {
         console.log('Deleted user with id: ' + this.user.id);
 
-        //TODO logout
+        this.authService.logout();
 
         this.router.navigate(['home']);
       },
       error: (error) => {
         console.error(error.error.message);
-        //TODO snack
       }
     })
   }

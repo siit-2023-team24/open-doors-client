@@ -19,7 +19,7 @@ export class AccommodationCardComponent {
   clicked: EventEmitter<AccommodationSearchDTO> = new EventEmitter<AccommodationSearchDTO>();
 
   onAccommodationClicked(): void {
-    this.router.navigate(["/accommodation", this.accommodation.id]);
+    this.router.navigate(["/accommodation/null", this.accommodation.id]);
   }
 
   getImagePath(): string {

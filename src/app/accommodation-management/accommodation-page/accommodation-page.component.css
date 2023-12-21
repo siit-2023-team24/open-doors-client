@@ -190,3 +190,9 @@ mat-grid-tile.half-width-review-card {
 .disabled-button {
   opacity: 0.5;
 }
+
+.center-div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
