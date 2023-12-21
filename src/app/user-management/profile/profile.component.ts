@@ -4,8 +4,10 @@ import { Country } from 'src/env/country';
 import { ImageService } from 'src/app/image-management/image.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
+import { Router } from '@angular/router';
 import { EditUser } from '../model/edit-user.model';
 import { AuthService } from 'src/app/auth/auth.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -21,8 +23,9 @@ export class ProfileComponent implements OnInit {
   imgPath: string= "";
 
   constructor(private userService: UserService, private imageService: ImageService,
-    private dialog: MatDialog, private authService: AuthService) {
+    private dialog: MatDialog, private router: Router, private authService: AuthService) {
   }
+
 
   ngOnInit(): void {
     
@@ -56,7 +59,19 @@ export class ProfileComponent implements OnInit {
   }
 
   onDelete(): void {
-    //TODO
+    this.userService.delete(this.user.id).subscribe({
+      next: () => {
+        console.log('Deleted user with id: ' + this.user.id);
+
+        //TODO logout
+
+        this.router.navigate(['home']);
+      },
+      error: (error) => {
+        console.error(error.error.message);
+        //TODO snack
+      }
+    })
   }
 
 }
