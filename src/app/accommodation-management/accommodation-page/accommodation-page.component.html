@@ -2,7 +2,7 @@
   <div class="accommodation-name"><h1>{{ accommodation.name }}</h1></div>
   <div class="basic-info">
     <div style="display: flex;">
-    <h2>{{ accommodation.address.city }}, {{ accommodation.address.country }}</h2>
+    <h2>{{ accommodation.city }}, {{ accommodation.country }}</h2>
     <span class="basic-info-reviews">
       <span class="rating">
         <mat-icon>star</mat-icon>
@@ -24,7 +24,7 @@
         {{ accommodation.description }}
       </span>
     </div>
-    <div class="reservation-details">
+    <div class="reservation-details" *ngIf="isGuest">
       <span class="reservation-details-first-line">
         <h1> {{ accommodation.price }} rsd night</h1>
         <span class="small-rating">
@@ -39,14 +39,14 @@
         <div class="date-pickers">
           <div>
             <mat-form-field>
-              <input matInput [matDatepicker]="checkInDatePicker" placeholder="Check-In" />
+              <input matInput [matDatepicker]="checkInDatePicker" placeholder="Check-In" [(ngModel)]="selectedStartDate" [matDatepickerFilter]="startDateFilter" (input)="onInput()"/>
               <mat-datepicker-toggle matSuffix [for]="checkInDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #checkInDatePicker></mat-datepicker>
             </mat-form-field>
           </div>
           <div>
             <mat-form-field>
-              <input matInput [matDatepicker]="checkOutDatePicker" placeholder="Check-Out" />
+              <input matInput [matDatepicker]="checkOutDatePicker" placeholder="Check-Out" [(ngModel)]="selectedEndDate" [matDatepickerFilter]="endDateFilter" (input)="onInput()"/>
               <mat-datepicker-toggle matSuffix [for]="checkOutDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #checkOutDatePicker></mat-datepicker>
             </mat-form-field>
@@ -55,17 +55,20 @@
     
         <div class="guest-number">
           <mat-form-field>
-            <input matInput type="number" placeholder="Guests" />
+            <input matInput type="number" placeholder="Guests" [min]="accommodation.minGuests" [max]="accommodation.maxGuests" [(ngModel)]="selectedGuestNumber" (input)="onInput()"/>
           </mat-form-field>
         </div>
       </div>
       <div class="reserve-button">
-        <button mat-button>
+        <button mat-button (click)="makeReservationRequest()" [disabled]="isReservationButtonDisabled" [ngClass]="{'disabled-button': isReservationButtonDisabled}">
           <span style="font-size: 20px;">Reserve</span>
         </button>
       </div>
-      <div class="cost-details">
-        <span>{{ accommodation.price }} rsd x 9 nights</span>
+      <div class="cost-details" *ngIf="!isReservationButtonDisabled">
+        <span>
+          <span>{{ accommodation.price }} rsd x {{ numberOfNights }} nights</span> 
+          <span *ngIf="!accommodation.isPricePerGuest"> x {{ selectedGuestNumber }} guests</span>
+        </span>
         <span>{{ accommodation.totalPrice }} rsd</span>
       </div>
     </div>

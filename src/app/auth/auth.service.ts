@@ -19,6 +19,7 @@ export class AuthService {
   }
 
   getRole() : string {
+    if(!this.isLoggedIn()) return "";
     return this.helper.decodeToken(localStorage.getItem('user') || '').role;
   }
 

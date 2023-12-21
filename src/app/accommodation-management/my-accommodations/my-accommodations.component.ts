@@ -29,7 +29,7 @@ export class MyAccommodationsComponent implements OnInit {
       next: (data: HostListAccommodation[]) => {
         this.accommodations = data;
         if (data.length==0) {
-          this.noActiveMessage = "You have no approved accommodations!\n"
+          this.noActiveMessage = "You have no active accommodations.\n"
         }
       },
       error: () => console.error("Error getting host's accommodations.")
@@ -39,7 +39,7 @@ export class MyAccommodationsComponent implements OnInit {
       next: (data: HostListAccommodation[]) => {
         this.pending = data;
         if (data.length==0) {
-          this.noPendingMessage = "You have no pending accommodations!\n"
+          this.noPendingMessage = "You have no pending accommodations.\n"
         }
       },
       error: () => console.error("Error getting host's pending accommodations.")

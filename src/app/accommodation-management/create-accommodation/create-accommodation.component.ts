@@ -97,7 +97,7 @@ export class CreateAccommodationComponent {
         })
         
       } else if (this.accommodationId) {  //edit active
-        this.service.get(this.accommodationId).subscribe({
+        this.service.getEditable(this.accommodationId).subscribe({
           next: (data: AccommodationWhole) => {
             if (data.hostUsername!=this.authService.getUsername())  {
               this.router.navigate(['home']);
@@ -123,8 +123,7 @@ export class CreateAccommodationComponent {
     this.selectedAmenities = data.amenities;
     this.retrieveAvailability(data.availability);
     this.retrieveSeasonalRates(data.seasonalRates);
-
-    console.log(this.availableDates);
+    this.updateAddress();
   }
 
   onFileChanged(event: any) {

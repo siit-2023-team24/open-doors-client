@@ -46,6 +46,7 @@ export class MapViewComponent implements AfterViewInit {
   search(address : string): void {
     this.mapService.search(address).subscribe({
       next: (result) => {
+        console.log(address);
         console.log(result);
         this.map.eachLayer(layer => {
           if (layer instanceof L.Marker) {

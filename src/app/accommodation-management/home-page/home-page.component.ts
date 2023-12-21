@@ -14,8 +14,17 @@ export class HomePageComponent implements OnInit {
   accommodations: AccommodationSearchDTO[] = [];
   filterParams: SearchAndFilterDTO = { location: null, guestNumber: null, startDate: null, endDate: null, startPrice: null, endPrice: null, types: [], amenities: [] };
   searchBarValues: SearchAndFilterDTO = { location: null, guestNumber: null, startDate: null, endDate: null, startPrice: null, endPrice: null, types: [], amenities: [] };
+  // Datepicker filters
+  startDateFilter = (date: Date | null): boolean => {
+    return date ? date >= new Date() && (!this.searchBarValues.endDate || date <= this.searchBarValues.endDate) : true;
+  };  
 
-  constructor(public dialog: MatDialog, private accommodationService: AccommodationService) {}
+  endDateFilter = (date: Date | null): boolean => {
+    return date ? date >= (this.searchBarValues.startDate || new Date()) : true;
+  };
+  
+  constructor(public dialog: MatDialog, 
+              private accommodationService: AccommodationService) {}
 
   ngOnInit(): void {
       this.fetchAccommodations();
