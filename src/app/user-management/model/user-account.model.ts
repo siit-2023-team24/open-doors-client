@@ -1,6 +1,6 @@
 export interface UserAccount {
     id? : number;
-    email : string;
+    username : string;
     password : string;
     role : string;
     firstName : string;
@@ -10,5 +10,5 @@ export interface UserAccount {
     number : number;
     city: string;
     country : string;
-    imageId : number;
+    imageId? : number;
 }

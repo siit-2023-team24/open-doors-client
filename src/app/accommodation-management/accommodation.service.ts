@@ -1,27 +1,51 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AccommodationSearchDTO } from './model/accommodationSearch';
 import { AccommodationWhole } from './model/accommodation-whole.model';
 import { environment } from 'src/env/env';
 import { HostListAccommodation } from './model/host-list-accommodation';
+import { AccommodationWholeEdited } from './model/accommodation-whole-edited-model';
+import { AccommodationWithTotalPriceDTO } from './model/accommodationWithTotalPrice';
+import { SearchAndFilterDTO } from './model/searchAndFilter';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccommodationService {
+
   
   constructor(private http: HttpClient) { }
 
-  add(accommodationWhole: AccommodationWhole): Observable<AccommodationWhole>{
-    console.log("in service:\n");
-    console.log(accommodationWhole);
 
-    return this.http.post<AccommodationWhole>(environment.apiHost + '/pending-accommodations', accommodationWhole);
-    
+  add(dto: AccommodationWholeEdited): Observable<AccommodationWholeEdited>{
+    console.log("in service:");
+    console.log(dto);
+    return this.http.post<AccommodationWholeEdited>(environment.apiHost + '/pending-accommodations', dto);
   }
 
-  get(id: number): Observable<AccommodationWhole> {
-    return this.http.get<AccommodationWhole>(environment.apiHost + '/accommodations/' + id);
+
+  getAll() : Observable<AccommodationSearchDTO[]> {
+    return this.http.get<AccommodationSearchDTO[]>(environment.apiHost + "/accommodations")
+  }
+
+  getAccommodation(id: number): Observable<AccommodationWithTotalPriceDTO> {
+    return this.http.get<AccommodationWithTotalPriceDTO>(environment.apiHost + '/accommodations/' + id)
+  }
+
+  searchAndFilterAccommodations(filterParams: SearchAndFilterDTO): Observable<AccommodationSearchDTO[]> {
+    const searchEndpoint = environment.apiHost + "/accommodations/search";
+    return this.http.post<AccommodationSearchDTO[]>(searchEndpoint, filterParams);
+  }
+
+  addImages(id: number, formData: FormData): Observable<AccommodationWhole> {
+    console.error(formData);
+    return this.http.post<AccommodationWhole>(environment.apiHost + '/pending-accommodations/' + id + '/images', formData);
+  }
+
+
+  getEditable(id: number): Observable<AccommodationWhole> {
+    return this.http.get<AccommodationWhole>(environment.apiHost + '/accommodations/editable/' + id);
   }
 
   getPending(id: number): Observable<AccommodationWhole> {
@@ -48,6 +72,18 @@ export class AccommodationService {
     return this.http.delete(environment.apiHost + '/pending-accommodations/' + id)
   }
 
+  denyPending(id: number): Observable<Object> {
+    return this.http.delete(environment.apiHost + '/pending-accommodations/deny/' + id)
+  }
+  
+  getAccommodationTypes(): Observable<string[]> {
+    return this.http.get<string[]>(environment.apiHost + '/accommodations/accommodationTypes');
+  }
+
+  getAmenities(): Observable<string[]> {
+    return this.http.get<string[]>(environment.apiHost + '/accommodations/amenities');
+  }
+  
   approvePending(dto: HostListAccommodation): Observable<Object> {
     return this.http.put(environment.apiHost + '/pending-accommodations', dto);
   }
