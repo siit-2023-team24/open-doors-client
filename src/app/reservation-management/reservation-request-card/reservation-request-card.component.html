@@ -1,3 +1,4 @@
+<!--
 <mat-card class="accommodation-card">
     <div class="image-container">
         <img [src]="getImagePath()" alt="Accommodation Image" class="accommodation-image" />
@@ -12,4 +13,36 @@
         <div class="cancel-button"><span>Cancel request</span></div>
         <div class="delete-button"><span>Delete request</span></div>
     </div>
+</mat-card>
+-->
+<mat-card>
+<div class="request-card">
+
+    <div class="image-container">
+        <img [src]="getImagePath()" alt="Accommodation Image" class="accommodation-image" />
+    </div>
+
+    <div class="details-and-buttons">
+        <div class="details">
+            <div class="row accommodation-name">{{request.accommodationName ? request.accommodationName : 'No accommodation name'}}</div>
+            <div class="row">{{ request.startDate| date:'dd/MM/yyyy' }} - {{ request.endDate| date:'dd/MM/yyyy' }}</div>
+            <div class="row">Number of guests: {{ request.guestNumber }}</div>
+            <div class="row">Status: {{ request.status }}</div>
+        </div>
+
+        <div class="buttons-container">
+            <div class="cancel-button">
+                <button mat-button>
+                <span>Cancel request</span>
+            </button>
+            </div>
+            <div class="delete-button">
+                <button mat-button>
+                    <span>Delete request</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
 </mat-card>

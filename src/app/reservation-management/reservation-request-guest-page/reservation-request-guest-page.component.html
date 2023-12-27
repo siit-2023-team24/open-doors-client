@@ -46,11 +46,11 @@
   </div>
 
   <!-- Display Grid List for Reservation Requests -->
-  <mat-grid-list gutterSize="16" cols="5" rowHeight="280">
+  <mat-grid-list gutterSize="16" cols="2" rowHeight="280" class="requests-container">
     <mat-grid-tile *ngFor="let request of requests" colspan="1">
-      <app-reservation-request-card [request]="request"></app-reservation-request-card>
+      <app-reservation-request-card [request]="request" style="width: 100%;"></app-reservation-request-card>
     </mat-grid-tile>
-</mat-grid-list>
+  </mat-grid-list>
 
   <div class="just-button-container">
     <div class="show-more-button">
