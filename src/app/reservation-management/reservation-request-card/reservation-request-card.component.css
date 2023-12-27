@@ -1,0 +1,44 @@
+.mat-card {
+    display: flex;
+    align-items: stretch;
+}
+
+.image-container {
+    flex: 0 0 30%;
+    overflow: hidden;
+}
+
+.accommodation-image {
+    max-height: 100%; /* Ensures the image does not exceed the height of the container */
+    width: 100%; /* Makes sure the image takes up 100% of the width */
+    object-fit: contain; /* Preserves the aspect ratio without cropping */
+}
+
+.details {
+    flex: 0 0 60%; /* 60% width, not flexible, not allowed to shrink or grow */
+    padding: 10px; /* Add padding as needed */
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cancel-button,
+.delete-button {
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0C4A60;
+  padding: 10px 30px;
+  border-color: #0C4A60;
+  margin-bottom: 10px; /* Add margin between buttons */
+}
+
+.cancel-button span,
+.delete-button span {
+  color: #ffffff;
+  font-size: 16px;
+}
