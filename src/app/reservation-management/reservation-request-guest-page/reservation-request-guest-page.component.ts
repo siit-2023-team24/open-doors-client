@@ -51,6 +51,20 @@ export class ReservationRequestGuestPageComponent implements OnInit{
   searchAndFilterRequests(): void {
     console.log(this.searchParams);
 
+    if (!this.searchParams.accommodationName || this.searchParams.accommodationName.trim() === '') {
+      this.searchParams.accommodationName = null;
+    }
+
+    this.requestService.searchAndFilter(this.authService.getId(), this.searchParams)
+    .subscribe(
+      (data) => {
+        console.log("Backend Response: ", data);
+        this.requests = data;
+      },
+      (error) => {
+        console.error("Error: ", error);
+      }
+    )
     
   }
 

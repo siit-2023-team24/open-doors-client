@@ -17,8 +17,8 @@ export class ReservationRequestService {
     return this.http.get<ReservationRequestForGuestDTO[]>(searchEndpoint);
   }
 
-  searchAndFilter(filterParams: SearchAndFilterDTO): Observable<ReservationRequestForGuestDTO[]> {
-    const searchEndpoint = environment.apiHost + "/reservations/search";
+  searchAndFilter(guestId:number, filterParams: SearchAndFilterDTO): Observable<ReservationRequestForGuestDTO[]> {
+    const searchEndpoint = environment.apiHost + "/reservations/search/" + guestId;
     return this.http.post<ReservationRequestForGuestDTO[]>(searchEndpoint, filterParams);
   }
 
