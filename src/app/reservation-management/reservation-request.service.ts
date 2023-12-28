@@ -13,8 +13,8 @@ export class ReservationRequestService {
   constructor(private http: HttpClient) { }
 
   getAllForGuestId(guestId: number): Observable<ReservationRequestForGuestDTO[]> {
-    const searchEndpoint = environment.apiHost + "/reservations/all/guest/" + guestId;
-    return this.http.get<ReservationRequestForGuestDTO[]>(searchEndpoint);
+    const endpoint = environment.apiHost + "/reservations/all/guest/" + guestId;
+    return this.http.get<ReservationRequestForGuestDTO[]>(endpoint);
   }
 
   searchAndFilter(guestId:number, filterParams: SearchAndFilterDTO): Observable<ReservationRequestForGuestDTO[]> {
@@ -26,4 +26,13 @@ export class ReservationRequestService {
     return this.http.get<string[]>(environment.apiHost + "/reservations/requestStatuses")
   }
 
+  cancelRequest(requestId: number): Observable<Object> {
+    const endpoint = environment.apiHost + "/reservations/cancelRequest/" + requestId;
+    return this.http.post(endpoint, requestId);
+  }
+
+  deleteRequest(requestId: number): Observable<Object> {
+    const endpoint = environment.apiHost + "/reservations/deleteRequest/" + requestId;
+    return this.http.post(endpoint, requestId);
+  }
 }

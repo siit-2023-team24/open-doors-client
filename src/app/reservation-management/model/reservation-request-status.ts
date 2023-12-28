@@ -1,7 +1,7 @@
 export enum ReservationRequestStatus {
-    PENDING = 'pending',
-    CONFIRMED = 'confirmed',
-    DENIED = 'denied',
-    CANCELLED = 'cancelled',
-    DELETED = 'deleted'
+    PENDING = 'PENDING',
+    CONFIRMED = 'CONFIRMED',
+    DENIED = 'DENIED',
+    CANCELLED = 'CANCELLED',
+    DELETED = 'DELETED'
 }
