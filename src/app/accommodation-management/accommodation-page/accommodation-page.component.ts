@@ -56,11 +56,47 @@ export class AccommodationPageComponent implements OnInit{
   numberOfNights: number;
 
   startDateFilter = (date: Date | null): boolean => {
-    return date ? date >= new Date() && (!this.selectedEndDate || date <= this.selectedEndDate) : true;
-  };  
+    if (!date || !this.accommodation.availability) {
+      return true;
+    }
+  
+    const isDateInRange = this.accommodation.availability.some(range => {
+      const startDate = new Date(range.startDate);
+      const endDate = new Date(range.endDate);
+      return date >= startDate && date <= endDate;
+    });
+  
+    const otherConditions = date >= new Date() && (!this.selectedEndDate || date <= this.selectedEndDate);
+  
+    const isStartDateInRange = !this.selectedEndDate || this.accommodation.availability.some(range => {
+      const startDate = new Date(range.startDate);
+      const endDate = new Date(range.endDate);
+      return date >= startDate && this.selectedEndDate <= endDate;
+    });
+  
+    return isDateInRange && otherConditions && isStartDateInRange;
+  };
 
   endDateFilter = (date: Date | null): boolean => {
-    return date ? date >= (this.selectedStartDate || new Date()) : true;
+    if (!date || !this.accommodation.availability) {
+      return true;
+    }
+  
+    const isDateInRange = this.accommodation.availability.some(range => {
+      const startDate = new Date(range.startDate);
+      const endDate = new Date(range.endDate);
+      return date >= startDate && date <= endDate;
+    });
+  
+    const otherConditions = date ? date >= (this.selectedStartDate || new Date()) : true;
+    
+    const isEndDateInRange = !this.selectedStartDate || this.accommodation.availability.some(range => {
+      const startDate = new Date(range.startDate);
+      const endDate = new Date(range.endDate);
+      return this.selectedStartDate >= startDate && date <= endDate;
+    });
+  
+    return isDateInRange && otherConditions && isEndDateInRange;
   };
 
   constructor(
