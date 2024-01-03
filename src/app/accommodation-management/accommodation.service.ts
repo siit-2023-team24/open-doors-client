@@ -8,6 +8,8 @@ import { HostListAccommodation } from './model/host-list-accommodation.model';
 import { AccommodationWholeEdited } from './model/accommodation-whole-edited-model';
 import { AccommodationWithTotalPriceDTO } from './model/accommodation-with-total-price.model';
 import { SearchAndFilterDTO } from './model/search-and-filter.model';
+import { SeasonalRatePricingDTO } from './model/seasonal-rates-pricing';
+import { AccommodationSeasonalRateDTO } from './model/accommodation-seasonal-rate';
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +91,10 @@ export class AccommodationService {
 
   getAmenities(): Observable<string[]> {
     return this.http.get<string[]>(environment.apiHost + '/accommodations/amenities');
+  }
+
+  getSeasonalRatesForAccommodation(accommodationSeasonalRateDTO: AccommodationSeasonalRateDTO) : Observable<SeasonalRatePricingDTO[]> {
+    return this.http.post<SeasonalRatePricingDTO[]>(environment.apiHost + '/accommodations/seasonalRate', accommodationSeasonalRateDTO);
   }
   
   approvePending(dto: HostListAccommodation): Observable<Object> {
