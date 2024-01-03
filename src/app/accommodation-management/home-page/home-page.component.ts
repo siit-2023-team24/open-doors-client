@@ -16,11 +16,13 @@ export class HomePageComponent implements OnInit {
   searchBarValues: SearchAndFilterDTO = { location: null, guestNumber: null, startDate: null, endDate: null, startPrice: null, endPrice: null, types: [], amenities: [] };
   // Datepicker filters
   startDateFilter = (date: Date | null): boolean => {
-    return date ? date >= new Date() && (!this.searchBarValues.endDate || date < this.searchBarValues.endDate) : true;
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return date ? date >= yesterday && (!this.searchBarValues.endDate || date < this.searchBarValues.endDate) : true;
   };  
 
   endDateFilter = (date: Date | null): boolean => {
-    return date ? date >= new Date() && (!this.searchBarValues.startDate || date > this.searchBarValues.startDate) : true;
+    return date ? date > new Date() && (!this.searchBarValues.startDate || date > this.searchBarValues.startDate) : true;
   };
   
   constructor(public dialog: MatDialog, 
