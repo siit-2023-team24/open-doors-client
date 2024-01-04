@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./home-page.component.css', '../../../styles.css']
 })
 export class HomePageComponent implements OnInit {
+  isGuest: boolean = false;
   accommodations: AccommodationSearchDTO[] = [];
   filterParams: SearchAndFilterDTO = { location: null, guestNumber: null, startDate: null, endDate: null, startPrice: null, endPrice: null, types: [], amenities: [] };
   searchBarValues: SearchAndFilterDTO = { location: null, guestNumber: null, startDate: null, endDate: null, startPrice: null, endPrice: null, types: [], amenities: [] };
@@ -31,6 +32,7 @@ export class HomePageComponent implements OnInit {
               private authService: AuthService) {}
 
   ngOnInit(): void {
+      this.isGuest = (this.authService.getRole() || "") == "ROLE_GUEST";
       this.fetchAccommodations();
   }
 
@@ -48,18 +50,34 @@ export class HomePageComponent implements OnInit {
   }
 
   private fetchAccommodations(): void {
-    this.accommodationService.getAll(this.authService.getId()).subscribe(
-      (accommodations: AccommodationSearchDTO[]) => {
-        this.accommodations = accommodations;
-        accommodations.forEach(accommodation => {
-          console.log(accommodation);
-        });
-      },
-      error => {
-        console.error("Error fetching accommodations: ", error);
-      }
-      
-    )
+    if(this.isGuest) {
+      this.accommodationService.getAllWhenGuest(this.authService.getId()).subscribe(
+        (accommodations: AccommodationSearchDTO[]) => {
+          this.accommodations = accommodations;
+          accommodations.forEach(accommodation => {
+            console.log(accommodation);
+          });
+        },
+        error => {
+          console.error("Error fetching accommodations: ", error);
+        }
+        
+      );
+    } else {
+      this.accommodationService.getAll().subscribe(
+        (accommodations: AccommodationSearchDTO[]) => {
+          this.accommodations = accommodations;
+          accommodations.forEach(accommodation => {
+            console.log(accommodation);
+          });
+        },
+        error => {
+          console.error("Error fetching accommodations: ", error);
+        }
+        
+      );
+    }
+    
   }
 
   searchAndFilterAccommodations(): void {

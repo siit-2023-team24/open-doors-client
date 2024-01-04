@@ -11,7 +11,7 @@
       <span class="review-number">{{ reviews.length }} reviews</span>
     </span>
   </div>
-    <a class="favorite-icon" (click)="toggleFavorite()">
+    <a class="favorite-icon" (click)="toggleFavorite()" *ngIf="isGuest">
       <mat-icon [style.color]="accommodation.isFavoriteForGuest ? 'red' : 'grey'">favorite</mat-icon>
     </a>
   </div>
