@@ -25,5 +25,6 @@ export interface AccommodationWithTotalPriceDTO {
     country: Country;
     city: string;
     street: string;
-    number: number
+    number: number;
+    isFavoriteForGuest: boolean;
   }

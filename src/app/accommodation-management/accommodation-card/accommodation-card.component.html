@@ -1,7 +1,7 @@
 <mat-card class="accommodation-card">
 
   <button mat-icon-button class="favorite-button" (click)="toggleFavorite()">
-    <mat-icon [style.color]="isFavorite ? 'red' : 'black'">favorite</mat-icon>
+    <mat-icon [style.color]="accommodation.isFavoriteForGuest ? 'red' : 'black'">favorite</mat-icon>
   </button>
   <a (click)="onAccommodationClicked()">
     <img [src]="getImagePath()" alt="Accommodation Image" class="accommodation-image" />

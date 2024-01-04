@@ -1,5 +1,5 @@
 export interface AccommodationSearchDTO {
-    id?: number;
+    id: number;
     image: number;
     name: string;
     averageRating: number;
@@ -8,4 +8,5 @@ export interface AccommodationSearchDTO {
     totalPrice: number | null;
     city: string;
     country: string;
+    isFavoriteForGuest: boolean;
 }
