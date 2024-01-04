@@ -12,6 +12,8 @@ import { MakeReservationRequestDTO } from '../model/reservationRequest';
 import { ReservationRequestService } from '../reservation-request.service';
 import { Country } from 'src/app/shared/model/country';
 import { AuthService } from 'src/app/auth/auth.service';
+import { SeasonalRatePricingDTO } from '../model/seasonal-rates-pricing';
+import { AccommodationSeasonalRateDTO } from '../model/accommodation-seasonal-rate';
 
 @Component({
   selector: 'app-accommodation-page',
@@ -55,12 +57,52 @@ export class AccommodationPageComponent implements OnInit{
   selectedGuestNumber: number;
   numberOfNights: number;
 
+  
+  accommodationSeasonalRateDTO: AccommodationSeasonalRateDTO;
+  seasonalRates: SeasonalRatePricingDTO[] = [];
+
   startDateFilter = (date: Date | null): boolean => {
-    return date ? date >= new Date() && (!this.selectedEndDate || date <= this.selectedEndDate) : true;
-  };  
+    if (!date || !this.accommodation.availability) {
+      return true;
+    }
+  
+    const isDateInRange = this.accommodation.availability.some(range => {
+      const startDate = new Date(range.startDate);
+      const endDate = new Date(range.endDate);
+      return date >= startDate && date <= endDate;
+    });
+  
+    const otherConditions = date >= new Date() && (!this.selectedEndDate || date < this.selectedEndDate);
+  
+    const isStartDateInRange = !this.selectedEndDate || this.accommodation.availability.some(range => {
+      const startDate = new Date(range.startDate);
+      const endDate = new Date(range.endDate);
+      return date >= startDate && this.selectedEndDate <= endDate;
+    });
+  
+    return isDateInRange && otherConditions && isStartDateInRange;
+  };
 
   endDateFilter = (date: Date | null): boolean => {
-    return date ? date >= (this.selectedStartDate || new Date()) : true;
+    if (!date || !this.accommodation.availability) {
+      return true;
+    }
+  
+    const isDateInRange = this.accommodation.availability.some(range => {
+      const startDate = new Date(range.startDate);
+      const endDate = new Date(range.endDate);
+      return date >= startDate && date <= endDate;
+    });
+  
+    const otherConditions = date >= new Date() && (!this.selectedStartDate || date > this.selectedStartDate);
+    
+    const isEndDateInRange = !this.selectedStartDate || this.accommodation.availability.some(range => {
+      const startDate = new Date(range.startDate);
+      const endDate = new Date(range.endDate);
+      return this.selectedStartDate >= startDate && date <= endDate;
+    });
+  
+    return isDateInRange && otherConditions && isEndDateInRange;
   };
 
   constructor(
@@ -120,14 +162,8 @@ export class AccommodationPageComponent implements OnInit{
       (this.selectedGuestNumber < this.accommodation.minGuests) || (this.selectedGuestNumber > this.accommodation.maxGuests))
        { this.isReservationButtonDisabled = true;}
     else {
+        this.getSeasonalRatesForAccommodation();
         this.isReservationButtonDisabled = false;
-        this.numberOfNights = this.calculateNightsBetweenDates(this.selectedStartDate, this.selectedEndDate);
-        this.accommodation.totalPrice = this.accommodation.price * this.numberOfNights;
-        console.log(this.accommodation); // normal has pricePerNight set to true
-        console.log(this.accommodation.isPricePerGuest); // undefined
-        if(!this.accommodation.isPricePerGuest) {
-          this.accommodation.totalPrice *= this.selectedGuestNumber;
-        }
     }
   }
 
@@ -152,6 +188,27 @@ export class AccommodationPageComponent implements OnInit{
         this.showSnackBar('Error making reservation request. Please try again.');
       }
     );
+  }
+
+  getSeasonalRatesForAccommodation() {
+    console.log("pozvali smo seasonalRates")
+    this.accommodationSeasonalRateDTO = {
+      accommodationId : this.accommodation.id,
+      startDate: this.selectedStartDate,
+      endDate: this.selectedEndDate
+    }
+
+    this.accommodationService.getSeasonalRatesForAccommodation(this.accommodationSeasonalRateDTO).subscribe(
+      (seasonalRates) => {
+        this.seasonalRates = seasonalRates;
+        this.calculateTotalPrice();
+        console.log(seasonalRates);
+      },
+      (error) => {
+        console.error('Error fetching seasonal rates:', error);
+      }
+    );
+    
   }
 
   isFavorite = false;
@@ -180,5 +237,16 @@ export class AccommodationPageComponent implements OnInit{
     const timeDifferenceInDays = Math.floor((endUtc - startUtc) / oneDayInMilliseconds);
   
     return timeDifferenceInDays;
+  }
+
+  private calculateTotalPrice() {
+    this.accommodation.totalPrice = 0;
+    for (let seasonalRate of this.seasonalRates) {
+      this.accommodation.totalPrice += seasonalRate.price * seasonalRate.numberOfNights;
+    }
+
+    if(this.accommodation.isPricePerGuest) {
+      this.accommodation.totalPrice *= this.selectedGuestNumber;
+    }
   }
 }

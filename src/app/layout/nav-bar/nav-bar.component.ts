@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,7 +12,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class NavBarComponent implements OnInit {
 
   role: string;
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              public authService: AuthService) {
   }
 
 
