@@ -14,6 +14,7 @@ import { Country } from 'src/app/shared/model/country';
 import { AuthService } from 'src/app/auth/auth.service';
 import { SeasonalRatePricingDTO } from '../model/seasonal-rates-pricing';
 import { AccommodationSeasonalRateDTO } from '../model/accommodation-seasonal-rate';
+import { AccommodationFavoritesDTO } from '../model/accommodation-favorites';
 
 @Component({
   selector: 'app-accommodation-page',
@@ -42,7 +43,8 @@ export class AccommodationPageComponent implements OnInit{
     country: {} as Country,
     city: "",
     street: "",
-    number: 0
+    number: 0,
+    isFavoriteForGuest: false
   };
   imagePaths: string[] = [];
   accommodationAddress: string = "";
@@ -214,29 +216,37 @@ export class AccommodationPageComponent implements OnInit{
   isFavorite = false;
 
   toggleFavorite() {
-    if(!this.isFavorite)
-      this.showSnackBar('Added to favorites!');  
-    else
-      this.showSnackBar('Removed from favorites!');
+    const guestId = this.authService.getId();
+    const accommodationId = this.accommodation.id;
+    const favoritesDTO: AccommodationFavoritesDTO = { guestId, accommodationId };
 
-    this.isFavorite = !this.isFavorite;
+    if(!this.accommodation.isFavoriteForGuest) {  
+      this.accommodationService.addToFavorites(favoritesDTO).subscribe(
+        () => {
+          this.showSnackBar('Added to favorites!');
+        },
+        (error) => {
+          console.error("Error adding to favorites: ", error);
+        }
+      );
+    }
+    else {
+      this.accommodationService.removeFromFavorites(favoritesDTO).subscribe(
+        () => {
+          this.showSnackBar('Removed from favorites!');
+        },
+        (error) => {
+          console.error("Error removing from favorites: ", error);
+        }
+      );
+    }
+    this.accommodation.isFavoriteForGuest = !this.accommodation.isFavoriteForGuest;
   }
 
   private showSnackBar(message: string): void {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
     });
-  }
-
-  private calculateNightsBetweenDates(startDate: Date, endDate: Date): number {
-    const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-  
-    const startUtc = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
-    const endUtc = Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
-  
-    const timeDifferenceInDays = Math.floor((endUtc - startUtc) / oneDayInMilliseconds);
-  
-    return timeDifferenceInDays;
   }
 
   private calculateTotalPrice() {

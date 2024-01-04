@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FilterPopupComponent } from '../filter-popup/filter-popup.component';
 import { AccommodationSearchDTO } from '../model/accommodation-search.model';
 import { SearchAndFilterDTO } from '../model/search-and-filter.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-home-page',
@@ -26,7 +27,8 @@ export class HomePageComponent implements OnInit {
   };
   
   constructor(public dialog: MatDialog, 
-              private accommodationService: AccommodationService) {}
+              private accommodationService: AccommodationService,
+              private authService: AuthService) {}
 
   ngOnInit(): void {
       this.fetchAccommodations();
@@ -46,7 +48,7 @@ export class HomePageComponent implements OnInit {
   }
 
   private fetchAccommodations(): void {
-    this.accommodationService.getAll().subscribe(
+    this.accommodationService.getAll(this.authService.getId()).subscribe(
       (accommodations: AccommodationSearchDTO[]) => {
         this.accommodations = accommodations;
         accommodations.forEach(accommodation => {
