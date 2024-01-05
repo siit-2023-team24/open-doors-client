@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FilterPopupComponent } from '../filter-popup/filter-popup.component';
 import { AccommodationSearchDTO } from '../model/accommodation-search.model';
 import { SearchAndFilterDTO } from '../model/search-and-filter.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-home-page',
@@ -16,15 +17,18 @@ export class HomePageComponent implements OnInit {
   searchBarValues: SearchAndFilterDTO = { location: null, guestNumber: null, startDate: null, endDate: null, startPrice: null, endPrice: null, types: [], amenities: [] };
   // Datepicker filters
   startDateFilter = (date: Date | null): boolean => {
-    return date ? date >= new Date() && (!this.searchBarValues.endDate || date <= this.searchBarValues.endDate) : true;
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return date ? date >= yesterday && (!this.searchBarValues.endDate || date < this.searchBarValues.endDate) : true;
   };  
 
   endDateFilter = (date: Date | null): boolean => {
-    return date ? date >= (this.searchBarValues.startDate || new Date()) : true;
+    return date ? date > new Date() && (!this.searchBarValues.startDate || date > this.searchBarValues.startDate) : true;
   };
   
   constructor(public dialog: MatDialog, 
-              private accommodationService: AccommodationService) {}
+              private accommodationService: AccommodationService,
+              private authService: AuthService) {}
 
   ngOnInit(): void {
       this.fetchAccommodations();
@@ -44,7 +48,7 @@ export class HomePageComponent implements OnInit {
   }
 
   private fetchAccommodations(): void {
-    this.accommodationService.getAll().subscribe(
+    this.accommodationService.getAll(this.authService.getId()).subscribe(
       (accommodations: AccommodationSearchDTO[]) => {
         this.accommodations = accommodations;
         accommodations.forEach(accommodation => {

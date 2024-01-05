@@ -12,7 +12,7 @@
     </span>
   </div>
     <a class="favorite-icon" (click)="toggleFavorite()">
-      <mat-icon [style.color]="isFavorite ? 'red' : 'grey'">favorite</mat-icon>
+      <mat-icon [style.color]="accommodation.isFavoriteForGuest ? 'red' : 'grey'">favorite</mat-icon>
     </a>
   </div>
   <div class="grid-container">
@@ -39,14 +39,14 @@
         <div class="date-pickers">
           <div>
             <mat-form-field>
-              <input matInput [matDatepicker]="checkInDatePicker" placeholder="Check-In" [(ngModel)]="selectedStartDate" [matDatepickerFilter]="startDateFilter" (input)="onInput()"/>
+              <input matInput [matDatepicker]="checkInDatePicker" placeholder="Check-In" [(ngModel)]="selectedStartDate" [matDatepickerFilter]="startDateFilter" (ngModelChange)="onInput()"/>
               <mat-datepicker-toggle matSuffix [for]="checkInDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #checkInDatePicker></mat-datepicker>
             </mat-form-field>
           </div>
           <div>
             <mat-form-field>
-              <input matInput [matDatepicker]="checkOutDatePicker" placeholder="Check-Out" [(ngModel)]="selectedEndDate" [matDatepickerFilter]="endDateFilter" (input)="onInput()"/>
+              <input matInput [matDatepicker]="checkOutDatePicker" placeholder="Check-Out" [(ngModel)]="selectedEndDate" [matDatepickerFilter]="endDateFilter" (ngModelChange)="onInput()"/>
               <mat-datepicker-toggle matSuffix [for]="checkOutDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #checkOutDatePicker></mat-datepicker>
             </mat-form-field>
@@ -55,7 +55,7 @@
     
         <div class="guest-number">
           <mat-form-field>
-            <input matInput type="number" placeholder="Guests" [min]="accommodation.minGuests" [max]="accommodation.maxGuests" [(ngModel)]="selectedGuestNumber" (input)="onInput()"/>
+            <input matInput type="number" placeholder="Guests" [min]="accommodation.minGuests" [max]="accommodation.maxGuests" [(ngModel)]="selectedGuestNumber" (ngModelChange)="onInput()"/>
           </mat-form-field>
         </div>
       </div>
@@ -64,12 +64,19 @@
           <span style="font-size: 20px;">Reserve</span>
         </button>
       </div>
-      <div class="cost-details" *ngIf="!isReservationButtonDisabled">
-        <span>
-          <span>{{ accommodation.price }} rsd x {{ numberOfNights }} nights</span> 
-          <span *ngIf="!accommodation.isPricePerGuest"> x {{ selectedGuestNumber }} guests</span>
-        </span>
-        <span>{{ accommodation.totalPrice }} rsd</span>
+      <div *ngIf="!isReservationButtonDisabled">
+        <div class="cost-details" *ngFor="let seasonalRate of seasonalRates">
+          <div>
+            <span>{{ seasonalRate.price }} rsd x {{ seasonalRate.numberOfNights }} nights</span>
+            <span *ngIf="accommodation.isPricePerGuest"> x {{ selectedGuestNumber }} guests</span>
+          </div>
+          <div>
+            <span>{{ seasonalRate.startDate | date:'dd/MM/yyyy'}} - {{ seasonalRate.endDate | date:'dd/MM/yyyy'}}</span>
+          </div>
+        </div>
+        <div style="margin: 0 10% 25px 10%;">
+          <span style="font-size: 15px;">Total price: {{ accommodation.totalPrice }} rsd</span>
+        </div>
       </div>
     </div>
   </div>

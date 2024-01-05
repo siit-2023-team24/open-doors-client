@@ -8,6 +8,9 @@ import { HostListAccommodation } from './model/host-list-accommodation.model';
 import { AccommodationWholeEdited } from './model/accommodation-whole-edited-model';
 import { AccommodationWithTotalPriceDTO } from './model/accommodation-with-total-price.model';
 import { SearchAndFilterDTO } from './model/search-and-filter.model';
+import { SeasonalRatePricingDTO } from './model/seasonal-rates-pricing';
+import { AccommodationSeasonalRateDTO } from './model/accommodation-seasonal-rate';
+import { AccommodationFavoritesDTO } from './model/accommodation-favorites';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +28,8 @@ export class AccommodationService {
   }
 
 
-  getAll() : Observable<AccommodationSearchDTO[]> {
-    return this.http.get<AccommodationSearchDTO[]>(environment.apiHost + "/accommodations")
+  getAll(guestId: number) : Observable<AccommodationSearchDTO[]> {
+    return this.http.get<AccommodationSearchDTO[]>(environment.apiHost + "/accommodations/all/" + guestId);
   }
 
   getAccommodation(id: number | null, accommodationId: number | null): Observable<AccommodationWithTotalPriceDTO> {
@@ -90,9 +93,25 @@ export class AccommodationService {
   getAmenities(): Observable<string[]> {
     return this.http.get<string[]>(environment.apiHost + '/accommodations/amenities');
   }
+
+  getSeasonalRatesForAccommodation(accommodationSeasonalRateDTO: AccommodationSeasonalRateDTO) : Observable<SeasonalRatePricingDTO[]> {
+    return this.http.post<SeasonalRatePricingDTO[]>(environment.apiHost + '/accommodations/seasonalRate', accommodationSeasonalRateDTO);
+  }
   
   approvePending(dto: HostListAccommodation): Observable<Object> {
     return this.http.put(environment.apiHost + '/pending-accommodations', dto);
+  }
+
+  addToFavorites(dto: AccommodationFavoritesDTO) {
+    return this.http.post(environment.apiHost + "/accommodations/addToFavorites", dto);
+  }
+
+  removeFromFavorites(dto: AccommodationFavoritesDTO) {
+    return this.http.post(environment.apiHost + '/accommodations/removeFromFavorites', dto);
+  }
+
+  getFavoriteAccommodations(guestId: number) : Observable<AccommodationSearchDTO[]> {
+    return this.http.get<AccommodationSearchDTO[]>(environment.apiHost + "/accommodations/favorites/" + guestId);
   }
 
 }

@@ -12,6 +12,8 @@ import { CreateAccommodationComponent } from './accommodation-management/create-
 import { AccountActivationComponent } from './user-management/account-activation/account-activation.component';
 import { AuthGuard } from './auth/guard';
 import { PendingAccommodationsComponent } from './accommodation-management/pending-accommodations/pending-accommodations.component';
+import { ReservationRequestGuestPageComponent } from './reservation-management/reservation-request-guest-page/reservation-request-guest-page.component';
+import { FavoritesPageComponent } from './accommodation-management/favorites-page/favorites-page.component';
 
 const routes: Routes = [
     {component: LoginComponent, path:"login"},
@@ -25,6 +27,8 @@ const routes: Routes = [
     {component: AccountActivationComponent, path:"activate-account"},
     {component: AccommodationPageComponent, path:"accommodation/:id/:accommodationId"},
     {component: PendingAccommodationsComponent, path: "pending-accommodations", canActivate: [AuthGuard], data : {role: ['ROLE_ADMIN']}},
+    {component: ReservationRequestGuestPageComponent, path: "reservationRequests/:guestId"},
+    {component: FavoritesPageComponent, path:"favorites/:guestId"},
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', redirectTo: 'home' },
 ];

@@ -33,12 +33,12 @@
 
 
     <div *ngIf="role=='ROLE_GUEST'" class="transparent-button-wrapper">
-        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Favorites</button>
+        <button [routerLink]="['favorites/' + authService.getId()]" [queryParams]="{title: 'My favorites'}" class="tranparentBtn" mat-flat-button >Favorites</button>
     </div>
 
 
     <div *ngIf="role=='ROLE_GUEST'" class="transparent-button-wrapper">
-        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Requests</button>
+        <button [routerLink]="['reservationRequests/' + authService.getId()]" [queryParams]="{title: 'My requests'}" class="tranparentBtn" mat-flat-button >Requests</button>
     </div>
 
     

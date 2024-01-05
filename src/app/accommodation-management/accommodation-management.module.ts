@@ -18,6 +18,7 @@ import { MyAccommodationCardComponent } from './my-accommodation-card/my-accommo
 import { PendingAccommodationsComponent } from './pending-accommodations/pending-accommodations.component';
 import { PendingAccommodationCardComponent } from './pending-accommodation-card/pending-accommodation-card.component';
 import { SharedModule } from '../shared/shared.module';
+import { FavoritesPageComponent } from './favorites-page/favorites-page.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SharedModule } from '../shared/shared.module';
     FilterPopupComponent,
     MyAccommodationCardComponent,
     PendingAccommodationsComponent,
-    PendingAccommodationCardComponent
+    PendingAccommodationCardComponent,
+    FavoritesPageComponent
   ],
   imports: [
     HttpClientModule,
