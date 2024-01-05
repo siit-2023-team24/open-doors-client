@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DateRangeReportParams } from '../model/date-range-report-params';
 import { DateRangeReport } from '../model/date-range-report';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -6,13 +6,15 @@ import { FinancialReportService } from '../financial-report.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AccommodationService } from 'src/app/accommodation-management/accommodation.service';
 import { AccommodationNameDTO } from 'src/app/accommodation-management/model/accommodation-name';
+import { CanvasJS } from '@canvasjs/angular-charts';
 
 @Component({
   selector: 'app-financial-report-page',
   templateUrl: './financial-report-page.component.html',
   styleUrls: ['./financial-report-page.component.css']
 })
-export class FinancialReportPageComponent {
+export class FinancialReportPageComponent implements OnInit{
+	chart:any;
 
 	dateRangeReportParams: DateRangeReportParams = {
 		hostId: this.authService.getId(),
@@ -44,8 +46,39 @@ export class FinancialReportPageComponent {
 		private accommodationService: AccommodationService,
 		private snackBar: MatSnackBar) {}
 
+	ngOnInit(): void {
+		this.chart = new CanvasJS.Chart("chartContainer", {
+		theme: "light2", // "light2", "dark1", "dark2"
+		title: {
+			text: "Basic Column Chart - Angular 8"
+		},
+		data: [
+			{
+			type: "pie", // Change type to "bar", "area", "spline", "pie",etc.
+			dataPoints: []
+			}
+		]
+		});
+		this.chart.render();
+	}
+
+	onClick() {
+		this.chart.options.data[0].dataPoints = [
+		  { label: "apple", y: 10 },
+		  { label: "orange", y: 15 },
+		  { label: "banana", y: 25 },
+		  { label: "mango", y: 30 },
+		  { label: "grape", y: 28 }
+		];
+		console.log("button clicked!");
+		this.chart.render();
+	  }
+
 	getDateRangeReport() {
 		const params = this.dateRangeReportParams;
+		this.totalNumOfReservation = 0;
+		this.totalProfit = 0;
+
 		if(params.startDate != null && params.endDate != null) {
 			this.reportService.getDateRangeReport(params).subscribe(
 				(reports: DateRangeReport[]) => {
