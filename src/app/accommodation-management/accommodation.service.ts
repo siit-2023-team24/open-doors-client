@@ -11,6 +11,7 @@ import { SearchAndFilterDTO } from './model/search-and-filter.model';
 import { SeasonalRatePricingDTO } from './model/seasonal-rates-pricing';
 import { AccommodationSeasonalRateDTO } from './model/accommodation-seasonal-rate';
 import { AccommodationFavoritesDTO } from './model/accommodation-favorites';
+import { AccommodationNameDTO } from './model/accommodation-name';
 
 @Injectable({
   providedIn: 'root'
@@ -119,6 +120,10 @@ export class AccommodationService {
 
   getFavoriteAccommodations(guestId: number) : Observable<AccommodationSearchDTO[]> {
     return this.http.get<AccommodationSearchDTO[]>(environment.apiHost + "/accommodations/favorites/" + guestId);
+  }
+
+  getHostAccommodationNames(hostId: number): Observable<AccommodationNameDTO[]> {
+	  return this.http.get<AccommodationNameDTO[]>(environment.apiHost + "/accommodations/names/" + hostId);
   }
 
 }

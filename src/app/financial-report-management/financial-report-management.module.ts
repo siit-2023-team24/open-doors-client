@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FinancialReportPageComponent } from './financial-report-page/financial-report-page.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
-
+import {MatTableModule} from '@angular/material/table';
+import { MaterialModule } from '../infrastucture/material/material.module';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -13,7 +15,11 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
   imports: [
     CommonModule,
     BrowserModule,
-    CanvasJSAngularChartsModule
+    CanvasJSAngularChartsModule,
+    MatTableModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class FinancialReportManagementModule { }
