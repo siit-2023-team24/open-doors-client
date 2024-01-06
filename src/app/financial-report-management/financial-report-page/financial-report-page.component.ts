@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AccommodationService } from 'src/app/accommodation-management/accommodation.service';
 import { AccommodationNameDTO } from 'src/app/accommodation-management/model/accommodation-name';
 import { CanvasJS } from '@canvasjs/angular-charts';
+import { AccommodationIdReport } from '../model/accommodation-id-report';
 
 @Component({
   selector: 'app-financial-report-page',
@@ -14,8 +15,10 @@ import { CanvasJS } from '@canvasjs/angular-charts';
   styleUrls: ['./financial-report-page.component.css']
 })
 export class FinancialReportPageComponent implements OnInit{
-	chart:any;
-	chart2:any;
+	chart: any;
+	chart2: any;
+	chart3: any;
+	chart4: any;
 
 	dateRangeReportParams: DateRangeReportParams = {
 		hostId: this.authService.getId(),
@@ -24,7 +27,10 @@ export class FinancialReportPageComponent implements OnInit{
 	};
 	dateRangeReports : DateRangeReport[] = [];
 
+	accommodationIdReports : AccommodationIdReport[] = [];
+
 	dateRangeReportsReady: boolean = false;
+	accommodationIdReportsReady: boolean = false;
 	totalNumOfReservation:  number = 0;
 	totalProfit: number = 0;
 
@@ -49,31 +55,58 @@ export class FinancialReportPageComponent implements OnInit{
 
 	ngOnInit(): void {
 		this.chart = new CanvasJS.Chart("chartContainer", {
-		theme: "light2", // "light2", "dark1", "dark2"
+		theme: "light2",
 		title: {
 			text: "Reservations per Accommodation"
 		},
 		data: [
 			{
-			type: "pie", // Change type to "bar", "area", "spline", "pie",etc.
+			type: "pie",
 			dataPoints: []
 			}
 		]
 		});
 		this.chart.render();
-		this.chart2 = new CanvasJS.Chart("hallo", {
-			theme: "light2", // "light2", "dark1", "dark2"
+		this.chart2 = new CanvasJS.Chart("chartContainer2", {
+			theme: "light2",
 			title: {
 				text: "Profit per Accommodation"
 			},
 			data: [
 				{
-				type: "pie", // Change type to "bar", "area", "spline", "pie",etc.
+				type: "pie",
 				dataPoints: []
 				}
 			]
 		});
 		this.chart2.render();
+		this.chart3 = new CanvasJS.Chart("chartContainer3", {
+			theme: "light2",
+			title: {
+				text: "Reservation per Month"
+			},
+			data: [
+				{
+				type: "pie",
+				dataPoints: []
+				}
+			]
+		});
+		this.chart3.render();
+		this.chart4 = new CanvasJS.Chart("chartContainer4", {
+			theme: "light2",
+			title: {
+				text: "Profit per Month"
+			},
+			data: [
+				{
+				type: "pie",
+				dataPoints: []
+				}
+			]
+		});
+		this.chart4.render();
+		this.getHostAccommodations();
 	}
 
 	getDateRangeReport() {
@@ -125,6 +158,7 @@ export class FinancialReportPageComponent implements OnInit{
 	}
 
 	displayedColumns: string[] = ['accommodationId', 'accommodationName', 'numOfReservations', 'profit'];
+	displayedColumns2: string[] = ['month', 'numOfReservations', 'profit'];
 
 	getHostAccommodations() {
 		this.accommodationService.getHostAccommodationNames(this.authService.getId()).subscribe(
@@ -139,7 +173,45 @@ export class FinancialReportPageComponent implements OnInit{
 	}
 
 	getAccommodationReport() {
+		this.totalNumOfReservation = 0;
+		this.totalProfit = 0;
+		console.log(this.selectedAccommodation);
 
+		this.reportService.getAccommodationIdReport(this.selectedAccommodation.id).subscribe(
+			(reports: AccommodationIdReport[]) => {
+				this.accommodationIdReports = reports;
+					console.log(reports);
+					for (const report of this.accommodationIdReports) {
+						this.totalNumOfReservation += report.numOfReservations;
+						this.totalProfit += report.profit;
+					}
+
+					if(this.totalNumOfReservation != 0) {
+						this.chart3.options.data[0].dataPoints = this.accommodationIdReports.map(report => ({
+							y: report.numOfReservations / this.totalNumOfReservation,
+							label: report.month
+						}));
+					} else {
+						this.chart3.options.data[0].dataPoints = [];
+					}
+					this.chart3.render();
+
+					if(this.totalProfit != 0) {
+						this.chart4.options.data[0].dataPoints = this.accommodationIdReports.map(report => ({
+							y: report.profit / this.totalProfit,
+							label: report.month
+						}));
+					} else {
+						this.chart4.options.data[0].dataPoints = [];
+					}
+					this.chart4.render();
+
+					this.accommodationIdReportsReady = true;
+			},
+			error => {
+				console.error("Error fetching reports: ", error);
+			}
+		);
 	}
 
 	private showSnackBar(message: string): void {
