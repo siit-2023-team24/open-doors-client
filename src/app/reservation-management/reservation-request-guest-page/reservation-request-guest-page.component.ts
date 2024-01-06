@@ -36,8 +36,9 @@ export class ReservationRequestGuestPageComponent implements OnInit{
     this.requestService.getReservationStatuses().subscribe(
       (statuses: string[]) => {
         this.requestStatuses = statuses;
+        this.requestStatuses.push('NO FILTER');
       }
-    )
+    );
   }
 
   private fetchRequests(): void {
@@ -71,6 +72,8 @@ export class ReservationRequestGuestPageComponent implements OnInit{
     if (!this.searchParams.accommodationName || this.searchParams.accommodationName.trim() === '') {
       this.searchParams.accommodationName = null;
     }
+    if (this.searchParams.status?.toString() == 'NO FILTER')
+      this.searchParams.status = null;
 
     if (this.role == "ROLE_GUEST") {
       this.requestService.searchAndFilter(this.authService.getId(), this.searchParams)
