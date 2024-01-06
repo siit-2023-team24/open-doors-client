@@ -27,7 +27,7 @@ const routes: Routes = [
     {component: AccountActivationComponent, path:"activate-account"},
     {component: AccommodationPageComponent, path:"accommodation/:id/:accommodationId"},
     {component: PendingAccommodationsComponent, path: "pending-accommodations", canActivate: [AuthGuard], data : {role: ['ROLE_ADMIN']}},
-    {component: ReservationRequestGuestPageComponent, path: "reservationRequests/:guestId"},
+    {component: ReservationRequestGuestPageComponent, path: "reservationRequests"},
     {component: FavoritesPageComponent, path:"favorites/:guestId"},
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', redirectTo: 'home' },
