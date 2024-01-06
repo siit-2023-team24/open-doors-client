@@ -15,6 +15,7 @@ import { CanvasJS } from '@canvasjs/angular-charts';
 })
 export class FinancialReportPageComponent implements OnInit{
 	chart:any;
+	chart2:any;
 
 	dateRangeReportParams: DateRangeReportParams = {
 		hostId: this.authService.getId(),
@@ -50,7 +51,7 @@ export class FinancialReportPageComponent implements OnInit{
 		this.chart = new CanvasJS.Chart("chartContainer", {
 		theme: "light2", // "light2", "dark1", "dark2"
 		title: {
-			text: "Basic Column Chart - Angular 8"
+			text: "Reservations per Accommodation"
 		},
 		data: [
 			{
@@ -60,19 +61,20 @@ export class FinancialReportPageComponent implements OnInit{
 		]
 		});
 		this.chart.render();
+		this.chart2 = new CanvasJS.Chart("hallo", {
+			theme: "light2", // "light2", "dark1", "dark2"
+			title: {
+				text: "Profit per Accommodation"
+			},
+			data: [
+				{
+				type: "pie", // Change type to "bar", "area", "spline", "pie",etc.
+				dataPoints: []
+				}
+			]
+		});
+		this.chart2.render();
 	}
-
-	onClick() {
-		this.chart.options.data[0].dataPoints = [
-		  { label: "apple", y: 10 },
-		  { label: "orange", y: 15 },
-		  { label: "banana", y: 25 },
-		  { label: "mango", y: 30 },
-		  { label: "grape", y: 28 }
-		];
-		console.log("button clicked!");
-		this.chart.render();
-	  }
 
 	getDateRangeReport() {
 		const params = this.dateRangeReportParams;
@@ -90,18 +92,24 @@ export class FinancialReportPageComponent implements OnInit{
 					}
 
 					if(this.totalNumOfReservation != 0) {
-						this.numOfReservationsChartOptions.data[0].dataPoints = this.dateRangeReports.map(report => ({
+						this.chart.options.data[0].dataPoints = this.dateRangeReports.map(report => ({
 							y: report.numOfReservations / this.totalNumOfReservation,
-							name: report.accommodationName
+							label: report.accommodationName
 						}));
+					} else {
+						this.chart.options.data[0].dataPoints = [];
 					}
+					this.chart.render();
 
 					if(this.totalProfit != 0) {
-						this.profitChartOptions.data[0].dataPoints = this.dateRangeReports.map(report => ({
+						this.chart2.options.data[0].dataPoints = this.dateRangeReports.map(report => ({
 							y: report.profit / this.totalProfit,
-							name: report.accommodationName
+							label: report.accommodationName
 						}));
+					} else {
+						this.chart2.options.data[0].dataPoints = [];
 					}
+					this.chart2.render();
 
 					this.dateRangeReportsReady = true;
 				},
@@ -117,42 +125,6 @@ export class FinancialReportPageComponent implements OnInit{
 	}
 
 	displayedColumns: string[] = ['accommodationId', 'accommodationName', 'numOfReservations', 'profit'];
-	
-	numOfReservationsChartOptions = {
-		animationEnabled: true,
-		theme: "light2",
-		title:{
-			text: "Reservations per Accommodation"
-		},
-		data: [{
-			type: "pie",
-			startAngle: 45,
-			indexLabel: "{name}: {y}",
-			indexLabelPlacement: "outside",
-			yValueFormatString: "#,###.##'%'",
-			dataPoints: [
-			{ y: 0, name: "" }
-			]
-		}]
-	}
-
-	profitChartOptions = {
-		animationEnabled: true,
-		theme: "light2",
-		title:{
-			text: "Profit per Accommodation"
-		},
-		data: [{
-			type: "pie",
-			startAngle: 45,
-			indexLabel: "{name}: {y}",
-			indexLabelPlacement: "outside",
-			yValueFormatString: "#,###.##'%'",
-			dataPoints: [
-			{ y: 0, name: "" }
-			]
-		}]
-	}
 
 	getHostAccommodations() {
 		this.accommodationService.getHostAccommodationNames(this.authService.getId()).subscribe(
