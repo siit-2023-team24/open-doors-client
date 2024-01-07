@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AccommodationReviewDetailsDTO } from '../model/accommodationReviewDetails';
+import { ReviewDetailsDTO } from '../model/reviewDetails';
 import { ImageService } from 'src/app/image-management/image.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { ImageService } from 'src/app/image-management/image.service';
   styleUrls: ['./review-card.component.css']
 })
 export class ReviewCardComponent {
-  @Input() review: AccommodationReviewDetailsDTO;
+  @Input() review: ReviewDetailsDTO;
 
   imagePath: string = "";
 

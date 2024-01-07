@@ -1,4 +1,4 @@
-export interface AccommodationReviewDetailsDTO {
+export interface ReviewDetailsDTO {
     id: number;
     rating: number;
     comment: string;

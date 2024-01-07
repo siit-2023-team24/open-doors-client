@@ -13,12 +13,18 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./accommodation-card.component.css']
 })
 export class AccommodationCardComponent {
+  isGuest : boolean;
+
   constructor(
     private snackBar: MatSnackBar,
     private router: Router, 
     private imageService: ImageService,
     private accommodationService: AccommodationService,
-    private authService: AuthService) {}
+    private authService: AuthService) {
+      
+    this.isGuest = this.authService.isLoggedIn() || this.authService.getRole()=="ROLE_GUEST";
+  }
+
 
   @Input()
   accommodation: AccommodationSearchDTO;

@@ -48,7 +48,11 @@ export class HomePageComponent implements OnInit {
   }
 
   private fetchAccommodations(): void {
-    this.accommodationService.getAll(this.authService.getId()).subscribe(
+    let id: number = 0;
+    if (this.authService.isLoggedIn()) {
+      id = this.authService.getId();
+    }
+    this.accommodationService.getAll(id).subscribe(
       (accommodations: AccommodationSearchDTO[]) => {
         this.accommodations = accommodations;
         accommodations.forEach(accommodation => {

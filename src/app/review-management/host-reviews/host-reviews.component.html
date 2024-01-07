@@ -1,0 +1,20 @@
+
+<div class="basic-data">
+    <img src={{imgPath}} class="img">
+    <h1>Email: {{ username }}</h1>
+    <h1>Name: {{ name }}</h1>
+</div>
+<div class="reviews">
+    <h2>Reviews:</h2>
+    <h1 *ngIf="reviews.length == 0">This host has no reviews.</h1>
+    <hr class="horizontal-separator">
+    <app-write-review-card></app-write-review-card>
+    <hr class="horizontal-separator">
+    <div class="reviews-container">
+        <mat-grid-list cols="2" rowHeight="150px">
+          <mat-grid-tile *ngFor="let review of reviews">
+            <app-review-card [review]="review" style="width: calc(100% - 10px);"></app-review-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</div>
