@@ -20,4 +20,8 @@ export class FinancialReportService {
   getAccommodationIdReport(accommodationId: number): Observable<AccommodationIdReport[]> {
     return this.http.get<AccommodationIdReport[]>(environment.apiHost + "/financialReport/accommodationIdReport/" + accommodationId);
   }
+
+  exportDateRangeReport(params: DateRangeReportParams) {
+    return this.http.post(environment.apiHost + "/financialReport/dateRangeReport/export", params);
+  }
 }

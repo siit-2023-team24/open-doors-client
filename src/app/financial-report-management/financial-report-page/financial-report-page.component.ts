@@ -214,6 +214,22 @@ export class FinancialReportPageComponent implements OnInit{
 		);
 	}
 
+	exportDateRangeReport() {
+		const params = this.dateRangeReportParams;
+		this.reportService.exportDateRangeReport(params).subscribe(
+			() => {
+				this.showSnackBar("Download successful. The PDF is loacted in the downloads folder!");
+			},
+			error => {
+				console.error("Error download date range report: ", error);
+			}
+		);
+	}
+
+	exportAccommodationIdReport() {
+		
+	}
+
 	private showSnackBar(message: string): void {
 		this.snackBar.open(message, 'Close', {
 		  duration: 3000,

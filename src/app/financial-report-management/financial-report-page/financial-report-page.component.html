@@ -57,6 +57,13 @@
         <div id="chartContainer" style="height: 370px; width: 50%; margin: 50px 0;"></div>
         <div id="chartContainer2" style="height: 370px; width: 50%; margin: 50px 0;"></div>
     </div>
+    <div class="search-button" *ngIf="dateRangeReportsReady">
+        <button mat-button (click)="exportDateRangeReport()">
+            <span class="icon-button">
+            Download to PDF
+            </span>
+        </button>
+    </div>
     <div class="search-bar-content">
         <div class="title-text">
             <span> Accommodation: </span>
@@ -105,5 +112,12 @@
     <div style="display: flex;">
         <div id="chartContainer3" style="height: 370px; width: 50%; margin: 50px 0;"></div>
         <div id="chartContainer4" style="height: 370px; width: 50%; margin: 50px 0;"></div>
+    </div>
+    <div class="search-button" *ngIf="accommodationIdReportsReady">
+        <button mat-button (click)="exportAccommodationIdReport()">
+            <span class="icon-button">
+            Download to PDF
+            </span>
+        </button>
     </div>
 </div>
