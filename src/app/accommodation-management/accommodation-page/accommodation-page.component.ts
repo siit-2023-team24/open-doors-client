@@ -139,24 +139,46 @@ export class AccommodationPageComponent implements OnInit{
       pendingId = + pendingParam;
     }
 
-    this.accommodationService.getAccommodation(pendingId, accommodationId).subscribe(
-      (details) => {
-        this.accommodation = details;
-        this.accommodation.images = this.accommodation.images || [];
-        console.log(this.accommodation);
-        this.accommodationAddress = this.accommodation.street + " " + this.accommodation.number + ", " + this.accommodation.city;
-        this.isAccommodationDetailsReady = true;
-        this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
-        if (accommodationId!==null){
-          this.reviewService.getReviewsForAccommodation(accommodationId).subscribe(reviews => {
-            this.reviews = reviews;
-          });
+    if(this.isGuest) {
+      this.accommodationService.getAccommodationWhenGuest(accommodationId, this.authService.getId()).subscribe(
+        (details) => {
+          this.accommodation = details;
+          this.accommodation.images = this.accommodation.images || [];
+          console.log(this.accommodation);
+          this.accommodationAddress = this.accommodation.street + " " + this.accommodation.number + ", " + this.accommodation.city;
+          this.isAccommodationDetailsReady = true;
+          this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
+          if (accommodationId!==null){
+            this.reviewService.getReviewsForAccommodation(accommodationId).subscribe(reviews => {
+              this.reviews = reviews;
+            });
+          }
+        },
+        (error) => {
+          console.error("Error fetching accommodation details:", error);
         }
-      },
-      (error) => {
-        console.error("Error fetching accommodation details:", error);
-      }
-    );
+      );
+    } else {
+      this.accommodationService.getAccommodation(pendingId, accommodationId).subscribe(
+        (details) => {
+          this.accommodation = details;
+          this.accommodation.images = this.accommodation.images || [];
+          console.log(this.accommodation);
+          this.accommodationAddress = this.accommodation.street + " " + this.accommodation.number + ", " + this.accommodation.city;
+          this.isAccommodationDetailsReady = true;
+          this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
+          if (accommodationId!==null){
+            this.reviewService.getReviewsForAccommodation(accommodationId).subscribe(reviews => {
+              this.reviews = reviews;
+            });
+          }
+        },
+        (error) => {
+          console.error("Error fetching accommodation details:", error);
+        }
+      );
+    }
+    
   }
 
   onInput(){

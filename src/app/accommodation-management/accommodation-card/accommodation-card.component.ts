@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AccommodationSearchDTO } from '../model/accommodation-search.model';
 import { Router } from '@angular/router';
@@ -12,13 +12,18 @@ import { AuthService } from 'src/app/auth/auth.service';
   templateUrl: './accommodation-card.component.html',
   styleUrls: ['./accommodation-card.component.css']
 })
-export class AccommodationCardComponent {
+export class AccommodationCardComponent implements OnInit{
+  isGuest: boolean = false;
   constructor(
     private snackBar: MatSnackBar,
     private router: Router, 
     private imageService: ImageService,
     private accommodationService: AccommodationService,
     private authService: AuthService) {}
+  
+  ngOnInit(): void {
+    this.isGuest = (this.authService.getRole() || "") == "ROLE_GUEST";
+  }
 
   @Input()
   accommodation: AccommodationSearchDTO;

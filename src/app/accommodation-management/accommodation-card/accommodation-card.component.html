@@ -1,6 +1,6 @@
 <mat-card class="accommodation-card">
 
-  <button mat-icon-button class="favorite-button" (click)="toggleFavorite()">
+  <button mat-icon-button class="favorite-button" (click)="toggleFavorite()" *ngIf="isGuest">
     <mat-icon [style.color]="accommodation.isFavoriteForGuest ? 'red' : 'black'">favorite</mat-icon>
   </button>
   <a (click)="onAccommodationClicked()">
