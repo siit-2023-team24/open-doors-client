@@ -176,7 +176,10 @@ export class FinancialReportPageComponent implements OnInit{
 		this.totalNumOfReservation = 0;
 		this.totalProfit = 0;
 		console.log(this.selectedAccommodation);
-
+		if(this.selectedAccommodation === undefined) {
+			this.showSnackBar("Please select an accommodation!");
+			return;
+		}
 		this.reportService.getAccommodationIdReport(this.selectedAccommodation.id).subscribe(
 			(reports: AccommodationIdReport[]) => {
 				this.accommodationIdReports = reports;
