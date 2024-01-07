@@ -24,4 +24,8 @@ export class FinancialReportService {
   exportDateRangeReport(params: DateRangeReportParams) {
     return this.http.post(environment.apiHost + "/financialReport/dateRangeReport/export", params);
   }
+
+  exportAccommodationIdReport(accommodationId: number) {
+    return this.http.post(environment.apiHost + "/financialReport/accommodationIdReport/export", accommodationId);
+  }
 }

@@ -227,7 +227,14 @@ export class FinancialReportPageComponent implements OnInit{
 	}
 
 	exportAccommodationIdReport() {
-		
+		this.reportService.exportAccommodationIdReport(this.selectedAccommodation.id).subscribe(
+			() => {
+				this.showSnackBar("Download successful. The PDF is loacted in the downloads folder!");
+			},
+			error => {
+				console.error("Error download accommodation id report: ", error);
+			}
+		);
 	}
 
 	private showSnackBar(message: string): void {
