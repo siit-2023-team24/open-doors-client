@@ -5,5 +5,6 @@ export interface HostPublicDataDTO {
     firstName: string,
     lastName: string,
     reviews: ReviewDetailsDTO[],
-    imageId?: number
+    imageId?: number,
+    isReviewable: boolean
 }

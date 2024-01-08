@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ReviewDetailsDTO } from './model/reviewDetails';
@@ -16,7 +16,8 @@ export class ReviewService {
     return this.httpClient.get<ReviewDetailsDTO[]>(environment.apiHost + '/accommodation-reviews/accommodation/' + accommodationId);
   }
 
-  getReviewsForHost(hostId: number) : Observable<HostPublicDataDTO> {
-    return this.httpClient.get<HostPublicDataDTO>(environment.apiHost + '/host-reviews/' + hostId)
+  getReviewsForHost(hostId: number, guestId: number) : Observable<HostPublicDataDTO> {
+    let params = new HttpParams().set('guestId', guestId.toString());
+    return this.httpClient.get<HostPublicDataDTO>(environment.apiHost + '/host-reviews/' + hostId, { params })
   }
 }
