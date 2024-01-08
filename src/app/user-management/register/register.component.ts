@@ -77,7 +77,7 @@ export class RegisterComponent {
         console.log("SUCCESS! " + user, response);
         this.router.navigate(['login']);
         this.snackBar.open('Registration successful! Please check your email address to verify your account.', 'Close', {
-          duration: 30000,
+          duration: 6000,
           verticalPosition: 'top',
           horizontalPosition: 'center'
         });

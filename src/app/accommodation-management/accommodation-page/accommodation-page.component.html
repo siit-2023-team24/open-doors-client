@@ -22,8 +22,8 @@
   <div class="grid-container">
     <img *ngFor="let imagePath of imagePaths.slice(0, 5)" [src]="imagePath" alt="accommodation image" class="grid-item">
   </div>
+  <h1 class="host-label">Description:</h1>
   <div class="details flex-container">
-    <h1 class="host-label">Description:</h1>
     <div class="description-text">
       <span>
         {{ accommodation.description }}

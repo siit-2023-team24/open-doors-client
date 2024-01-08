@@ -1,4 +1,4 @@
-import { ReviewDetailsDTO } from "./reviewDetails";
+import { ReviewDetailsDTO } from "./review-details";
 
 export interface HostPublicDataDTO {
     username: string,

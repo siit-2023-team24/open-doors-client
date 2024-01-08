@@ -28,13 +28,14 @@
               </div>
             </div>
         </div>
+        <h2 class="error" *ngIf="noRating">Please rate the host between 1 and 5 stars.</h2>
     </div>
     <mat-form-field style="width: 100%;">
-        <textarea matInput placeholder="Write your review..."></textarea>
+        <textarea matInput [(ngModel)]="comment" placeholder="Write your review..."></textarea>
     </mat-form-field>
     <div class="just-button-container">
         <div class="show-more-button">
-          <button mat-button>
+          <button mat-button (click)="saveReview()">
             <span>Submit review</span>
           </button>
         </div>

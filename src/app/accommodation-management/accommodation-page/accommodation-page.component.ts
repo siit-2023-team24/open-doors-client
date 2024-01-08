@@ -5,7 +5,7 @@ import { AccommodationService } from '../accommodation.service';
 import { AccommodationWithTotalPriceDTO } from '../model/accommodation-with-total-price.model';
 import { AccommodationType } from 'src/app/accommodation-management/model/accommodation-type';
 import { ImageService } from 'src/app/image-management/image.service';
-import { ReviewDetailsDTO } from 'src/app/review-management/model/reviewDetails';
+import { ReviewDetailsDTO } from 'src/app/review-management/model/review-details';
 import { ReviewService } from 'src/app/review-management/review.service';
 import { MakeReservationRequestDTO } from '../model/reservationRequest';
 import { ReservationRequestService } from '../reservation-request.service';

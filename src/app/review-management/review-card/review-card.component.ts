@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ReviewDetailsDTO } from '../model/reviewDetails';
+import { ReviewDetailsDTO } from '../model/review-details';
 import { ImageService } from 'src/app/image-management/image.service';
 
 @Component({
