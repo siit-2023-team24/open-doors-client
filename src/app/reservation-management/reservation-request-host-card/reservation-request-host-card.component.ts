@@ -26,32 +26,55 @@ export class ReservationRequestHostCardComponent {
 
   confirm(): void {
     const message: string = "Are you sure you wish to confirm this reservation request?";
-    if (!this.openDialog(message)) return;
 
-    // this.service.confirm(this.request.id).subscribe({
-    //   next: () => {
-    //     this.reload.emit(this.request.id);
-    //     console.log('Confirmed reservation request: ' + this.request.id);
-    //   },
-    //   error: (error) => {
-    //     console.error('Error confirming reservation request ' + this.request.id)
-    //     alert(error.error.message)
-    //   }
-    // });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = { question: message }
 
+    const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe({
+      next: (answer: boolean) => {  
+        if (!answer) return;
+
+        this.service.confirm(this.request.id).subscribe({
+          next: () => {
+            this.reload.emit(this.request.id);
+            console.log('Confirmed reservation request: ' + this.request.id);
+            this.showSnackBar("Confirmed reservation request");
+          },
+          error: (error) => {
+            console.error('Error confirming reservation request ' + this.request.id)
+            this.showSnackBar(error.error.message);
+          }
+        });
+      }
+    });
   }
 
   deny(): void {
     const message: string = "Are you sure you wish to deny this reservation request?";
-    if (!this.openDialog(message)) return;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = { question: message }
 
-    // this.service.deny(this.request.id).subscribe({
-    //   next: () => {
-    //     this.reload.emit(this.request.id);
-    //     console.log('Denied reservation request: ' + this.request.id);
-    //   },
-    //   error: () => console.error('Error denying reservation request ' + this.request.id)
-    // });
+    const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe({
+      next: (answer: boolean) => {
+        if (!answer) return;
+
+        this.service.deny(this.request.id).subscribe({
+          next: () => {
+            this.reload.emit(this.request.id);
+            console.log('Denied reservation request: ' + this.request.id);
+            this.showSnackBar("Denied reservation request");
+          },
+          error: (error) => {
+            console.error('Error denying reservation request ' + this.request.id)
+            this.showSnackBar(error.error.message);
+          }
+        });
+      }
+    });
   }
 
   isRequestPending(): boolean {
@@ -64,16 +87,5 @@ export class ReservationRequestHostCardComponent {
     });
   }
   
-  openDialog(message: string): boolean {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = { question: message }
-
-    const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe({
-      next: (answer: boolean) => { return answer; }
-    });
-    return false;
-  }
 
 }

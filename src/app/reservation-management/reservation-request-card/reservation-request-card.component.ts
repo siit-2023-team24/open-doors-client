@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ImageService } from 'src/app/image-management/image.service';
@@ -20,34 +20,39 @@ export class ReservationRequestCardComponent {
   @Input()
   request: ReservationRequestForGuestDTO;
 
+  @Output()
+  reload: EventEmitter<number> = new EventEmitter();
+
   getImagePath(): string {
     return this.imageService.getPath(this.request.imageId, false);
   }
 
   cancelRequest() {
     this.requestService.cancelRequest(this.request.id)
-    .subscribe(
-      () => {
+    .subscribe({
+      next: () => {
+        this.reload.emit(this.request.id);
         this.showSnackBar('Request cancelled successfully.');
       },
-      (error) => {
+      error: (error) => {
         console.error('Error cancelling request:', error);
         this.showSnackBar('Error cancelling request.');
       }
-    );
+  });
   }
 
   deleteRequest() {
     this.requestService.deleteRequest(this.request.id)
-    .subscribe(
-      () => {
+    .subscribe({
+      next: () => {
+        this.reload.emit(this.request.id);
         this.showSnackBar('Request deleted successfully.');
       },
-      (error) => {
+      error: (error) => {
         console.error('Error deleting request:', error);
         this.showSnackBar('Error deleting request.');
       }
-    );
+    });
   }
 
   isRequestConfirmed() {

@@ -36,20 +36,20 @@ export class ReservationRequestService {
   }
 
   cancelRequest(requestId: number): Observable<Object> {
-    const endpoint = environment.apiHost + "/reservations/cancelRequest/" + requestId;
-    return this.http.post(endpoint, requestId);
+    const endpoint = environment.apiHost + "/reservations/cancel/" + requestId;
+    return this.http.get(endpoint);
   }
 
   deleteRequest(requestId: number): Observable<Object> {
-    const endpoint = environment.apiHost + "/reservations/deleteRequest/" + requestId;
-    return this.http.post(endpoint, requestId);
+    const endpoint = environment.apiHost + "/reservations/" + requestId;
+    return this.http.delete(endpoint);
   }
 
-  confirm(id: number) {
-    
+  confirm(id: number): Observable<Object> {
+    return this.http.get(environment.apiHost + "/reservations/confirm/" + id);
   }
 
-  deny(id: number) {
-
+  deny(id: number): Observable<Object> {
+    return this.http.get(environment.apiHost + "/reservations/deny/" + id);
   }
 }

@@ -11,7 +11,7 @@
   
       <div class="search-input">
         <mat-form-field>
-          <input matInput [matDatepicker]="checkInDatePicker" placeholder="Check-In Date" [(ngModel)]="searchParams.startDate"/>
+          <input matInput [matDatepicker]="checkInDatePicker" placeholder="Check-In Date" [(ngModel)]="searchParams.startDate" [matDatepickerFilter]="startDateFilter"/>
           <mat-datepicker-toggle matSuffix [for]="checkInDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #checkInDatePicker></mat-datepicker>
         </mat-form-field>
@@ -49,7 +49,7 @@
   <mat-grid-list gutterSize="16" cols="2" rowHeight="280" class="requests-container">
     <div *ngIf="role =='ROLE_GUEST'">
       <mat-grid-tile *ngFor="let request of requests" colspan="1">
-        <app-reservation-request-card [request]="request" style="width: 100%;"></app-reservation-request-card>
+        <app-reservation-request-card [request]="request" (reload)="reloadParent($event)" style="width: 100%;"></app-reservation-request-card>
       </mat-grid-tile>
     </div>
 

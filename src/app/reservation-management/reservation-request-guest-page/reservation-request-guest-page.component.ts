@@ -19,8 +19,14 @@ export class ReservationRequestGuestPageComponent implements OnInit{
   noDataMessage = "";
   hostsRequests: ReservationRequestForHost[] = [];
 
+  startDateFilter = (date: Date | null): boolean => {
+    if (!this.searchParams.endDate) return true;
+    return date ? date <= (this.searchParams.endDate) : true;
+  };
+
   endDateFilter = (date: Date | null): boolean => {
-    return date ? date >= (this.searchParams.startDate || new Date()) : true;
+    if (!this.searchParams.startDate) return true;
+    return date ? date >= (this.searchParams.startDate) : true;
   };
 
   constructor(private requestService: ReservationRequestService,
