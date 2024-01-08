@@ -22,7 +22,7 @@ export class AccommodationCardComponent {
     private accommodationService: AccommodationService,
     private authService: AuthService) {
       
-    this.isGuest = this.authService.isLoggedIn() || this.authService.getRole()=="ROLE_GUEST";
+    this.isGuest = this.authService.isLoggedIn() && this.authService.getRole()=="ROLE_GUEST";
   }
 
 

@@ -49,7 +49,7 @@ export class HomePageComponent implements OnInit {
 
   private fetchAccommodations(): void {
     let id: number = 0;
-    if (this.authService.isLoggedIn()) {
+    if (this.authService.isLoggedIn() && this.authService.getRole()=="ROLE_GUEST") {
       id = this.authService.getId();
     }
     this.accommodationService.getAll(id).subscribe(
