@@ -15,6 +15,7 @@ import { PendingAccommodationsComponent } from './accommodation-management/pendi
 import { ReservationRequestGuestPageComponent } from './reservation-management/reservation-request-guest-page/reservation-request-guest-page.component';
 import { FavoritesPageComponent } from './accommodation-management/favorites-page/favorites-page.component';
 import { HostReviewsComponent } from './review-management/host-reviews/host-reviews.component';
+import { FinancialReportPageComponent } from './financial-report-management/financial-report-page/financial-report-page.component';
 
 const routes: Routes = [
     {component: LoginComponent, path:"login"},
@@ -31,8 +32,9 @@ const routes: Routes = [
     {component: ReservationRequestGuestPageComponent, path: "reservationRequests"},
     {component: FavoritesPageComponent, path:"favorites"},
     {component: HostReviewsComponent, path:"host-reviews/:hostId"},
-    // { path: '', redirectTo: 'home?title=Home', pathMatch: 'full' },
-    // { path: '**', redirectTo: 'home?title=Home' },
+    {component: FinancialReportPageComponent, path:"financialReports"},
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '**', redirectTo: 'home' },
 ];
 
 

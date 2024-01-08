@@ -10,6 +10,7 @@ import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './user-management/interceptor';
 import { ReservationManagementModule } from './reservation-management/reservation-management.module';
+import { FinancialReportManagementModule } from './financial-report-management/financial-report-management.module';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ReservationManagementModule } from './reservation-management/reservatio
     UserManagementModule,
     AccommodationManagementModule,
     SharedModule,
-    ReservationManagementModule
+    ReservationManagementModule,
+    FinancialReportManagementModule
   ],
   providers: [
     {
