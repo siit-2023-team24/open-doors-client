@@ -34,7 +34,7 @@
 
 
     <div *ngIf="role=='ROLE_GUEST'" class="transparent-button-wrapper">
-        <button [routerLink]="['favorites/' + authService.getId()]" [queryParams]="{title: 'My favorites'}" class="tranparentBtn" mat-flat-button >Favorites</button>
+        <button [routerLink]="['favorites']" [queryParams]="{title: 'My favorites'}" class="tranparentBtn" mat-flat-button >Favorites</button>
     </div>
 
 

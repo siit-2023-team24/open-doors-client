@@ -196,3 +196,19 @@ mat-grid-tile.half-width-review-card {
   display: flex;
   justify-content: center;
 }
+
+.host-btn {
+  color: white;
+  background-color: #0C4A60;
+}
+
+.host {
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.host-label {
+  margin: 0;
+}

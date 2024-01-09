@@ -46,8 +46,8 @@ export class UserService {
     });
   }
 
-  activateUser(id: number): Observable<String> {
-    return this.httpClient.post<String>(environment.apiHost + '/auth/activate-user/' + id, null, {headers: this.headers});
+  activateUser(ip: string, id: number): Observable<String> {
+    return this.httpClient.post<String>('http://' + ip +':9090/open-doors/auth/activate-user/' + id, null, {headers: this.headers});
   }
   
   getUser(id: number): Observable<EditUser> {

@@ -21,16 +21,45 @@
     margin-right: 10px;
 }
 
-.rating mat-icon {
-    font-size: 30px;
-    width: 30px;
-    height: 30px;
+.star {
+    font-size: 25px;
+    width: 25px;
+    height: 25px;
 }
 
-.rating mat-icon:hover {
-    font-size: 32px;
-    width: 32px;
+.full {
+    color: #dddd00;
+}
+
+.star:hover {
+    font-size:32px;
     height: 32px;
+    width: 32px;
+}
+
+.rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.stars {
+    display: flex;
+    flex-direction: row;
+}
+
+.star-container {
+    height: 32px;
+    width: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .review-details {
@@ -56,4 +85,8 @@
 .just-button-container button span {
     color: #ffffff;
     font-size: 16px;
+}
+
+.error {
+    color: red;
 }
