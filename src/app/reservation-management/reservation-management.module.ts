@@ -4,13 +4,15 @@ import { ReservationRequestGuestPageComponent } from './reservation-request-gues
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../infrastucture/material/material.module';
 import { ReservationRequestCardComponent } from './reservation-request-card/reservation-request-card.component';
+import { ReservationRequestHostCardComponent } from './reservation-request-host-card/reservation-request-host-card.component';
 
 
 
 @NgModule({
   declarations: [
     ReservationRequestGuestPageComponent,
-    ReservationRequestCardComponent
+    ReservationRequestCardComponent,
+    ReservationRequestHostCardComponent
   ],
   imports: [
     CommonModule,

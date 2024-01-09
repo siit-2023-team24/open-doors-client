@@ -18,8 +18,9 @@
         <button [routerLink]="['pending-accommodations']" [queryParams]="{title: 'Pending accommodations'}" class="tranparentBtn" mat-flat-button >Accommodations</button>
     </div>
 
+
     <div *ngIf="role=='ROLE_HOST'" class="transparent-button-wrapper">
-        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Reservations</button>
+        <button [routerLink]="['reservationRequests']" [queryParams]="{title: 'Reservation requests'}" class="tranparentBtn" mat-flat-button >Reservations</button>
     </div>
 
     <div *ngIf="role=='ROLE_HOST'" class="transparent-button-wrapper">
