@@ -1,5 +1,9 @@
 <div  style="padding: 0 100px;">
   <div class="accommodation-name"><h1>{{ accommodation.name }}</h1></div>
+  <div class="host">
+    <h1 class="host-label">Host:</h1>
+    <button mat-raised-button class="button host-btn" [routerLink]="['../../../host-reviews/' + accommodation.hostId]">{{ accommodation.host }}</button>
+  </div>
   <div class="basic-info">
     <div style="display: flex;">
     <h2>{{ accommodation.city }}, {{ accommodation.country }}</h2>
@@ -18,6 +22,7 @@
   <div class="grid-container">
     <img *ngFor="let imagePath of imagePaths.slice(0, 5)" [src]="imagePath" alt="accommodation image" class="grid-item">
   </div>
+  <h1 class="host-label">Description:</h1>
   <div class="details flex-container">
     <div class="description-text">
       <span>
@@ -106,6 +111,10 @@
     </span>
     <span class="review-number"> {{ reviews.length }} reviews</span>
   </span>
+
+  <hr class="horizontal-separator">
+  <app-write-review-card></app-write-review-card>
+  
   <div class="reviews-container">
     <mat-grid-list cols="2" rowHeight="150px">
       <mat-grid-tile *ngFor="let review of reviews">
@@ -113,8 +122,6 @@
       </mat-grid-tile>
     </mat-grid-list>
   </div>
-  <hr class="horizontal-separator">
-  <app-write-review-card></app-write-review-card>
 </div>
 
 

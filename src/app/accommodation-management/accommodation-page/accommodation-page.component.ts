@@ -4,9 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AccommodationService } from '../accommodation.service';
 import { AccommodationWithTotalPriceDTO } from '../model/accommodation-with-total-price.model';
 import { AccommodationType } from 'src/app/accommodation-management/model/accommodation-type';
-import { Address } from '../model/address';
 import { ImageService } from 'src/app/image-management/image.service';
-import { AccommodationReviewDetailsDTO } from 'src/app/review-management/model/accommodationReviewDetails';
+import { ReviewDetailsDTO } from 'src/app/review-management/model/review-details';
 import { ReviewService } from 'src/app/review-management/review.service';
 import { MakeReservationRequestDTO } from '../model/reservationRequest';
 import { ReservationRequestService } from '../reservation-request.service';
@@ -19,7 +18,7 @@ import { AccommodationFavoritesDTO } from '../model/accommodation-favorites';
 @Component({
   selector: 'app-accommodation-page',
   templateUrl: './accommodation-page.component.html',
-  styleUrls: ['./accommodation-page.component.css']
+  styleUrls: ['./accommodation-page.component.css', './../../../styles.css']
 })
 export class AccommodationPageComponent implements OnInit{
 
@@ -40,16 +39,17 @@ export class AccommodationPageComponent implements OnInit{
     totalPrice: null,
     averageRating: null,
     host: "",
-    country: {} as Country,
+    country: "",
     city: "",
     street: "",
     number: 0,
-    isFavoriteForGuest: false
+    isFavoriteForGuest: false,
+    hostId: 0
   };
   imagePaths: string[] = [];
   accommodationAddress: string = "";
   isAccommodationDetailsReady: boolean = false;
-  reviews: AccommodationReviewDetailsDTO[] = [];
+  reviews: ReviewDetailsDTO[] = [];
   request: MakeReservationRequestDTO;
   isReservationButtonDisabled: boolean = true;
   isGuest: boolean = false;
@@ -138,6 +138,7 @@ export class AccommodationPageComponent implements OnInit{
     } else {
       pendingId = + pendingParam;
     }
+
 
     if(this.isGuest) {
       this.accommodationService.getAccommodationWhenGuest(accommodationId, this.authService.getId()).subscribe(

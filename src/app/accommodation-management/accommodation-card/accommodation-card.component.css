@@ -2,6 +2,7 @@
 .accommodation-card {
   position: relative;
   border-radius: 15px;
+  cursor: pointer;
 }
 
 .favorite-button {

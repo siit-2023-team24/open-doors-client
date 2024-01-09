@@ -77,7 +77,6 @@ export class HomePageComponent implements OnInit {
         
       );
     }
-    
   }
 
   searchAndFilterAccommodations(): void {
