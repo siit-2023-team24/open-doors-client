@@ -25,8 +25,8 @@
         <app-write-review-card [recipientId]="hostId" [isHost]="true"></app-write-review-card>
     </div>
     <hr class="horizontal-separator">
-    <div>
-        <mat-grid-list cols="2" rowHeight="150px" class="review-list">
+    <div class="list-item">
+        <mat-grid-list  cols="2" rowHeight="150px" class="review-list">
           <mat-grid-tile *ngFor="let review of reviews">
             <app-review-card [review]="review" class="review"></app-review-card>
           </mat-grid-tile>
