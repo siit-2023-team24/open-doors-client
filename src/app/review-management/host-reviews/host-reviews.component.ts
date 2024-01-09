@@ -17,6 +17,7 @@ export class HostReviewsComponent implements OnInit {
   name: string;
   isReviewable: boolean;
   hostId: number;
+  averageRating: number;
   reviews: ReviewDetailsDTO[] = [];
   constructor(private route: ActivatedRoute,
     private reviewService: ReviewService,
@@ -37,6 +38,11 @@ export class HostReviewsComponent implements OnInit {
           this.reviews = host.reviews;
           this.isReviewable = host.isReviewable;
           console.log(this.isReviewable);
+          this.averageRating=0;
+          for (let i=0; i<host.reviews.length; i++) {
+            this.averageRating+=host.reviews[i].rating;
+          }
+          this.averageRating=parseFloat((this.averageRating/host.reviews.length).toFixed(2));
           this.imgPath = this.imageService.getPath(host.imageId, true);
         },
         error: () => {

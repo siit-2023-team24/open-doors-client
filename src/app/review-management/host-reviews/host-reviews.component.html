@@ -6,6 +6,18 @@
 </div>
 <div class="reviews">
     <h2>Reviews: {{ reviews.length }}</h2>
+    
+    <div class="stars" *ngIf="reviews.length != 0">
+      <div class="star-container">
+        <p class="rating">Average rating: </p>
+      </div>
+      <div class="star-container with-star">
+        <mat-icon class="star full">star</mat-icon>
+      </div>
+      <div class="star-container">
+        <p class="rating">{{ averageRating }}</p>
+      </div>
+    </div>
     <h1 *ngIf="reviews.length == 0">This host has no reviews.</h1>
     <hr class="horizontal-separator">
     <div *ngIf="isReviewable">
