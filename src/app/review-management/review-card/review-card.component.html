@@ -16,8 +16,10 @@
             </div>
         </div>
     </div>
-    <p>{{ review.comment }}</p>
+    <div class="comment">
+        <p>{{ review.comment }}</p>
+    </div>
     <div class="delete-container">
-        <button mat-raised-button class="delete-btn" *ngIf="guest==review.authorUsername">Delete review</button>
+        <button mat-raised-button class="delete-btn" *ngIf="guest==review.authorUsername" (click)="openDialog()">Delete review</button>
     </div>
 </div>

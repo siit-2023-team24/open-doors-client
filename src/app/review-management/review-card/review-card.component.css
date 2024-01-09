@@ -5,8 +5,11 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
-  max-height: 150px;
+  height: 200px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .user-info {
@@ -84,4 +87,10 @@
   cursor: pointer;
   border: none;
   background-color: #EF6C33;
+}
+
+.comment {
+  display: flex;
+  max-height: 100px;
+  overflow-y: auto;
 }

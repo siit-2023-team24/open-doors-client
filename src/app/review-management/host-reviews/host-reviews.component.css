@@ -76,3 +76,7 @@
 .list-item {
   margin-bottom: 50px;
 }
+
+.tile {
+  height: 200px;
+}
