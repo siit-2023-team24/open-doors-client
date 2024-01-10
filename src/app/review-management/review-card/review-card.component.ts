@@ -50,17 +50,21 @@ export class ReviewCardComponent {
     })
   }
 
+  refresh(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    const currentUrl = this.router.url;
+
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+
   onDelete(): void {
     if(this.isHost) {
       this.reviewService.deleteHostReview(this.review.id).subscribe({
         next: () => {
           console.log('Deleted host review with id: ' + this.review.id);
-          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          const currentUrl = this.router.url;
-
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate([currentUrl]);
-          });
+          this.refresh();
         },
         error: (error) => {
           console.error(error.error.message);
@@ -72,6 +76,14 @@ export class ReviewCardComponent {
   }
 
   changeReportedStatus(): void {
-    
+    this.reviewService.changeReportedStatus(this.review.id).subscribe({
+      next: () => {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+          this.refresh();
+      },
+      error: (error) => {
+        
+      }
+    });
   }
 }

@@ -38,8 +38,9 @@ export class HostReviewsComponent implements OnInit {
           this.username = host.username;
           this.name = host.firstName + " " + host.lastName;
           this.reviews = host.reviews;
+          console.log(host.reviews);
+          this.reviews.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
           this.isReviewable = host.isReviewable;
-          console.log(this.isReviewable);
           this.averageRating=0;
           for (let i=0; i<host.reviews.length; i++) {
             this.averageRating+=host.reviews[i].rating;
