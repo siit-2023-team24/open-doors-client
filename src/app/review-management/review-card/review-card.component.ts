@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class ReviewCardComponent {
   @Input() review: ReviewDetailsDTO;
   @Input() isHost: boolean;
+  @Input() canReport: boolean;
 
   imagePath: string = "";
   guest: string = "";
@@ -67,6 +68,10 @@ export class ReviewCardComponent {
         }
       });
     }
+    
+  }
+
+  changeReportedStatus(): void {
     
   }
 }
