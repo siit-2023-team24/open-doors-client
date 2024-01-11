@@ -52,6 +52,7 @@ export class AccommodationPageComponent implements OnInit{
   isAccommodationDetailsReady: boolean = false;
   reviews: ReviewDetailsDTO[] = [];
   isReviewable: boolean = false;
+  unapprovedReview: ReviewDetailsDTO | null = null;
   request: MakeReservationRequestDTO;
   isReservationButtonDisabled: boolean = true;
   isGuest: boolean = false;
@@ -156,6 +157,7 @@ export class AccommodationPageComponent implements OnInit{
               next: (accommodationReviews: AccommodationReviewsDTO) => {
               this.reviews = accommodationReviews.reviews;
               this.isReviewable = accommodationReviews.isReviewable;
+              this.unapprovedReview = accommodationReviews.unapprovedReview;
               },
               error: (error) => {
               }
@@ -180,6 +182,7 @@ export class AccommodationPageComponent implements OnInit{
               next: (accommodationReviews: AccommodationReviewsDTO) => {
                 this.reviews = accommodationReviews.reviews;
                 this.isReviewable = accommodationReviews.isReviewable;
+                this.unapprovedReview = accommodationReviews.unapprovedReview;
               },
               error: (error) => {
               }
