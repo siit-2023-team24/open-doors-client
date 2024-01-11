@@ -113,15 +113,18 @@
   </span>
 
   <hr class="horizontal-separator">
-  <app-write-review-card></app-write-review-card>
-  
-  <div class="reviews-container">
+  <div *ngIf="isReviewable">
+    <h2>Since you have stayed at this accommodation in the past 7 days, why not leave a review?</h2>
+    <app-write-review-card [recipientId]="accommodation.id" [isHost]="false"></app-write-review-card>
+  </div>
+  <hr class="horizontal-separator">
+  <!-- <div class="reviews-container">
     <mat-grid-list cols="2" rowHeight="150px">
       <mat-grid-tile *ngFor="let review of reviews">
         <app-review-card [review]="review" style="width: calc(100% - 10px);"></app-review-card>
       </mat-grid-tile>
     </mat-grid-list>
-  </div>
+  </div> -->
 </div>
 
 
