@@ -33,7 +33,6 @@ export class ReviewCardComponent {
   }
 
   openDialog(): void {
-    console.log("I DID IT MOM")
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.autoFocus = true;
@@ -72,7 +71,7 @@ export class ReviewCardComponent {
         }
       });
     }
-    
+    //todo: delete for accommodation review
   }
 
   changeReportedStatus(): void {
