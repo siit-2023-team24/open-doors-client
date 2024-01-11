@@ -1,7 +1,6 @@
 <div class="review">
     <div class="review-details">
         <div class="user-info">
-            <img src="../../assets/image.jpg" alt="User 1" class="user-image">
             <div class="stars">
               <div class="star-container" (click)="rateStar(1)">
                 <mat-icon class="star" *ngIf = "!stars[0]">star_border</mat-icon>
@@ -31,7 +30,7 @@
         <h2 class="error" *ngIf="noRating">Please rate the host between 1 and 5 stars.</h2>
     </div>
     <mat-form-field style="width: 100%;">
-        <textarea matInput [(ngModel)]="comment" placeholder="Write your review..."></textarea>
+      <textarea matInput [(ngModel)]="comment" placeholder="Write your review..."></textarea>
     </mat-form-field>
     <div class="just-button-container">
         <div class="show-more-button">

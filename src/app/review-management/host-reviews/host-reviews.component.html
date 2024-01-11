@@ -5,7 +5,19 @@
     <h1>Name: {{ name }}</h1>
 </div>
 <div class="reviews">
-    <h2>Reviews:</h2>
+    <h2>Reviews: {{ reviews.length }}</h2>
+    
+    <div class="stars" *ngIf="reviews.length != 0">
+      <div class="star-container">
+        <p class="rating">Average rating: </p>
+      </div>
+      <div class="star-container with-star">
+        <mat-icon class="star full">star</mat-icon>
+      </div>
+      <div class="star-container">
+        <p class="rating">{{ averageRating }}</p>
+      </div>
+    </div>
     <h1 *ngIf="reviews.length == 0">This host has no reviews.</h1>
     <hr class="horizontal-separator">
     <div *ngIf="isReviewable">
@@ -13,10 +25,10 @@
         <app-write-review-card [recipientId]="hostId" [isHost]="true"></app-write-review-card>
     </div>
     <hr class="horizontal-separator">
-    <div class="reviews-container">
-        <mat-grid-list cols="2" rowHeight="150px">
+    <div>
+        <mat-grid-list cols="2" rowHeight="150px" class="review-list">
           <mat-grid-tile *ngFor="let review of reviews">
-            <app-review-card [review]="review" style="width: calc(100% - 10px);"></app-review-card>
+            <app-review-card [review]="review" class="review"></app-review-card>
           </mat-grid-tile>
         </mat-grid-list>
     </div>

@@ -14,6 +14,6 @@ export class ReviewCardComponent {
 
   constructor(private imageService: ImageService) {}
   ngOnInit(): void {
-    this.imagePath = this.imageService.getPath(this.review.authorId, true);
+    this.imagePath = this.imageService.getPath(this.review.imageId, true);
   }
 }
