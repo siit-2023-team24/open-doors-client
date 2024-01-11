@@ -26,4 +26,12 @@ export class ReviewService {
   createHostReview(dto: NewReviewDTO) : Observable<HostReviewWholeDTO> {
     return this.httpClient.post<HostReviewWholeDTO>(environment.apiHost + '/host-reviews', dto);
   }
+
+  deleteHostReview(id: number) : Observable<Object> {
+    return this.httpClient.delete(environment.apiHost + "/host-reviews/" + id);
+  }
+
+  deleteAccommodationReview(id: number) : Observable<Object> {
+    return this.httpClient.delete(environment.apiHost + "/accommodation-reviews/" + id);
+  }
 }

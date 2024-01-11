@@ -1,12 +1,15 @@
 
 .review {
   width: calc(100% - 10px);
-  margin: 50px 0;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
-  height: 100px;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .user-info {
@@ -68,4 +71,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.delete-container {
+  height: 30px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.delete-btn {
+  height: 30px;
+  border-radius: 15px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  background-color: #EF6C33;
+}
+
+.comment {
+  display: flex;
+  max-height: 100px;
+  overflow-y: auto;
 }

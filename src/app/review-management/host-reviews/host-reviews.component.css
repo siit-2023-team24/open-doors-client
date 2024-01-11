@@ -72,3 +72,11 @@
     margin-left: 10px;
     margin-right: 5px;
 }
+
+.list-item {
+  margin-bottom: 50px;
+}
+
+.tile {
+  height: 200px;
+}

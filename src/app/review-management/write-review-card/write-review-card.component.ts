@@ -48,7 +48,6 @@ export class WriteReviewCardComponent {
     if(this.isHost) {
       this.reviewService.createHostReview(dto).subscribe({
         next: (response: HostReviewWholeDTO) => {
-          console.log("Success!\n" + response)
           this.router.routeReuseStrategy.shouldReuseRoute = () => false;
           const currentUrl = this.router.url;
 

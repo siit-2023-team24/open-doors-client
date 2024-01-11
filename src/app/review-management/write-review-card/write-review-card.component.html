@@ -30,7 +30,7 @@
         <h2 class="error" *ngIf="noRating">Please rate the host between 1 and 5 stars.</h2>
     </div>
     <mat-form-field style="width: 100%;">
-      <textarea matInput [(ngModel)]="comment" placeholder="Write your review..."></textarea>
+      <textarea matInput [(ngModel)]="comment" placeholder="Write your review..." maxlength="255"></textarea>
     </mat-form-field>
     <div class="just-button-container">
         <div class="show-more-button">
