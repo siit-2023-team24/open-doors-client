@@ -5,6 +5,7 @@ import { HostReviewWholeDTO } from '../model/host-review-whole';
 import { NewReviewDTO } from '../model/new-review';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AccommodationReviewWholeDTO } from '../model/accommodation-review-whole';
 
 @Component({
   selector: 'app-write-review-card',
@@ -33,6 +34,15 @@ export class WriteReviewCardComponent {
     this.rating = rating;
   }
 
+  refresh() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    const currentUrl = this.router.url;
+
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+
   saveReview(): void {
     if(this.rating==0) {
       this.noRating = true;
@@ -48,12 +58,8 @@ export class WriteReviewCardComponent {
     if(this.isHost) {
       this.reviewService.createHostReview(dto).subscribe({
         next: (response: HostReviewWholeDTO) => {
-          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          const currentUrl = this.router.url;
-
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate([currentUrl]);
-          });
+          this.refresh();
+          console.log(response);
         },
         error: (error) => {
           console.log(error);
@@ -61,8 +67,15 @@ export class WriteReviewCardComponent {
       })
     }
     else {
-      //TODO: create accommodation review
+      this.reviewService.createAccommodationReview(dto).subscribe({
+        next: (response: AccommodationReviewWholeDTO) => {
+          this.refresh();
+          console.log(response);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
     }
-    
   }
 }

@@ -6,6 +6,8 @@ import { environment } from 'src/env/env';
 import { HostPublicDataDTO } from './model/host-public-data';
 import { NewReviewDTO } from './model/new-review';
 import { HostReviewWholeDTO } from './model/host-review-whole';
+import { AccommodationReviewsDTO } from './model/accommodation-reviews';
+import { AccommodationReviewWholeDTO } from './model/accommodation-review-whole';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +16,9 @@ export class ReviewService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getReviewsForAccommodation(accommodationId: number) : Observable<ReviewDetailsDTO[]> {
-    return this.httpClient.get<ReviewDetailsDTO[]>(environment.apiHost + '/accommodation-reviews/accommodation/' + accommodationId);
+  getReviewsForAccommodation(accommodationId: number, guestId: number) : Observable<AccommodationReviewsDTO> {
+    let params = new HttpParams().set('guestId', guestId.toString());
+    return this.httpClient.get<AccommodationReviewsDTO>(environment.apiHost + '/accommodation-reviews/' + accommodationId, { params });
   }
 
   getReviewsForHost(hostId: number, guestId: number) : Observable<HostPublicDataDTO> {
@@ -27,6 +30,10 @@ export class ReviewService {
     return this.httpClient.post<HostReviewWholeDTO>(environment.apiHost + '/host-reviews', dto);
   }
 
+  createAccommodationReview(dto: NewReviewDTO) : Observable<AccommodationReviewWholeDTO> {
+    return this.httpClient.post<AccommodationReviewWholeDTO>(environment.apiHost + '/accommodation-reviews', dto);
+  }
+
   deleteHostReview(id: number) : Observable<Object> {
     return this.httpClient.delete(environment.apiHost + "/host-reviews/" + id);
   }
@@ -36,6 +43,6 @@ export class ReviewService {
   }
 
   changeReportedStatus(id: number) : Observable<Object> {
-    return this.httpClient.put(environment.apiHost + "/host-reviews/" + id + "/status", {});
+    return this.httpClient.post(environment.apiHost + "/host-reviews/" + id + "/status", {});
   }
 }

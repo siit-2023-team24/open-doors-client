@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
@@ -12,6 +11,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class NavBarComponent implements OnInit {
 
   role: string;
+  id: number;
   constructor(private router: Router,
               public authService: AuthService) {
   }
@@ -19,14 +19,12 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const helper : JwtHelperService = new JwtHelperService();
-    const token = localStorage.getItem('user');
-    if (token == null) {
-      this.role = 'NO_USER';
+    if (this.authService.isLoggedIn()) {
+      this.role = this.authService.getRole();
+      this.id = this.authService.getId();
     }
     else {
-      const role = helper.decodeToken(token).role;
-      this.role = role
+      this.role = 'NO_USER';
     }
 
     this.router.events.pipe(

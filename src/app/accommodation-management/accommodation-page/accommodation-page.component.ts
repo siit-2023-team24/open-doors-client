@@ -14,6 +14,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { SeasonalRatePricingDTO } from '../model/seasonal-rates-pricing';
 import { AccommodationSeasonalRateDTO } from '../model/accommodation-seasonal-rate';
 import { AccommodationFavoritesDTO } from '../model/accommodation-favorites';
+import { AccommodationReviewsDTO } from 'src/app/review-management/model/accommodation-reviews';
 
 @Component({
   selector: 'app-accommodation-page',
@@ -50,6 +51,7 @@ export class AccommodationPageComponent implements OnInit{
   accommodationAddress: string = "";
   isAccommodationDetailsReady: boolean = false;
   reviews: ReviewDetailsDTO[] = [];
+  isReviewable: boolean = false;
   request: MakeReservationRequestDTO;
   isReservationButtonDisabled: boolean = true;
   isGuest: boolean = false;
@@ -141,8 +143,8 @@ export class AccommodationPageComponent implements OnInit{
 
 
     if(this.isGuest) {
-      this.accommodationService.getAccommodationWhenGuest(accommodationId, this.authService.getId()).subscribe(
-        (details) => {
+      this.accommodationService.getAccommodationWhenGuest(accommodationId, this.authService.getId()).subscribe({
+        next: (details: AccommodationWithTotalPriceDTO) => {
           this.accommodation = details;
           this.accommodation.images = this.accommodation.images || [];
           console.log(this.accommodation);
@@ -150,18 +152,23 @@ export class AccommodationPageComponent implements OnInit{
           this.isAccommodationDetailsReady = true;
           this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
           if (accommodationId!==null){
-            this.reviewService.getReviewsForAccommodation(accommodationId).subscribe(reviews => {
-              this.reviews = reviews;
+            this.reviewService.getReviewsForAccommodation(accommodationId, this.authService.getId()).subscribe({
+              next: (accommodationReviews: AccommodationReviewsDTO) => {
+              this.reviews = accommodationReviews.reviews;
+              this.isReviewable = accommodationReviews.isReviewable;
+              },
+              error: (error) => {
+              }
             });
           }
         },
-        (error) => {
+        error: (error) => {
           console.error("Error fetching accommodation details:", error);
         }
-      );
+    });
     } else {
-      this.accommodationService.getAccommodation(pendingId, accommodationId).subscribe(
-        (details) => {
+      this.accommodationService.getAccommodation(pendingId, accommodationId).subscribe({
+        next: (details: AccommodationWithTotalPriceDTO) => {
           this.accommodation = details;
           this.accommodation.images = this.accommodation.images || [];
           console.log(this.accommodation);
@@ -169,15 +176,20 @@ export class AccommodationPageComponent implements OnInit{
           this.isAccommodationDetailsReady = true;
           this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
           if (accommodationId!==null){
-            this.reviewService.getReviewsForAccommodation(accommodationId).subscribe(reviews => {
-              this.reviews = reviews;
+            this.reviewService.getReviewsForAccommodation(accommodationId, 0).subscribe({
+              next: (accommodationReviews: AccommodationReviewsDTO) => {
+                this.reviews = accommodationReviews.reviews;
+                this.isReviewable = accommodationReviews.isReviewable;
+              },
+              error: (error) => {
+              }
             });
           }
         },
-        (error) => {
+        error: (error) => {
           console.error("Error fetching accommodation details:", error);
         }
-      );
+    });
     }
     
   }
