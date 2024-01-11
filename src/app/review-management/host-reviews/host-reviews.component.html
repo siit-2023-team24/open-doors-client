@@ -28,7 +28,7 @@
     <div class="list-item">
         <mat-grid-list cols="2" rowHeight="250px" class="review-list">
           <mat-grid-tile class="tile" *ngFor="let review of reviews">
-            <app-review-card [review]="review" [isHost]="true" class="review"></app-review-card>
+            <app-review-card [review]="review" [canReport]="canReport" class="review"></app-review-card>
           </mat-grid-tile>
         </mat-grid-list>
     </div>

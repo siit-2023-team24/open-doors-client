@@ -34,4 +34,8 @@ export class ReviewService {
   deleteAccommodationReview(id: number) : Observable<Object> {
     return this.httpClient.delete(environment.apiHost + "/accommodation-reviews/" + id);
   }
+
+  changeReportedStatus(id: number) : Observable<Object> {
+    return this.httpClient.put(environment.apiHost + "/host-reviews/" + id + "/status", {});
+  }
 }

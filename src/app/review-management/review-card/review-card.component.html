@@ -20,6 +20,8 @@
         <p>{{ review.comment }}</p>
     </div>
     <div class="delete-container">
-        <button mat-raised-button class="delete-btn" *ngIf="guest==review.authorUsername" (click)="openDialog()">Delete review</button>
+        <button mat-raised-button class="button delete-btn" *ngIf="guest==review.authorUsername" (click)="openDialog()">Delete review</button>
+        <button mat-raised-button class="button delete-btn" *ngIf="canReport && !review.isProcessed" (click)="changeReportedStatus()">Report review</button>
+        <button mat-raised-button class="button restore-btn" *ngIf="canReport && review.isProcessed" (click)="changeReportedStatus()">Withdraw report</button>
     </div>
 </div>

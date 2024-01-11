@@ -79,13 +79,16 @@
   flex-direction: row-reverse;
 }
 
-.delete-btn {
+.button {
   height: 30px;
   border-radius: 15px;
   padding: 10px 20px;
   font-size: 14px;
   cursor: pointer;
   border: none;
+  margin: 0;
+}
+.delete-btn {
   background-color: #EF6C33;
 }
 
@@ -93,4 +96,9 @@
   display: flex;
   max-height: 100px;
   overflow-y: auto;
+}
+
+.restore-btn {
+  background-color: #0C4A60;
+  color: white;
 }
