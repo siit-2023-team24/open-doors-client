@@ -71,7 +71,18 @@ export class ReviewCardComponent {
         }
       });
     }
-    //todo: delete for accommodation review
+    else {
+      this.reviewService.deleteAccommodationReview(this.review.id).subscribe({
+        next: () => {
+          console.log('Deleted accommodation review with id: ' + this.review.id);
+          this.refresh();
+        },
+        error: (error) => {
+          console.error(error.error.message);
+          alert(error.error.message)
+        }
+      });
+    }
   }
 
   changeReportedStatus(): void {
