@@ -36,7 +36,7 @@ export class ReservationRequestCardComponent {
       },
       error: (error) => {
         console.error('Error cancelling request:', error);
-        this.showSnackBar('Error cancelling request.');
+        this.showSnackBar(error.error.message);
       }
   });
   }
@@ -56,7 +56,8 @@ export class ReservationRequestCardComponent {
   }
 
   isRequestConfirmed() {
-    return this.request.status === ReservationRequestStatus.CONFIRMED;
+    return this.request.status === ReservationRequestStatus.CONFIRMED
+    && new Date(this.request.startDate) > new Date();
   }
 
   isRequestPending() {
