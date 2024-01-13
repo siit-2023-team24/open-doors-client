@@ -34,18 +34,18 @@ export class ReportedReviewCardComponent {
     }
   
     private dismiss(): void {
-      // this.service.deny(this.review.id).subscribe({
-      //   next: () => {
-      //     this.showSnackBar("Denied review");
-      //     console.log("Denied review " + this.review.id)
-      //     this.reload.emit(this.review.id);
-      //   },
-      //   error: (error) => {
-      //     console.error("Error denying review: " + this.review.id);
-      //     console.error(error.error.message);
-      //     this.showSnackBar(error.error.message)
-      //   }
-      // })
+      this.service.changeReportedStatus(this.review.id).subscribe({
+        next: () => {
+          this.showSnackBar("Dismissed review");
+          console.log("Dismissed review " + this.review.id)
+          this.reload.emit(this.review.id);
+        },
+        error: (error) => {
+          console.error("Error dismissing review: " + this.review.id);
+          console.error(error.error.message);
+          this.showSnackBar(error.error.message)
+        }
+      })
     }
 
 
@@ -62,18 +62,18 @@ export class ReportedReviewCardComponent {
     }
   
     private delete(): void {
-      // this.service.deny(this.review.id).subscribe({
-      //   next: () => {
-      //     this.showSnackBar("Denied review");
-      //     console.log("Denied review " + this.review.id)
-      //     this.reload.emit(this.review.id);
-      //   },
-      //   error: (error) => {
-      //     console.error("Error denying review: " + this.review.id);
-      //     console.error(error.error.message);
-      //     this.showSnackBar(error.error.message)
-      //   }
-      // })
+      this.service.deleteHostReview(this.review.id).subscribe({
+        next: () => {
+          this.showSnackBar("Deleted review");
+          console.log("Deleted review " + this.review.id)
+          this.reload.emit(this.review.id);
+        },
+        error: (error) => {
+          console.error("Error deleting review: " + this.review.id);
+          console.error(error.error.message);
+          this.showSnackBar(error.error.message)
+        }
+      })
     }
 
     private showSnackBar(message: string): void {
