@@ -20,6 +20,7 @@ export interface AccommodationWithTotalPriceDTO {
     totalPrice: number | null;
     averageRating: number | null;
     host: string;
+    hostUsername?: string;
     country: string;
     city: string;
     street: string;

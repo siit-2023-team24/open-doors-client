@@ -78,7 +78,14 @@ export class ReservationRequestHostCardComponent {
   }
 
   isRequestPending(): boolean {
-    return this.request.status === ReservationRequestStatus.PENDING;
+    if (this.request.status === ReservationRequestStatus.PENDING)
+      return false;
+
+    const today: Date = new Date();
+    const t = today < this.request.startDate;
+    console.log(t);
+    console.log(today)
+    return t;
   }
 
   private showSnackBar(message: string): void {
