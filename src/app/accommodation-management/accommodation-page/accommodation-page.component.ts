@@ -173,11 +173,15 @@ export class AccommodationPageComponent implements OnInit{
         next: (details: AccommodationWithTotalPriceDTO) => {
           this.accommodation = details;
           this.accommodation.images = this.accommodation.images || [];
+
+          if (!this.accommodation.host)
+            this.accommodation.host = details.hostUsername || "";
+
           console.log(this.accommodation);
           this.accommodationAddress = this.accommodation.street + " " + this.accommodation.number + ", " + this.accommodation.city;
           this.isAccommodationDetailsReady = true;
           this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
-          if (accommodationId!==null){
+          if (accommodationId){
             this.reviewService.getReviewsForAccommodation(accommodationId, 0).subscribe({
               next: (accommodationReviews: AccommodationReviewsDTO) => {
                 this.reviews = accommodationReviews.reviews;
