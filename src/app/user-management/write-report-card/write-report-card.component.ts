@@ -1,0 +1,81 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from 'src/app/auth/auth.service';
+import { UserReportService } from '../user-report.service';
+import { NewUserReportDTO } from '../model/new-user-report';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
+import { UserReportDTO } from '../model/user-report';
+import { Router } from '@angular/router';
+@Component({
+  selector: 'app-write-report-card',
+  templateUrl: './write-report-card.component.html',
+  styleUrls: ['./write-report-card.component.css']
+})
+export class WriteReportCardComponent {
+  @Input() username: string
+
+  constructor (private authService: AuthService,
+              private userReportService: UserReportService,
+              private dialog: MatDialog,
+              private router: Router) {}
+
+  reason: string = "";
+  noReason: boolean = false;
+  
+
+  reportUser(): void {
+    if (this.reason == "" || this.reason == null) {
+      this.noReason = true;
+      return;
+    }
+    this.noReason = false;
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      question: "Are you sure you report the user " + this.username + " ?"
+    }
+
+    const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe({
+      next: (answer: boolean) => {
+        if (answer) this.confirmChoice();
+      }
+    })
+  }
+  
+  refresh(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    const currentUrl = this.router.url;
+
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+
+  confirmChoice(): void {
+    const dto : NewUserReportDTO = {
+      recipientUsername: this.username,
+      complainantUsername: this.authService.getUsername(),
+      isComplainantGuest: this.authService.getRole() == "ROLE_GUEST",
+      reason: this.reason
+    }
+    this.userReportService.createUserReview(dto).subscribe({
+      next: (response: UserReportDTO) => {
+        console.log('Created report:');
+        console.log(response);
+        this.refresh();
+      },
+      error: (error) => {
+        console.error(error.error.message);
+        alert(error.error.message)
+      }
+    });
+  }
+
+
+  
+}

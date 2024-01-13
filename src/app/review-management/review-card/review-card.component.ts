@@ -88,8 +88,7 @@ export class ReviewCardComponent {
   changeReportedStatus(): void {
     this.reviewService.changeReportedStatus(this.review.id).subscribe({
       next: () => {
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          this.refresh();
+        this.refresh();
       },
       error: (error) => {
         

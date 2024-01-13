@@ -27,7 +27,8 @@ import { ReportedReviewCardComponent } from './reported-review-card/reported-rev
   ],
   exports: [
     ReviewCardComponent,
-    WriteReviewCardComponent
+    WriteReviewCardComponent,
+    HostReviewsComponent
   ]
 })
 export class ReviewManagementModule { }

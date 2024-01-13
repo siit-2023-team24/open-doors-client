@@ -16,6 +16,7 @@ import { ReservationRequestGuestPageComponent } from './reservation-management/r
 import { FavoritesPageComponent } from './accommodation-management/favorites-page/favorites-page.component';
 import { HostReviewsComponent } from './review-management/host-reviews/host-reviews.component';
 import { FinancialReportPageComponent } from './financial-report-management/financial-report-page/financial-report-page.component';
+import { ReportUserComponent } from './user-management/report-user/report-user.component';
 import { ReviewsAdminPageComponent } from './review-management/reviews-admin-page/reviews-admin-page.component';
 
 const routes: Routes = [
@@ -30,11 +31,12 @@ const routes: Routes = [
     {component: AccountActivationComponent, path:"activate-account"},
     {component: AccommodationPageComponent, path:"accommodation/:id/:accommodationId"},
     {component: PendingAccommodationsComponent, path: "pending-accommodations", canActivate: [AuthGuard], data : {role: ['ROLE_ADMIN']}},
-    {component: ReservationRequestGuestPageComponent, path: "reservationRequests"},
-    {component: FavoritesPageComponent, path:"favorites"},
+    {component: ReservationRequestGuestPageComponent, path: "reservation-requests", canActivate: [AuthGuard], data: {role: ['ROLE_GUEST', 'ROLE_HOST']}},
+    {component: FavoritesPageComponent, path:"favorites", canActivate: [AuthGuard], data : {role: ['ROLE_GUEST']}},
     {component: HostReviewsComponent, path:"host-reviews/:hostId"},
-    {component: FinancialReportPageComponent, path:"financialReports"},
-    {component: ReviewsAdminPageComponent, path: "reviews"},
+    {component: FinancialReportPageComponent, path:"financial-reports", canActivate: [AuthGuard], data : {role: ['ROLE_HOST']}},
+    {component: ReportUserComponent, path:"report-users", canActivate: [AuthGuard], data : {role: ['ROLE_GUEST', 'ROLE_HOST']}},
+    {component: ReviewsAdminPageComponent, path: "reviews", canActivate: [AuthGuard], data : {role: ['ROLE_ADMIN']}},
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', redirectTo: 'home' },
 ];
