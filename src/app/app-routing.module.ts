@@ -16,6 +16,7 @@ import { ReservationRequestGuestPageComponent } from './reservation-management/r
 import { FavoritesPageComponent } from './accommodation-management/favorites-page/favorites-page.component';
 import { HostReviewsComponent } from './review-management/host-reviews/host-reviews.component';
 import { FinancialReportPageComponent } from './financial-report-management/financial-report-page/financial-report-page.component';
+import { ReviewsAdminPageComponent } from './review-management/reviews-admin-page/reviews-admin-page.component';
 
 const routes: Routes = [
     {component: LoginComponent, path:"login"},
@@ -33,6 +34,7 @@ const routes: Routes = [
     {component: FavoritesPageComponent, path:"favorites"},
     {component: HostReviewsComponent, path:"host-reviews/:hostId"},
     {component: FinancialReportPageComponent, path:"financialReports"},
+    {component: ReviewsAdminPageComponent, path: "reviews"},
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', redirectTo: 'home' },
 ];

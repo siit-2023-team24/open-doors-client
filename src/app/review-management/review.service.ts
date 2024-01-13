@@ -8,6 +8,7 @@ import { NewReviewDTO } from './model/new-review';
 import { HostReviewWholeDTO } from './model/host-review-whole';
 import { AccommodationReviewsDTO } from './model/accommodation-reviews';
 import { AccommodationReviewWholeDTO } from './model/accommodation-review-whole';
+import { PendingReview } from './model/pending-review';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +45,17 @@ export class ReviewService {
 
   changeReportedStatus(id: number) : Observable<Object> {
     return this.httpClient.post(environment.apiHost + "/host-reviews/" + id + "/status", {});
+  }
+
+  getPendingReviews(): Observable<PendingReview[]> {
+    return this.httpClient.get<PendingReview[]>(environment.apiHost + '/accommodation-reviews/pending');
+  }
+
+  approve(id: number): Observable<Object> {
+    return this.httpClient.get(environment.apiHost + '/accommodation-reviews/approve/' + id);
+  }
+
+  deny(id: number): Observable<Object> {
+    return this.httpClient.get(environment.apiHost + '/accommodation-reviews/deny/' + id);
   }
 }

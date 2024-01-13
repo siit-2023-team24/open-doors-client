@@ -6,12 +6,16 @@ import { ReviewCardComponent } from './review-card/review-card.component';
 import { WriteReviewCardComponent } from './write-review-card/write-review-card.component';
 import { HostReviewsComponent } from './host-reviews/host-reviews.component';
 import { FormsModule } from '@angular/forms';
+import { ReviewsAdminPageComponent } from './reviews-admin-page/reviews-admin-page.component';
+import { PendingReviewCardComponent } from './pending-review-card/pending-review-card.component';
 
 @NgModule({
   declarations: [
     ReviewCardComponent,
     WriteReviewCardComponent,
-    HostReviewsComponent
+    HostReviewsComponent,
+    ReviewsAdminPageComponent,
+    PendingReviewCardComponent
   ],
   imports: [
     RouterModule,
