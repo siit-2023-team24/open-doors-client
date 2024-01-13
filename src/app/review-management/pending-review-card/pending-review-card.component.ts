@@ -14,7 +14,6 @@ export class PendingReviewCardComponent {
 
   @Input()
   review: PendingReview;
-
   
   @Output()
   reload: EventEmitter<number> = new EventEmitter();
@@ -51,7 +50,7 @@ export class PendingReviewCardComponent {
   dialogDeny(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.data = { question: "Are you sure you wish to approve this review?" }
+    dialogConfig.data = { question: "Are you sure you wish to deny this review?" }
     const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe({
       next: (answer: boolean) => {

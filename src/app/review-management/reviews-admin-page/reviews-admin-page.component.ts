@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PendingReview } from '../model/pending-review';
 import { ReviewService } from '../review.service';
+import { ReportedReview } from '../model/reported-review';
 
 @Component({
   selector: 'app-reviews-admin-page',
@@ -10,8 +11,10 @@ import { ReviewService } from '../review.service';
 export class ReviewsAdminPageComponent {
 
   pending: PendingReview[] = [];
-
   noPendingMessage: string = "";
+
+  reported: ReportedReview[] = [];
+  noReportedMessage = "";
 
   constructor(private service: ReviewService) {}
 
@@ -25,13 +28,18 @@ export class ReviewsAdminPageComponent {
       error: () => console.error("Error getting pending reviews ")
     });
 
-
+    this.service.getReportedReviews().subscribe({
+      next: (data: ReportedReview[]) => {
+        this.reported = data;
+        if (data.length == 0)
+          this.noReportedMessage = "There are no reported reviews right now.";
+      }, 
+      error: () => console.error("Error getting reported reviews")
+    });
   }
 
 
   reloadParent(id: number): void {
     this.ngOnInit();
   }
-  
-
 }

@@ -6,6 +6,7 @@
 <br>
 
 <p class="subtitle">Reported reviews</p>
-<!-- <h2 class="subtitle">{{ noReportedMessage }}</h2>
+<h2 class="subtitle">{{ noReportedMessage }}</h2>
 <div class="cards" *ngFor="let r of reported">
-</div> -->
+    <app-reported-review-card [review]="r" (reload)="reloadParent($event)"></app-reported-review-card>
+</div>
