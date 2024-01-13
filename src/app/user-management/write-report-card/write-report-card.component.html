@@ -1,0 +1,13 @@
+<div class="report">
+    <h2>{{ username }}</h2>
+    <mat-form-field style="width: 100%;">
+      <textarea matInput placeholder="Reason for report..." maxlength="255" [(ngModel)]="reason"></textarea>
+    </mat-form-field>
+    <div class="just-button-container">
+        <div class="show-more-button">
+          <button mat-button>
+            <span>File report</span>
+          </button>
+        </div>
+      </div>
+</div>

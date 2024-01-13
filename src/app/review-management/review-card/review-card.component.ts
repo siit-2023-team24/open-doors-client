@@ -50,12 +50,7 @@ export class ReviewCardComponent {
   }
 
   refresh(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    const currentUrl = this.router.url;
-
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
-    });
+    
   }
 
   onDelete(): void {
@@ -89,7 +84,11 @@ export class ReviewCardComponent {
     this.reviewService.changeReportedStatus(this.review.id).subscribe({
       next: () => {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          this.refresh();
+        const currentUrl = this.router.url;
+
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate([currentUrl]);
+        });
       },
       error: (error) => {
         

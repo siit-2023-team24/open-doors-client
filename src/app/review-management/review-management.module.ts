@@ -21,7 +21,8 @@ import { FormsModule } from '@angular/forms';
   ],
   exports: [
     ReviewCardComponent,
-    WriteReviewCardComponent
+    WriteReviewCardComponent,
+    HostReviewsComponent
   ]
 })
 export class ReviewManagementModule { }

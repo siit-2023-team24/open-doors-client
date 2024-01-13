@@ -1,0 +1,14 @@
+<div class="frame">
+  <br>
+  <h1 *ngIf="isGuests">Hosts you have stayed with:</h1>
+  <h1 *ngIf="!isGuests">Guests you have hosted:</h1>
+  <h2 *ngIf="usernames.length==0"></h2>
+  <div class="list-item">
+      
+      <mat-grid-list cols="2" rowHeight="250px" class="report-list">
+        <mat-grid-tile class="tile" *ngFor="let username of usernames">
+          <app-write-report-card class="report" [username]="username"></app-write-report-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+  </div>
+</div>
