@@ -10,13 +10,13 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class ReportUserComponent implements OnInit{
 
   usernames: string[]=[];
-  isGuests: boolean;
+  isGuest: boolean;
   constructor(private userReportService: UserReportService,
               private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.isGuests = this.authService.getRole() == "ROLE_GUEST";
-    this.userReportService.getReportableUsersForUser(this.authService.getId(), this.isGuests).subscribe({
+    this.isGuest = this.authService.getRole() == "ROLE_GUEST";
+    this.userReportService.getReportableUsersForUser(this.authService.getId(), this.isGuest).subscribe({
       next: (usernames : string[]) => {
         this.usernames = usernames;
         console.log(usernames);
