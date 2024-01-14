@@ -16,6 +16,7 @@ import { WriteReportCardComponent } from './write-report-card/write-report-card.
 import { ReportUserComponent } from './report-user/report-user.component';
 import { FormsModule } from '@angular/forms';
 import { UserReportCardComponent } from './user-report-card/user-report-card.component';
+import { UserCardComponent } from './user-card/user-card.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { UserReportCardComponent } from './user-report-card/user-report-card.com
     UserReportsComponent,
     WriteReportCardComponent,
     ReportUserComponent,
-    UserReportCardComponent
+    UserReportCardComponent,
+    UserCardComponent
   ],
   imports: [
     CommonModule,

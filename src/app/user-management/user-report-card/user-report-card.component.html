@@ -2,7 +2,8 @@
 
         <div class="user-info">
             <span>{{ report.complainantUsername }}</span>
-            <span id="timestamp">{{ report.timestamp | date:'dd/MM/yyyy' }}</span>
+            <span class="grey-letters">{{ report.timestamp | date:'dd/MM/yyyy' }}</span>
+            <span class="grey-letters">Status: {{report.status}}</span>
         </div>
 
     <b>{{report.recipientUsername}}</b>
@@ -10,7 +11,7 @@
         <p>{{ report.reason}}</p>
     </div>
 
-    <div class="buttons">
+    <div class="buttons" *ngIf="report.status == 'active'">
         <button mat-raised-button class="dismiss-btn" (click)="dialogDismiss()">Dismiss report</button>
         <button mat-raised-button class="block-btn" (click)="dialogBlock()">Block user</button>
     </div>

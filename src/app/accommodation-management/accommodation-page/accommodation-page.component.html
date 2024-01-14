@@ -33,7 +33,7 @@
         {{ accommodation.description }}
       </span>
     </div>
-    <div class="reservation-details" *ngIf="isGuest">
+    <div class="reservation-details" *ngIf="isGuest && !accommodation.blocked">
       <span class="reservation-details-first-line">
         <h1> {{ accommodation.price }} rsd night</h1>
         <span *ngIf="reviews.length>0" class="small-rating">

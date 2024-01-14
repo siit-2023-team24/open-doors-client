@@ -8,6 +8,7 @@ import { EditUser } from './model/edit-user.model';
 import { NewPasswordDTO } from './model/newPasswordDTO';
 import { UserAccount } from './model/user-account.model';
 import { catchError } from 'rxjs/operators';
+import { UserSummary } from './model/user-summary';
 
 @Injectable({
   providedIn: 'root'
@@ -64,5 +65,13 @@ export class UserService {
 
   delete(id: number): Observable<Object> {
     return this.httpClient.delete(environment.apiHost + '/users/' + id);
+  }
+
+  getBlocked(): Observable<UserSummary[]> {
+    return this.httpClient.get<UserSummary[]>(environment.apiHost + '/users/blocked');
+  }
+
+  unblock(id: number): Observable<Object> {
+    return this.httpClient.get(environment.apiHost + '/users/unblock/' + id);
   }
 }

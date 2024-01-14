@@ -45,7 +45,8 @@ export class AccommodationPageComponent implements OnInit{
     street: "",
     number: 0,
     isFavoriteForGuest: false,
-    hostId: 0
+    hostId: 0,
+    blocked: false
   };
   imagePaths: string[] = [];
   accommodationAddress: string = "";

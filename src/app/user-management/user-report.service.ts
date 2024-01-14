@@ -24,4 +24,13 @@ export class UserReportService {
   getAll(): Observable<UserReportDTO[]> {
     return this.httpClient.get<UserReportDTO[]>(environment.apiHost + '/user-reports');
   }
+
+  dismiss(id: number): Observable<UserReportDTO> {
+    return this.httpClient.get<UserReportDTO>(environment.apiHost + '/user-reports/dismiss/' + id);
+  }
+
+  resolve(id: number): Observable<Object> {
+    return this.httpClient.get(environment.apiHost + '/user-reports/resolve/' + id);
+  }
+
 }
