@@ -77,7 +77,7 @@ export class AccommodationPageComponent implements OnInit{
       return date >= startDate && date <= endDate;
     });
   
-    const otherConditions = date >= new Date() && (!this.selectedEndDate || date < this.selectedEndDate);
+    const otherConditions = date >= new Date() && (!this.selectedEndDate || date <= this.selectedEndDate);
   
     const isStartDateInRange = !this.selectedEndDate || this.accommodation.availability.some(range => {
       const startDate = new Date(range.startDate);
@@ -99,7 +99,7 @@ export class AccommodationPageComponent implements OnInit{
       return date >= startDate && date <= endDate;
     });
   
-    const otherConditions = date >= new Date() && (!this.selectedStartDate || date > this.selectedStartDate);
+    const otherConditions = date >= new Date() && (!this.selectedStartDate || date >= this.selectedStartDate);
     
     const isEndDateInRange = !this.selectedStartDate || this.accommodation.availability.some(range => {
       const startDate = new Date(range.startDate);

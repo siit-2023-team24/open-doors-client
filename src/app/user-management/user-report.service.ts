@@ -20,4 +20,8 @@ export class UserReportService {
   createUserReview(dto: NewUserReportDTO) : Observable<UserReportDTO> {
     return this.httpClient.post<UserReportDTO>(environment.apiHost + '/user-reports', dto);
   }
+
+  getAll(): Observable<UserReportDTO[]> {
+    return this.httpClient.get<UserReportDTO[]>(environment.apiHost + '/user-reports');
+  }
 }
