@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ReviewService } from '../review.service';
 import { HostReviewWholeDTO } from '../model/host-review-whole';
@@ -23,6 +23,10 @@ export class WriteReviewCardComponent {
   rating: number = 0;
   noRating: boolean = false;
   comment: string = '';
+
+  @Output()
+  reload: EventEmitter<number> = new EventEmitter();
+
   rateStar(rating: number): void {
     this.noRating = false;
     for (let i=0; i<rating; i++) {
@@ -58,7 +62,7 @@ export class WriteReviewCardComponent {
     if(this.isHost) {
       this.reviewService.createHostReview(dto).subscribe({
         next: (response: HostReviewWholeDTO) => {
-          this.refresh();
+          this.reload.emit(1);
           console.log(response);
         },
         error: (error) => {
@@ -69,7 +73,7 @@ export class WriteReviewCardComponent {
     else {
       this.reviewService.createAccommodationReview(dto).subscribe({
         next: (response: AccommodationReviewWholeDTO) => {
-          this.refresh();
+          this.reload.emit(1);
           console.log(response);
         },
         error: (error) => {

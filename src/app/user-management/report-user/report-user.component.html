@@ -8,7 +8,7 @@
       
       <mat-grid-list cols="2" rowHeight="250px" class="report-list">
         <mat-grid-tile class="tile" *ngFor="let username of usernames">
-          <app-write-report-card class="report" [username]="username"></app-write-report-card>
+          <app-write-report-card class="report" [username]="username" (reload)="reloadParent($event)"></app-write-report-card>
         </mat-grid-tile>
       </mat-grid-list>
   </div>

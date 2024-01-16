@@ -34,7 +34,7 @@ const routes: Routes = [
     {component: PendingAccommodationsComponent, path: "pending-accommodations", canActivate: [AuthGuard], data : {role: ['ROLE_ADMIN']}},
     {component: ReservationRequestGuestPageComponent, path: "reservation-requests", canActivate: [AuthGuard], data: {role: ['ROLE_GUEST', 'ROLE_HOST']}},
     {component: FavoritesPageComponent, path:"favorites", canActivate: [AuthGuard], data : {role: ['ROLE_GUEST']}},
-    {component: HostReviewsComponent, path:"host-reviews/:hostId", canActivate: [AuthGuard], data: {role: ['ROLE_HOST']}},
+    {component: HostReviewsComponent, path:"host-reviews/:hostId"},
     {component: FinancialReportPageComponent, path:"financial-reports", canActivate: [AuthGuard], data : {role: ['ROLE_HOST']}},
     {component: ReportUserComponent, path:"report-users", canActivate: [AuthGuard], data : {role: ['ROLE_GUEST', 'ROLE_HOST']}},
     {component: UserReportsComponent, path: "user-reports", canActivate: [AuthGuard], data: {role: ['ROLE_ADMIN']}},

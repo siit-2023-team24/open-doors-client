@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserReportService } from '../user-report.service';
@@ -14,6 +14,9 @@ import { Router } from '@angular/router';
 })
 export class WriteReportCardComponent {
   @Input() username: string
+
+  @Output()
+  reload: EventEmitter<number> = new EventEmitter();
 
   constructor (private authService: AuthService,
               private userReportService: UserReportService,
@@ -47,14 +50,6 @@ export class WriteReportCardComponent {
     })
   }
   
-  refresh(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    const currentUrl = this.router.url;
-
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
-    });
-  }
 
   confirmChoice(): void {
     const dto : NewUserReportDTO = {
@@ -67,7 +62,7 @@ export class WriteReportCardComponent {
       next: (response: UserReportDTO) => {
         console.log('Created report:');
         console.log(response);
-        this.refresh();
+        this.reload.emit(1);
       },
       error: (error) => {
         console.error(error.error.message);

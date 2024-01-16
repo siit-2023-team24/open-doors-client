@@ -1,5 +1,5 @@
 <div class="buttons">
-    <button mat-raised-button class="button orange-btn">Financial reports</button>
+    <button mat-raised-button class="button orange-btn" [routerLink]="['/financial-reports']">Financial reports</button>
     <button mat-raised-button [queryParams]="{title: 'Create Accommodation'}" class="button create-btn" [routerLink]="['/create-accommodation', null, null]">Create accommodation</button>
 </div>
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReviewDetailsDTO } from '../model/review-details';
 import { ImageService } from 'src/app/image-management/image.service';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -16,6 +16,9 @@ export class ReviewCardComponent {
   @Input() review: ReviewDetailsDTO;
   @Input() isHost: boolean;
   @Input() canReport: boolean;
+
+  @Output()
+  reload: EventEmitter<number> = new EventEmitter();
 
   imagePath: string = "";
   guest: string = "";
@@ -63,7 +66,7 @@ export class ReviewCardComponent {
       this.reviewService.deleteHostReview(this.review.id).subscribe({
         next: () => {
           console.log('Deleted host review with id: ' + this.review.id);
-          this.refresh();
+          this.reload.emit(this.review.id);
         },
         error: (error) => {
           console.error(error.error.message);
@@ -75,7 +78,7 @@ export class ReviewCardComponent {
       this.reviewService.deleteAccommodationReview(this.review.id).subscribe({
         next: () => {
           console.log('Deleted accommodation review with id: ' + this.review.id);
-          this.refresh();
+          this.reload.emit(this.review.id);
         },
         error: (error) => {
           console.error(error.error.message);
@@ -88,7 +91,7 @@ export class ReviewCardComponent {
   changeReportedStatus(): void {
     this.reviewService.changeReportedStatus(this.review.id).subscribe({
       next: () => {
-        this.refresh();
+        this.reload.emit(this.review.id);
       },
       error: (error) => {
         

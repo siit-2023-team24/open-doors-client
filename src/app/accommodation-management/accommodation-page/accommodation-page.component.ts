@@ -152,15 +152,7 @@ export class AccommodationPageComponent implements OnInit{
           this.isAccommodationDetailsReady = true;
           this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
           if (accommodationId!==null){
-            this.reviewService.getReviewsForAccommodation(accommodationId, this.authService.getId()).subscribe({
-              next: (accommodationReviews: AccommodationReviewsDTO) => {
-              this.reviews = accommodationReviews.reviews;
-              this.isReviewable = accommodationReviews.isReviewable;
-              this.unapprovedReview = accommodationReviews.unapprovedReview;
-              },
-              error: (error) => {
-              }
-            });
+            this.loadReviews(accommodationId, this.authService.getId());
           }
         },
         error: (error) => {
@@ -181,15 +173,7 @@ export class AccommodationPageComponent implements OnInit{
           this.isAccommodationDetailsReady = true;
           this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
           if (accommodationId){
-            this.reviewService.getReviewsForAccommodation(accommodationId, 0).subscribe({
-              next: (accommodationReviews: AccommodationReviewsDTO) => {
-                this.reviews = accommodationReviews.reviews;
-                this.isReviewable = accommodationReviews.isReviewable;
-                this.unapprovedReview = accommodationReviews.unapprovedReview;
-              },
-              error: (error) => {
-              }
-            });
+            this.loadReviews(accommodationId, 0);
           }
         },
         error: (error) => {
@@ -198,6 +182,26 @@ export class AccommodationPageComponent implements OnInit{
     });
     }
     
+  }
+
+  loadReviews(accommodationId: number, guestId: number): void {
+    this.reviewService.getReviewsForAccommodation(accommodationId, guestId).subscribe({
+      next: (accommodationReviews: AccommodationReviewsDTO) => {
+      this.reviews = accommodationReviews.reviews;
+      this.isReviewable = accommodationReviews.isReviewable;
+      this.unapprovedReview = accommodationReviews.unapprovedReview;
+      },
+      error: (error) => {
+      }
+    });
+  }
+
+  reloadReviews(_: number) {
+    let guestId = 0;
+    if (this.isGuest)
+      guestId = this.authService.getId();
+
+    this.loadReviews(this.accommodation.id, guestId);
   }
 
   onInput(){

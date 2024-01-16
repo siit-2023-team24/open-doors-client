@@ -22,13 +22,13 @@
     <hr class="horizontal-separator">
     <div *ngIf="isReviewable">
         <h2>Since you have stayed at one of this host's accommodations, why not leave a review?</h2>
-        <app-write-review-card [recipientId]="hostId" [isHost]="true"></app-write-review-card>
+        <app-write-review-card [recipientId]="hostId" [isHost]="true" (reload)="reloadParent($event)"></app-write-review-card>
     </div>
     <hr class="horizontal-separator">
     <div class="list-item">
         <mat-grid-list cols="2" rowHeight="250px" class="review-list">
           <mat-grid-tile class="tile" *ngFor="let review of reviews">
-            <app-review-card [review]="review" [canReport]="canReport" [isHost]="true" class="review"></app-review-card>
+            <app-review-card [review]="review" [canReport]="canReport" [isHost]="true" class="review" (reload)="reloadParent($event)"></app-review-card>
           </mat-grid-tile>
         </mat-grid-list>
     </div>

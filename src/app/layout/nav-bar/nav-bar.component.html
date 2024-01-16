@@ -1,7 +1,7 @@
 <div class="navbar">
 
     <div class="transparent-button-wrapper">
-        <button class="tranparentBtn" [queryParams]="{title: 'Home'}" [routerLink]="['/home']" mat-flat-button>Home</button>
+        <button class="tranparentBtn" [routerLink]="['/home']" mat-flat-button>Home</button>
     </div>
 
 
@@ -24,11 +24,11 @@
     </div>
 
     <div *ngIf="role=='ROLE_HOST'" class="transparent-button-wrapper">
-        <button [routerLink]="['report-users']" class="tranparentBtn" mat-flat-button >Report a guest</button>
+        <button [routerLink]="['report-users']" [queryParams]="{title: 'Report a guest'}" class="tranparentBtn" mat-flat-button >Report a guest</button>
     </div>
 
     <div *ngIf="role=='ROLE_HOST'" class="transparent-button-wrapper">
-        <button [routerLink]="['host-reviews/' + id]" class="tranparentBtn" mat-flat-button >Reviews of me</button>
+        <button [routerLink]="['host-reviews/' + id]" [queryParams]="{title: 'Host reviews'}" class="tranparentBtn" mat-flat-button >Reviews of me</button>
     </div>
 
     <div *ngIf="role=='ROLE_HOST'" class="transparent-button-wrapper">
@@ -47,7 +47,7 @@
     </div>
 
     <div *ngIf="role=='ROLE_GUEST'" class="transparent-button-wrapper">
-        <button [routerLink]="['report-users']" class="tranparentBtn" mat-flat-button >Report a host</button>
+        <button [routerLink]="['report-users']" [queryParams]="{title: 'Report a host'}" class="tranparentBtn" mat-flat-button >Report a host</button>
     </div>
 
     

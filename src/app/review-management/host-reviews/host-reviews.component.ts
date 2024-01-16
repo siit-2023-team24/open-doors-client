@@ -54,4 +54,8 @@ export class HostReviewsComponent implements OnInit {
       })
     });
   }
+
+  reloadParent(id: number): void {
+    this.ngOnInit();
+  }
 }

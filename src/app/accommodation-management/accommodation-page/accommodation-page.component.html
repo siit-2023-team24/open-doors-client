@@ -2,7 +2,7 @@
   <div class="accommodation-name"><h1>{{ accommodation.name }}</h1></div>
   <div class="host">
     <h1 class="host-label">Host:</h1>
-    <button mat-raised-button class="button host-btn" [routerLink]="['../../../host-reviews/' + accommodation.hostId]">{{ accommodation.host }}</button>
+    <button mat-raised-button class="button host-btn" [routerLink]="['/host-reviews/' + accommodation.hostId]" [queryParams]="{title: 'Host reviews'}">{{ accommodation.host }}</button>
   </div>
   <div class="basic-info">
     <div style="display: flex;">
@@ -148,7 +148,7 @@
     <div class="list-item">
       <mat-grid-list cols="2" rowHeight="250px" class="review-list">
         <mat-grid-tile class="tile" *ngFor="let review of reviews">
-          <app-review-card [review]="review" [canReport]="false" class="review"></app-review-card>
+          <app-review-card [review]="review" [canReport]="false" class="review" (reload)="reloadReviews($event)"></app-review-card>
         </mat-grid-tile>
       </mat-grid-list>
     </div>
