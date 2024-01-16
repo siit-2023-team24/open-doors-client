@@ -45,7 +45,8 @@ export class AccommodationPageComponent implements OnInit{
     street: "",
     number: 0,
     isFavoriteForGuest: false,
-    hostId: 0
+    hostId: 0,
+    blocked: false
   };
   imagePaths: string[] = [];
   accommodationAddress: string = "";
@@ -77,7 +78,7 @@ export class AccommodationPageComponent implements OnInit{
       return date >= startDate && date <= endDate;
     });
   
-    const otherConditions = date >= new Date() && (!this.selectedEndDate || date < this.selectedEndDate);
+    const otherConditions = date >= new Date() && (!this.selectedEndDate || date <= this.selectedEndDate);
   
     const isStartDateInRange = !this.selectedEndDate || this.accommodation.availability.some(range => {
       const startDate = new Date(range.startDate);
@@ -99,7 +100,7 @@ export class AccommodationPageComponent implements OnInit{
       return date >= startDate && date <= endDate;
     });
   
-    const otherConditions = date >= new Date() && (!this.selectedStartDate || date > this.selectedStartDate);
+    const otherConditions = date >= new Date() && (!this.selectedStartDate || date >= this.selectedStartDate);
     
     const isEndDateInRange = !this.selectedStartDate || this.accommodation.availability.some(range => {
       const startDate = new Date(range.startDate);
@@ -151,15 +152,7 @@ export class AccommodationPageComponent implements OnInit{
           this.isAccommodationDetailsReady = true;
           this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
           if (accommodationId!==null){
-            this.reviewService.getReviewsForAccommodation(accommodationId, this.authService.getId()).subscribe({
-              next: (accommodationReviews: AccommodationReviewsDTO) => {
-              this.reviews = accommodationReviews.reviews;
-              this.isReviewable = accommodationReviews.isReviewable;
-              this.unapprovedReview = accommodationReviews.unapprovedReview;
-              },
-              error: (error) => {
-              }
-            });
+            this.loadReviews(accommodationId, this.authService.getId());
           }
         },
         error: (error) => {
@@ -180,15 +173,7 @@ export class AccommodationPageComponent implements OnInit{
           this.isAccommodationDetailsReady = true;
           this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
           if (accommodationId){
-            this.reviewService.getReviewsForAccommodation(accommodationId, 0).subscribe({
-              next: (accommodationReviews: AccommodationReviewsDTO) => {
-                this.reviews = accommodationReviews.reviews;
-                this.isReviewable = accommodationReviews.isReviewable;
-                this.unapprovedReview = accommodationReviews.unapprovedReview;
-              },
-              error: (error) => {
-              }
-            });
+            this.loadReviews(accommodationId, 0);
           }
         },
         error: (error) => {
@@ -197,6 +182,26 @@ export class AccommodationPageComponent implements OnInit{
     });
     }
     
+  }
+
+  loadReviews(accommodationId: number, guestId: number): void {
+    this.reviewService.getReviewsForAccommodation(accommodationId, guestId).subscribe({
+      next: (accommodationReviews: AccommodationReviewsDTO) => {
+      this.reviews = accommodationReviews.reviews;
+      this.isReviewable = accommodationReviews.isReviewable;
+      this.unapprovedReview = accommodationReviews.unapprovedReview;
+      },
+      error: (error) => {
+      }
+    });
+  }
+
+  reloadReviews(_: number) {
+    let guestId = 0;
+    if (this.isGuest)
+      guestId = this.authService.getId();
+
+    this.loadReviews(this.accommodation.id, guestId);
   }
 
   onInput(){

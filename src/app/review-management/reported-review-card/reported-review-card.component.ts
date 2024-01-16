@@ -36,12 +36,12 @@ export class ReportedReviewCardComponent {
     private dismiss(): void {
       this.service.changeReportedStatus(this.review.id).subscribe({
         next: () => {
-          this.showSnackBar("Dismissed review");
-          console.log("Dismissed review " + this.review.id)
+          this.showSnackBar("Dismissed report");
+          console.log("Dismissed report " + this.review.id)
           this.reload.emit(this.review.id);
         },
         error: (error) => {
-          console.error("Error dismissing review: " + this.review.id);
+          console.error("Error dismissing report: " + this.review.id);
           console.error(error.error.message);
           this.showSnackBar(error.error.message)
         }

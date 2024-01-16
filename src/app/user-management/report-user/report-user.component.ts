@@ -26,4 +26,8 @@ export class ReportUserComponent implements OnInit{
     })
   }
 
+  reloadParent(id: number): void {
+    this.ngOnInit();
+  }
+
 }

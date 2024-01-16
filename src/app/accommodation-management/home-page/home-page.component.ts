@@ -19,12 +19,12 @@ export class HomePageComponent implements OnInit {
   // Datepicker filters
   startDateFilter = (date: Date | null): boolean => {
     const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    return date ? date >= yesterday && (!this.searchBarValues.endDate || date < this.searchBarValues.endDate) : true;
+    // yesterday.setDate(yesterday.getDate() - 1);
+    return date ? date >= yesterday && (!this.searchBarValues.endDate || date <= this.searchBarValues.endDate) : true;
   };  
 
   endDateFilter = (date: Date | null): boolean => {
-    return date ? date > new Date() && (!this.searchBarValues.startDate || date > this.searchBarValues.startDate) : true;
+    return date ? date >= new Date() && (!this.searchBarValues.startDate || date >= this.searchBarValues.startDate) : true;
   };
   
   constructor(public dialog: MatDialog, 

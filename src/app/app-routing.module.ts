@@ -18,6 +18,7 @@ import { HostReviewsComponent } from './review-management/host-reviews/host-revi
 import { FinancialReportPageComponent } from './financial-report-management/financial-report-page/financial-report-page.component';
 import { ReportUserComponent } from './user-management/report-user/report-user.component';
 import { ReviewsAdminPageComponent } from './review-management/reviews-admin-page/reviews-admin-page.component';
+import { UserReportsComponent } from './user-management/user-reports/user-reports.component';
 
 const routes: Routes = [
     {component: LoginComponent, path:"login"},
@@ -36,6 +37,7 @@ const routes: Routes = [
     {component: HostReviewsComponent, path:"host-reviews/:hostId"},
     {component: FinancialReportPageComponent, path:"financial-reports", canActivate: [AuthGuard], data : {role: ['ROLE_HOST']}},
     {component: ReportUserComponent, path:"report-users", canActivate: [AuthGuard], data : {role: ['ROLE_GUEST', 'ROLE_HOST']}},
+    {component: UserReportsComponent, path: "user-reports", canActivate: [AuthGuard], data: {role: ['ROLE_ADMIN']}},
     {component: ReviewsAdminPageComponent, path: "reviews", canActivate: [AuthGuard], data : {role: ['ROLE_ADMIN']}},
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', redirectTo: 'home' },

@@ -15,6 +15,8 @@ import { UserReportsComponent } from './user-reports/user-reports.component';
 import { WriteReportCardComponent } from './write-report-card/write-report-card.component';
 import { ReportUserComponent } from './report-user/report-user.component';
 import { FormsModule } from '@angular/forms';
+import { UserReportCardComponent } from './user-report-card/user-report-card.component';
+import { UserCardComponent } from './user-card/user-card.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { FormsModule } from '@angular/forms';
     AccountActivationComponent,
     UserReportsComponent,
     WriteReportCardComponent,
-    ReportUserComponent
+    ReportUserComponent,
+    UserReportCardComponent,
+    UserCardComponent
   ],
   imports: [
     CommonModule,
