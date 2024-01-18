@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ErrorResponse } from 'src/env/error-response';
+import { SocketService } from 'src/app/shared/socket.service';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class LoginComponent {
   loginForm : FormGroup;
   errorMessage : string = '';
 
-  constructor(private formBuilder : FormBuilder, private userService: UserService, private router: Router) {
+  constructor(private formBuilder : FormBuilder, private userService: UserService, private router: Router, 
+    private socketService: SocketService) {
     this.loginForm = this.formBuilder.group({
       username : ['', [Validators.required, Validators.email] ],
       password : ['', [Validators.required, Validators.minLength(3)]]
@@ -37,6 +39,7 @@ export class LoginComponent {
     this.userService.login(account).subscribe(
       (response: UserTokenState) => {
         localStorage.setItem('user', response.accessToken);
+        this.socketService.openSocket();
         this.router.navigate(['home'])
         
         //debugging
