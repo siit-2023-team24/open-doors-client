@@ -37,13 +37,13 @@ export class ReservationRequestCardComponent {
         this.reload.emit(this.request.id);
         this.showSnackBar('Request cancelled successfully.');
         
-        // let message : Message = {
-        //   timestamp: new Date,
-        //   userId: this.request.hostId,
-        //   message: "Reservation request #" + this.request.id + " has been cancelled.",
-        //   type: "Reservation request status changed."
-        // }
-        // this.socketService.sendMessageUsingSocket(message);
+        let message : Message = {
+          timestamp: new Date,
+          username: this.request.hostUsername,
+          message: "Reservation request #" + this.request.id + " has been cancelled.",
+          type: "Reservation request status changed."
+        }
+        this.socketService.sendMessageUsingSocket(message);
       },
       error: (error) => {
         console.error('Error cancelling request:', error);
