@@ -170,7 +170,6 @@ export class AccommodationPageComponent implements OnInit{
           if (!this.accommodation.host)
             this.accommodation.host = details.hostUsername || "";
 
-          console.log(this.accommodation);
           this.accommodationAddress = this.accommodation.street + " " + this.accommodation.number + ", " + this.accommodation.city;
           this.isAccommodationDetailsReady = true;
           this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
@@ -198,7 +197,7 @@ export class AccommodationPageComponent implements OnInit{
     });
   }
 
-  reloadReviews(_: number) {
+  reloadReviews(id: number) {
     let guestId = 0;
     if (this.isGuest)
       guestId = this.authService.getId();
