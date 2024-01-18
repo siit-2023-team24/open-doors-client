@@ -31,6 +31,7 @@ export class SocketService {
     this.stompClient.connect({}, function () {
       that.isLoaded = true;
       that.openGlobalSocket()
+      that.openSocket();
     });
 
   }
