@@ -1,13 +1,13 @@
 // import { TestBed } from '@angular/core/testing';
 
-// import { SocketService } from './socket.service';
+// import { NotificationService } from './notification.service';
 
-// describe('SocketService', () => {
-//   let service: SocketService;
+// describe('NotificationService', () => {
+//   let service: NotificationService;
 
 //   beforeEach(() => {
 //     TestBed.configureTestingModule({});
-//     service = TestBed.inject(SocketService);
+//     service = TestBed.inject(NotificationService);
 //   });
 
 //   it('should be created', () => {

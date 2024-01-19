@@ -129,7 +129,7 @@
         </div>
       </div>
       <br>
-      <app-review-card [review]="unapprovedReview" [canReport]="false" class="review"></app-review-card>
+      <app-review-card [review]="unapprovedReview" [canReport]="false" (reload)="reloadReviews($event)" class="review"></app-review-card>
     </div>
     <div *ngIf="isReviewable">
       <hr class="horizontal-separator">
