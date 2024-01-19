@@ -78,7 +78,7 @@ export class ReviewCardComponent {
       this.reviewService.deleteAccommodationReview(this.review.id).subscribe({
         next: () => {
           console.log('Deleted accommodation review with id: ' + this.review.id);
-          this.reload.emit(this.review.id);
+          this.reload.emit(1);
         },
         error: (error) => {
           console.error(error.error.message);

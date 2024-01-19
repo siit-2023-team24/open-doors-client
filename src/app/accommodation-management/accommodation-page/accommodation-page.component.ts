@@ -196,14 +196,6 @@ export class AccommodationPageComponent implements OnInit{
     });
   }
 
-  reloadReviews(_: number) {
-    let guestId = 0;
-    if (this.isGuest)
-      guestId = this.authService.getId();
-
-    this.loadReviews(this.accommodation.id, guestId);
-  }
-
   onInput(){
     if(this.selectedStartDate == null || this.selectedEndDate == null || this.selectedGuestNumber == null ||
       (this.selectedGuestNumber < this.accommodation.minGuests) || (this.selectedGuestNumber > this.accommodation.maxGuests))
@@ -303,5 +295,13 @@ export class AccommodationPageComponent implements OnInit{
     if(this.accommodation.isPricePerGuest) {
       this.accommodation.totalPrice *= this.selectedGuestNumber;
     }
+  }
+
+  reloadParent(id: number): void {
+    let guestId = 0;
+    if (this.isGuest)
+      guestId = this.authService.getId();
+
+    this.loadReviews(this.accommodation.id, guestId);
   }
 }
