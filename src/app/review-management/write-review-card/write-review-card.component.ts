@@ -6,6 +6,7 @@ import { NewReviewDTO } from '../model/new-review';
 import { AccommodationReviewWholeDTO } from '../model/accommodation-review-whole';
 import { SocketService } from 'src/app/shared/socket.service';
 import { Message } from 'src/app/shared/model/notification';
+import { NotificationType } from 'src/app/shared/model/notification.type';
 
 @Component({
   selector: 'app-write-review-card',
@@ -63,7 +64,7 @@ export class WriteReviewCardComponent {
             timestamp: new Date,
             username: this.hostUsername,
             message: "You have a new review.",
-            type: "You have a new review."
+            type: NotificationType.HOST_REVIEW
           }
           this.socketService.sendMessageUsingSocket(message);
         },
@@ -82,7 +83,7 @@ export class WriteReviewCardComponent {
             timestamp: new Date,
             username: this.hostUsername,
             message: "Your accommodation " + response.recipientId + " was just reviewed.",
-            type: "Your accommodation was reviewed."
+            type: NotificationType.ACCOMMODATION_REVIEW
           }
           this.socketService.sendMessageUsingSocket(message);
         },

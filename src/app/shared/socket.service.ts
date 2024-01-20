@@ -49,12 +49,17 @@ export class SocketService {
   }
 
   openSocket() {
-    if (this.isLoaded && this.authService.getId()) {
+    if (this.isLoaded && localStorage.getItem('user')) {
       this.isCustomSocketOpened = true;
       this.stompClient.subscribe("/socket-publisher/" + this.authService.getUsername(), (message: { body: string; }) => {
         this.handleResult(message);
       });
     }
+  }
+
+  closeSockets() {
+    this.stompClient.disconnect();
+    this.initializeWebSocketConnection();
   }
 
   handleResult(message: { body: string; }) {
