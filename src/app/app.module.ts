@@ -11,6 +11,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './user-management/interceptor';
 import { ReservationManagementModule } from './reservation-management/reservation-management.module';
 import { FinancialReportManagementModule } from './financial-report-management/financial-report-management.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { FinancialReportManagementModule } from './financial-report-management/f
     AccommodationManagementModule,
     SharedModule,
     ReservationManagementModule,
-    FinancialReportManagementModule
+    FinancialReportManagementModule,
+    NotificationsModule
   ],
   providers: [
     {

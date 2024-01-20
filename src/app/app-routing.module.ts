@@ -19,6 +19,7 @@ import { FinancialReportPageComponent } from './financial-report-management/fina
 import { ReportUserComponent } from './user-management/report-user/report-user.component';
 import { ReviewsAdminPageComponent } from './review-management/reviews-admin-page/reviews-admin-page.component';
 import { UserReportsComponent } from './user-management/user-reports/user-reports.component';
+import { NotificationsComponent } from './notifications/notifications/notifications.component';
 
 const routes: Routes = [
     {component: LoginComponent, path:"login"},
@@ -39,6 +40,7 @@ const routes: Routes = [
     {component: ReportUserComponent, path:"report-users", canActivate: [AuthGuard], data : {role: ['ROLE_GUEST', 'ROLE_HOST']}},
     {component: UserReportsComponent, path: "user-reports", canActivate: [AuthGuard], data: {role: ['ROLE_ADMIN']}},
     {component: ReviewsAdminPageComponent, path: "reviews", canActivate: [AuthGuard], data : {role: ['ROLE_ADMIN']}},
+    {component: NotificationsComponent, path: "notifications", canActivate: [AuthGuard], data: {role: ['ROLE_ADMIN', 'ROLE_HOST', 'ROLE_GUEST']}},
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', redirectTo: 'home' },
 ];
