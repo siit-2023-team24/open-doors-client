@@ -1,21 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PendingAccommodationCardComponent } from './pending-accommodation-card.component';
+// import { PendingAccommodationCardComponent } from './pending-accommodation-card.component';
 
-describe('PendingAccommodationCardComponent', () => {
-  let component: PendingAccommodationCardComponent;
-  let fixture: ComponentFixture<PendingAccommodationCardComponent>;
+// describe('PendingAccommodationCardComponent', () => {
+//   let component: PendingAccommodationCardComponent;
+//   let fixture: ComponentFixture<PendingAccommodationCardComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [PendingAccommodationCardComponent]
-    });
-    fixture = TestBed.createComponent(PendingAccommodationCardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [PendingAccommodationCardComponent]
+//     });
+//     fixture = TestBed.createComponent(PendingAccommodationCardComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

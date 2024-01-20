@@ -55,8 +55,8 @@ export class UserService {
     return this.httpClient.get<EditUser>(environment.apiHost + '/users/' + id);
   }
 
-  updateUser(formData: FormData) {
-    return this.httpClient.put(environment.apiHost + '/users', formData);
+  updateUser(formData: FormData): Observable<EditUser> {
+    return this.httpClient.put<EditUser>(environment.apiHost + '/users', formData);
   }
 
   changePassword(dto: NewPasswordDTO): Observable<NewPasswordDTO> {
