@@ -56,6 +56,11 @@ export class AccommodationService {
     return this.http.post<AccommodationSearchDTO[]>(searchEndpoint, filterParams);
   }
 
+  searchAndFilterAccommodationWhenGuest(guestId: number, filterParams: SearchAndFilterDTO): Observable<AccommodationSearchDTO[]> {
+    const searchEndpoint = environment.apiHost + "/accommodations/search/" + guestId;
+    return this.http.post<AccommodationSearchDTO[]>(searchEndpoint, filterParams);
+  }
+
   addImages(id: number, formData: FormData): Observable<AccommodationWhole> {
     console.error(formData);
     return this.http.post<AccommodationWhole>(environment.apiHost + '/pending-accommodations/' + id + '/images', formData);
