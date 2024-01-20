@@ -7,6 +7,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { SocketService } from 'src/app/shared/socket.service';
 import { Message } from 'src/app/shared/model/notification';
+import { NotificationType } from 'src/app/shared/model/notification.type';
 
 @Component({
   selector: 'app-reservation-request-host-card',
@@ -49,7 +50,7 @@ export class ReservationRequestHostCardComponent {
               timestamp: new Date,
               username: this.request.guestUsername,
               message: "Your reservation request #" + this.request.id + " has been confirmed.",
-              type: "Reservation request status changed."
+              type: NotificationType.RESERVATION_REQUEST
             }
             this.socketService.sendMessageUsingSocket(message);
 
@@ -84,7 +85,7 @@ export class ReservationRequestHostCardComponent {
               timestamp: new Date,
               username: this.request.guestUsername,
               message: "Your reservation request #" + this.request.id + " has been denied.",
-              type: "Reservation request status changed."
+              type: NotificationType.RESERVATION_REQUEST
             }
             this.socketService.sendMessageUsingSocket(message);
 

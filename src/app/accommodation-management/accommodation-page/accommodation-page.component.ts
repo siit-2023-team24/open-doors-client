@@ -16,6 +16,7 @@ import { AccommodationFavoritesDTO } from '../model/accommodation-favorites';
 import { AccommodationReviewsDTO } from 'src/app/review-management/model/accommodation-reviews';
 import { Message } from 'src/app/shared/model/notification';
 import { SocketService } from 'src/app/shared/socket.service';
+import { NotificationType } from 'src/app/shared/model/notification.type';
 
 @Component({
   selector: 'app-accommodation-page',
@@ -235,7 +236,7 @@ export class AccommodationPageComponent implements OnInit{
           timestamp: new Date,
           username: this.accommodation.host,
           message: "New reservation request for " + this.accommodation.name,
-          type: "New reservation request!"
+          type: NotificationType.NEW_RESERVATION_REQUEST
         };
         this.socketService.sendMessageUsingSocket(message);
 

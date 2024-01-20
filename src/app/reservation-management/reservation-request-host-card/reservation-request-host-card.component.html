@@ -5,7 +5,7 @@
             <div class="details">
                 <h2 class="row accommodation-name">{{request.accommodationName ? request.accommodationName : 'No accommodation name'}}</h2>
                 <div class="row blue-letters">Request ID: {{ request.id }}</div>
-                <div class="row">{{ request.startDate| date:'dd/MM/yyyy' }} - {{ request.endDate| date:'dd/MM/yyyy' }}</div>
+                <div class="row">{{ request.startDate| date:'dd.MM.yyyy' }} - {{ request.endDate| date:'dd.MM.yyyy.' }}</div>
                 <div class="row blue-letters">Status: {{ request.status }}</div>
                 <div class="row orange-letters">Guest: {{ request.guestUsername }}</div>
                 <div class="row grey-letters">The guest has cancelled {{ request.cancelledNumber }} time(s).</div>

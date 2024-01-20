@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatNativeDateModule,
     MatCheckboxModule,
     MatDividerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSlideToggleModule
   ],
 
   exports: [
@@ -56,7 +58,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatNativeDateModule,
     MatCheckboxModule,
     MatDividerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSlideToggleModule
   ]
 
 })

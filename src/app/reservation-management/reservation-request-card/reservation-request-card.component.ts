@@ -7,6 +7,7 @@ import { ReservationRequestService } from '../reservation-request.service';
 import { ReservationRequestStatus } from '../model/reservation-request-status';
 import { SocketService } from 'src/app/shared/socket.service';
 import { Message } from 'src/app/shared/model/notification';
+import { NotificationType } from 'src/app/shared/model/notification.type';
 
 @Component({
   selector: 'app-reservation-request-card',
@@ -41,7 +42,7 @@ export class ReservationRequestCardComponent {
           timestamp: new Date,
           username: this.request.hostUsername,
           message: "Reservation request #" + this.request.id + " has been cancelled.",
-          type: "Reservation request status changed."
+          type: NotificationType.RESERVATION_REQUEST
         }
         this.socketService.sendMessageUsingSocket(message);
       },
