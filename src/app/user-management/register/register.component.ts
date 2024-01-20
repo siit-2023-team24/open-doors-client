@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl} from '@angular/forms';
 import { Router } from '@angular/router';
@@ -42,13 +42,15 @@ export function phoneNumberValidator(): ValidatorFn {
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css', '../../../styles.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   errorMessage: string = '';
   countries = Object.values(Country);
 
   constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, 
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar) {  }
+
+  ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       country: ['', Validators.required],
       city: ['', [Validators.required, Validators.maxLength(200)]],
@@ -65,11 +67,15 @@ export class RegisterComponent {
     }, { validator: passwordMatchValidator });
   }
 
-  register(): void {
+  onRegisterClick(): void {
     if(!this.registerForm.valid) {
       this.errorMessage = 'Please fill out all the fields according to the validations.'
       return;
     }
+    this.register();
+  }
+
+  register(): void {
     this.errorMessage = '';
     const user: UserAccount = this.registerForm.value;
     this.userService.register(user).subscribe(
