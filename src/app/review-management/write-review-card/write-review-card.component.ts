@@ -3,9 +3,9 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { ReviewService } from '../review.service';
 import { HostReviewWholeDTO } from '../model/host-review-whole';
 import { NewReviewDTO } from '../model/new-review';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { AccommodationReviewWholeDTO } from '../model/accommodation-review-whole';
+import { SocketService } from 'src/app/shared/socket.service';
+import { Message } from 'src/app/shared/model/notification';
 
 @Component({
   selector: 'app-write-review-card',
@@ -13,12 +13,14 @@ import { AccommodationReviewWholeDTO } from '../model/accommodation-review-whole
   styleUrls: ['./write-review-card.component.css']
 })
 export class WriteReviewCardComponent {
+  
   constructor(private authService: AuthService,
               private reviewService: ReviewService,
-              private router: Router) {}
+              private socketService: SocketService) {}
 
   @Input() recipientId: number;
   @Input() isHost: boolean;
+  @Input() hostUsername: string;
   stars: boolean[] = [false, false, false, false, false]
   rating: number = 0;
   noRating: boolean = false;
@@ -38,14 +40,6 @@ export class WriteReviewCardComponent {
     this.rating = rating;
   }
 
-  refresh() {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    const currentUrl = this.router.url;
-
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
-    });
-  }
 
   saveReview(): void {
     if(this.rating==0) {
@@ -62,8 +56,16 @@ export class WriteReviewCardComponent {
     if(this.isHost) {
       this.reviewService.createHostReview(dto).subscribe({
         next: (response: HostReviewWholeDTO) => {
-          this.reload.emit(1);
+          this.reload.emit(response.id);
           console.log(response);
+
+          let message : Message = {
+            timestamp: new Date,
+            username: this.hostUsername,
+            message: "You have a new review.",
+            type: "You have a new review."
+          }
+          this.socketService.sendMessageUsingSocket(message);
         },
         error: (error) => {
           console.log(error);
@@ -73,8 +75,16 @@ export class WriteReviewCardComponent {
     else {
       this.reviewService.createAccommodationReview(dto).subscribe({
         next: (response: AccommodationReviewWholeDTO) => {
-          this.reload.emit(1);
+          this.reload.emit(response.id);
           console.log(response);
+
+          let message : Message = {
+            timestamp: new Date,
+            username: this.hostUsername,
+            message: "Your accommodation " + response.recipientId + " was just reviewed.",
+            type: "Your accommodation was reviewed."
+          }
+          this.socketService.sendMessageUsingSocket(message);
         },
         error: (error) => {
           console.log(error);

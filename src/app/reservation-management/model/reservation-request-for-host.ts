@@ -4,8 +4,8 @@ export interface ReservationRequestForHost {
     id: number;
     guestUsername: string;
     accommodationName: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: number;
+    endDate: number;
     guestNumber: number;
     totalPrice: number;
     status: ReservationRequestStatus;

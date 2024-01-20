@@ -10,6 +10,7 @@ interface ReservationRequestForGuestDTO {
   totalPrice: number | null;
   status: ReservationRequestStatus;
   timestamp: Date;
+  hostUsername: string;
 }
 
 export { ReservationRequestForGuestDTO };

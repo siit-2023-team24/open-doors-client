@@ -9,12 +9,13 @@ import { ReviewDetailsDTO } from 'src/app/review-management/model/review-details
 import { ReviewService } from 'src/app/review-management/review.service';
 import { MakeReservationRequestDTO } from '../model/reservationRequest';
 import { ReservationRequestService } from '../reservation-request.service';
-import { Country } from 'src/app/shared/model/country';
 import { AuthService } from 'src/app/auth/auth.service';
 import { SeasonalRatePricingDTO } from '../model/seasonal-rates-pricing';
 import { AccommodationSeasonalRateDTO } from '../model/accommodation-seasonal-rate';
 import { AccommodationFavoritesDTO } from '../model/accommodation-favorites';
 import { AccommodationReviewsDTO } from 'src/app/review-management/model/accommodation-reviews';
+import { Message } from 'src/app/shared/model/notification';
+import { SocketService } from 'src/app/shared/socket.service';
 
 @Component({
   selector: 'app-accommodation-page',
@@ -118,7 +119,8 @@ export class AccommodationPageComponent implements OnInit{
     private imageService: ImageService,
     private reviewService: ReviewService,
     private reservationService: ReservationRequestService,
-    private authService: AuthService
+    private authService: AuthService,
+    private socketService: SocketService
   ) {}
 
   ngOnInit(): void {
@@ -168,7 +170,6 @@ export class AccommodationPageComponent implements OnInit{
           if (!this.accommodation.host)
             this.accommodation.host = details.hostUsername || "";
 
-          console.log(this.accommodation);
           this.accommodationAddress = this.accommodation.street + " " + this.accommodation.number + ", " + this.accommodation.city;
           this.isAccommodationDetailsReady = true;
           this.imagePaths = this.accommodation.images.map(id => this.imageService.getPath(id, false));
@@ -196,7 +197,7 @@ export class AccommodationPageComponent implements OnInit{
     });
   }
 
-  reloadReviews(_: number) {
+  reloadReviews(id: number) {
     let guestId = 0;
     if (this.isGuest)
       guestId = this.authService.getId();
@@ -229,6 +230,15 @@ export class AccommodationPageComponent implements OnInit{
     this.reservationService.makeReservation(this.request).subscribe(
       (response) => {
         this.showSnackBar('Reservation request successful!');
+
+        let message : Message = {
+          timestamp: new Date,
+          username: this.accommodation.host,
+          message: "New reservation request for " + this.accommodation.name,
+          type: "New reservation request!"
+        };
+        this.socketService.sendMessageUsingSocket(message);
+
       },
       (error) => {
         console.error('Error making reservation request:', error);
@@ -238,7 +248,6 @@ export class AccommodationPageComponent implements OnInit{
   }
 
   getSeasonalRatesForAccommodation() {
-    console.log("pozvali smo seasonalRates")
     this.accommodationSeasonalRateDTO = {
       accommodationId : this.accommodation.id,
       startDate: this.selectedStartDate,
