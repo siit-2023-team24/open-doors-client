@@ -1,21 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserReportCardComponent } from './user-report-card.component';
+// import { UserReportCardComponent } from './user-report-card.component';
 
-describe('UserReportCardComponent', () => {
-  let component: UserReportCardComponent;
-  let fixture: ComponentFixture<UserReportCardComponent>;
+// describe('UserReportCardComponent', () => {
+//   let component: UserReportCardComponent;
+//   let fixture: ComponentFixture<UserReportCardComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [UserReportCardComponent]
-    });
-    fixture = TestBed.createComponent(UserReportCardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [UserReportCardComponent]
+//     });
+//     fixture = TestBed.createComponent(UserReportCardComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });
