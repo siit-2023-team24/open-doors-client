@@ -26,7 +26,7 @@ export class AccountActivationComponent implements OnInit {
       }
       const id: number = +params['id'];
       if (id) {
-        this.userService.activateUser(id).subscribe(
+        this.userService.activateUser(new URL(window.location.href).hostname,id).subscribe(
           next => {
             this.outcomeMessage = ("Your account has been activated successfully!");
           },

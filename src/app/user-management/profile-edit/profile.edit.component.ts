@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EditUser } from '../model/edit-user.model';
 import { Country } from 'src/app/shared/model/country';
 import { ImageService } from 'src/app/image-management/image.service';
@@ -44,15 +44,15 @@ export class ProfileEditComponent {
 
     this.countries = Object.values(Country);
 
-    this.editProfileForm = this.formBuilder.group({
-      id : [id.toString(), []],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      country: ['', Validators.required],
-      city: ['', Validators.required],
-      street: ['', Validators.required],
-      number: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern(/^(\+\d{1,3}\s?)?(\(\d{1,4}\)|\d{1,4})([-.\s]?\d{1,}){1,12}$/)]]
+    this.editProfileForm = new FormGroup({
+      'id' : new FormControl(id.toString(), []),
+      'firstName': new FormControl('', Validators.required),
+      'lastName': new FormControl('', Validators.required),
+      'country': new FormControl('', Validators.required),
+      'city': new FormControl('', Validators.required),
+      'street': new FormControl('', Validators.required),
+      'number': new FormControl('', Validators.required),
+      'phone': new FormControl('', [Validators.required, Validators.pattern(/^(\+\d{1,3}\s?)?(\(\d{1,4}\)|\d{1,4})([-.\s]?\d{1,}){1,12}$/)])
     });
 
   }

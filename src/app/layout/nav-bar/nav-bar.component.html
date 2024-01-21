@@ -1,29 +1,34 @@
 <div class="navbar">
 
     <div class="transparent-button-wrapper">
-        <button class="tranparentBtn" [queryParams]="{title: 'Home'}" [routerLink]="['/home']" mat-flat-button>Home</button>
+        <button class="tranparentBtn" [routerLink]="['/home']" mat-flat-button>Home</button>
     </div>
 
 
 
     <div *ngIf="role=='ROLE_ADMIN'" class="transparent-button-wrapper">
-        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Users</button>
+        <button [routerLink]="['user-reports']" [queryParams]="{title: 'User reports'}" class="tranparentBtn" mat-flat-button >User reports</button>
     </div>
 
     <div *ngIf="role=='ROLE_ADMIN'" class="transparent-button-wrapper">
-        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Comments</button>
+        <button [routerLink]="['reviews']" [queryParams]="{title: 'Reviews'}" class="tranparentBtn" mat-flat-button >Reviews</button>
     </div>
   
     <div *ngIf="role=='ROLE_ADMIN'" class="transparent-button-wrapper">
         <button [routerLink]="['pending-accommodations']" [queryParams]="{title: 'Pending accommodations'}" class="tranparentBtn" mat-flat-button >Accommodations</button>
     </div>
 
+
     <div *ngIf="role=='ROLE_HOST'" class="transparent-button-wrapper">
-        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Reservations</button>
+        <button [routerLink]="['reservation-requests']" [queryParams]="{title: 'Reservation requests'}" class="tranparentBtn" mat-flat-button >Reservations</button>
     </div>
 
     <div *ngIf="role=='ROLE_HOST'" class="transparent-button-wrapper">
-        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Comments</button>
+        <button [routerLink]="['report-users']" [queryParams]="{title: 'Report a guest'}" class="tranparentBtn" mat-flat-button >Report a guest</button>
+    </div>
+
+    <div *ngIf="role=='ROLE_HOST'" class="transparent-button-wrapper">
+        <button [routerLink]="['host-reviews/' + id]" [queryParams]="{title: 'Host reviews'}" class="tranparentBtn" mat-flat-button >Reviews of me</button>
     </div>
 
     <div *ngIf="role=='ROLE_HOST'" class="transparent-button-wrapper">
@@ -33,17 +38,21 @@
 
 
     <div *ngIf="role=='ROLE_GUEST'" class="transparent-button-wrapper">
-        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Favorites</button>
+        <button [routerLink]="['favorites']" [queryParams]="{title: 'My favorites'}" class="tranparentBtn" mat-flat-button >Favorites</button>
     </div>
 
 
     <div *ngIf="role=='ROLE_GUEST'" class="transparent-button-wrapper">
-        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Requests</button>
+        <button [routerLink]="['reservation-requests']" [queryParams]="{title: 'My requests'}" class="tranparentBtn" mat-flat-button >Requests</button>
+    </div>
+
+    <div *ngIf="role=='ROLE_GUEST'" class="transparent-button-wrapper">
+        <button [routerLink]="['report-users']" [queryParams]="{title: 'Report a host'}" class="tranparentBtn" mat-flat-button >Report a host</button>
     </div>
 
     
     <div *ngIf="role=='ROLE_GUEST' || role=='ROLE_HOST'" class="transparent-button-wrapper">
-        <button [routerLink]="['']" [queryParams]="{title: ''}" class="tranparentBtn" mat-flat-button >Notifications</button>
+        <button [routerLink]="['notifications']" [queryParams]="{title: 'Notifications'}" class="tranparentBtn" mat-flat-button >Notifications</button>
     </div>
 
 

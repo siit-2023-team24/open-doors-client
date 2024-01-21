@@ -11,6 +11,8 @@ export class PendingAccommodationsComponent {
 
   pending: HostListAccommodation[];
 
+  noDataMessage = "";
+
   constructor(private service: AccommodationService) {}
 
   ngOnInit(): void {
@@ -18,6 +20,8 @@ export class PendingAccommodationsComponent {
     this.service.getAllPending().subscribe({
       next: (data: HostListAccommodation[]) => {
         this.pending = data;
+        if (this.pending.length == 0) 
+          this.noDataMessage = "There are currently no pending accommodations.";
       },
       error: () => console.error("Error getting pending accommodations.")
     });

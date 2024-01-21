@@ -7,10 +7,21 @@
                 <span style="margin-left: 10px; color: grey;">{{ review.timestamp | date:'dd/MM/yyyy' }}</span>
             </div>
         </div>
-        <span class="rating">
-            <mat-icon>star</mat-icon>
-            <span>{{ review.rating }}</span>
-        </span>
+        <div class="stars">
+            <div class="star-container">
+                <mat-icon class="star full">star</mat-icon>
+            </div>
+            <div class="star-container">
+                <p class="rating">{{ review.rating }}</p>
+            </div>
+        </div>
     </div>
-    <p>{{ review.comment }}</p>
+    <div class="comment">
+        <p>{{ review.comment }}</p>
+    </div>
+    <div class="delete-container">
+        <button mat-raised-button class="button delete-btn" *ngIf="guest==review.authorUsername" (click)="openDialog()">Delete review</button>
+        <button mat-raised-button class="button delete-btn" *ngIf="canReport && !review.isProcessed" (click)="changeReportedStatus()">Report review</button>
+        <button mat-raised-button class="button restore-btn" *ngIf="canReport && review.isProcessed" (click)="changeReportedStatus()">Withdraw report</button>
+    </div>
 </div>

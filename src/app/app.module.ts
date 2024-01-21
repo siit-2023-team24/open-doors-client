@@ -9,6 +9,9 @@ import { AccommodationManagementModule } from './accommodation-management/accomm
 import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './user-management/interceptor';
+import { ReservationManagementModule } from './reservation-management/reservation-management.module';
+import { FinancialReportManagementModule } from './financial-report-management/financial-report-management.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { Interceptor } from './user-management/interceptor';
     BrowserAnimationsModule,
     UserManagementModule,
     AccommodationManagementModule,
-    SharedModule
+    SharedModule,
+    ReservationManagementModule,
+    FinancialReportManagementModule,
+    NotificationsModule
   ],
   providers: [
     {

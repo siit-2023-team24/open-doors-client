@@ -1,16 +1,29 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AccommodationSearchDTO } from '../model/accommodation-search.model';
 import { Router } from '@angular/router';
 import { ImageService } from 'src/app/image-management/image.service';
+import { AccommodationService } from '../accommodation.service';
+import { AccommodationFavoritesDTO } from '../model/accommodation-favorites';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-accommodation-card',
   templateUrl: './accommodation-card.component.html',
   styleUrls: ['./accommodation-card.component.css']
 })
-export class AccommodationCardComponent {
-  constructor(private snackBar: MatSnackBar, private router: Router, private imageService: ImageService) {}
+export class AccommodationCardComponent implements OnInit{
+  isGuest: boolean = false;
+  constructor(
+    private snackBar: MatSnackBar,
+    private router: Router, 
+    private imageService: ImageService,
+    private accommodationService: AccommodationService,
+    private authService: AuthService) {}
+  
+  ngOnInit(): void {
+    this.isGuest = (this.authService.getRole() || "") == "ROLE_GUEST";
+  }
 
   @Input()
   accommodation: AccommodationSearchDTO;
@@ -26,15 +39,32 @@ export class AccommodationCardComponent {
     return this.imageService.getPath(this.accommodation.image, false);
   }
 
-  isFavorite = false;
-
   toggleFavorite() {
-    if(!this.isFavorite)
-      this.showSnackBar('Added to favorites!');  
-    else
-      this.showSnackBar('Removed from favorites!');
+    const guestId = this.authService.getId();
+    const accommodationId = this.accommodation.id;
+    const favoritesDTO: AccommodationFavoritesDTO = { guestId, accommodationId };
 
-    this.isFavorite = !this.isFavorite;
+    if(!this.accommodation.isFavoriteForGuest) {  
+      this.accommodationService.addToFavorites(favoritesDTO).subscribe(
+        () => {
+          this.showSnackBar('Added to favorites!');
+        },
+        (error) => {
+          console.error("Error adding to favorites: ", error);
+        }
+      );
+    }
+    else {
+      this.accommodationService.removeFromFavorites(favoritesDTO).subscribe(
+        () => {
+          this.showSnackBar('Removed from favorites!');
+        },
+        (error) => {
+          console.error("Error removing from favorites: ", error);
+        }
+      );
+    }
+    this.accommodation.isFavoriteForGuest = !this.accommodation.isFavoriteForGuest;
   }
 
   private showSnackBar(message: string): void {

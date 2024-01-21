@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from 'src/app/auth/auth.service';
+import { SocketService } from 'src/app/shared/socket.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,20 +12,21 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class NavBarComponent implements OnInit {
 
   role: string;
-  constructor(private router: Router) {
+  id: number;
+  constructor(private router: Router,
+              public authService: AuthService,
+              private socketService: SocketService) {
   }
 
 
   ngOnInit(): void {
 
-    const helper : JwtHelperService = new JwtHelperService();
-    const token = localStorage.getItem('user');
-    if (token == null) {
-      this.role = 'NO_USER';
+    if (this.authService.isLoggedIn()) {
+      this.role = this.authService.getRole();
+      this.id = this.authService.getId();
     }
     else {
-      const role = helper.decodeToken(token).role;
-      this.role = role
+      this.role = 'NO_USER';
     }
 
     this.router.events.pipe(
@@ -36,7 +38,9 @@ export class NavBarComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('user');
-    this.router.navigate(['login'])
+    this.router.navigate(['login']);
+    this.socketService.closeSockets();
+
   }
   refreshNavbar() {
     

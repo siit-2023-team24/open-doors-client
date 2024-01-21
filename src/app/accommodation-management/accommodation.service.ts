@@ -8,6 +8,10 @@ import { HostListAccommodation } from './model/host-list-accommodation.model';
 import { AccommodationWholeEdited } from './model/accommodation-whole-edited-model';
 import { AccommodationWithTotalPriceDTO } from './model/accommodation-with-total-price.model';
 import { SearchAndFilterDTO } from './model/search-and-filter.model';
+import { SeasonalRatePricingDTO } from './model/seasonal-rates-pricing';
+import { AccommodationSeasonalRateDTO } from './model/accommodation-seasonal-rate';
+import { AccommodationFavoritesDTO } from './model/accommodation-favorites';
+import { AccommodationNameDTO } from './model/accommodation-name';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +28,12 @@ export class AccommodationService {
     return this.http.post<AccommodationWholeEdited>(environment.apiHost + '/pending-accommodations', dto);
   }
 
-
   getAll() : Observable<AccommodationSearchDTO[]> {
-    return this.http.get<AccommodationSearchDTO[]>(environment.apiHost + "/accommodations")
+    return this.http.get<AccommodationSearchDTO[]>(environment.apiHost + "/accommodations/all");
+  }
+
+  getAllWhenGuest(guestId: number) : Observable<AccommodationSearchDTO[]> {
+    return this.http.get<AccommodationSearchDTO[]>(environment.apiHost + "/accommodations/all/" + guestId);
   }
 
   getAccommodation(id: number | null, accommodationId: number | null): Observable<AccommodationWithTotalPriceDTO> {
@@ -40,8 +47,17 @@ export class AccommodationService {
     }
   }
 
+  getAccommodationWhenGuest(accommodationId: number | null, guestId: number) : Observable<AccommodationWithTotalPriceDTO> {
+    return this.http.get<AccommodationWithTotalPriceDTO>(environment.apiHost + "/accommodations/" + accommodationId + "/" + guestId);
+  }
+
   searchAndFilterAccommodations(filterParams: SearchAndFilterDTO): Observable<AccommodationSearchDTO[]> {
     const searchEndpoint = environment.apiHost + "/accommodations/search";
+    return this.http.post<AccommodationSearchDTO[]>(searchEndpoint, filterParams);
+  }
+
+  searchAndFilterAccommodationWhenGuest(guestId: number, filterParams: SearchAndFilterDTO): Observable<AccommodationSearchDTO[]> {
+    const searchEndpoint = environment.apiHost + "/accommodations/search/" + guestId;
     return this.http.post<AccommodationSearchDTO[]>(searchEndpoint, filterParams);
   }
 
@@ -90,9 +106,29 @@ export class AccommodationService {
   getAmenities(): Observable<string[]> {
     return this.http.get<string[]>(environment.apiHost + '/accommodations/amenities');
   }
+
+  getSeasonalRatesForAccommodation(accommodationSeasonalRateDTO: AccommodationSeasonalRateDTO) : Observable<SeasonalRatePricingDTO[]> {
+    return this.http.post<SeasonalRatePricingDTO[]>(environment.apiHost + '/accommodations/seasonalRate', accommodationSeasonalRateDTO);
+  }
   
   approvePending(dto: HostListAccommodation): Observable<Object> {
     return this.http.put(environment.apiHost + '/pending-accommodations', dto);
+  }
+
+  addToFavorites(dto: AccommodationFavoritesDTO) {
+    return this.http.post(environment.apiHost + "/accommodations/addToFavorites", dto);
+  }
+
+  removeFromFavorites(dto: AccommodationFavoritesDTO) {
+    return this.http.post(environment.apiHost + '/accommodations/removeFromFavorites', dto);
+  }
+
+  getFavoriteAccommodations(guestId: number) : Observable<AccommodationSearchDTO[]> {
+    return this.http.get<AccommodationSearchDTO[]>(environment.apiHost + "/accommodations/favorites/" + guestId);
+  }
+
+  getHostAccommodationNames(hostId: number): Observable<AccommodationNameDTO[]> {
+	  return this.http.get<AccommodationNameDTO[]>(environment.apiHost + "/accommodations/names/" + hostId);
   }
 
 }

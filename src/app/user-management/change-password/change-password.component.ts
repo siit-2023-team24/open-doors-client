@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
 import { NewPasswordDTO } from '../model/newPasswordDTO';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
@@ -33,7 +34,7 @@ export class ChangePasswordComponent {
 
   changePasswordForm: FormGroup;
 
-  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder, private authService: AuthService) {
     
   }
 
@@ -49,8 +50,8 @@ export class ChangePasswordComponent {
   changePassword(): void {
     if (this.changePasswordForm.valid) {
       const dto: NewPasswordDTO = this.changePasswordForm.value;
-      //autentication
-      dto.email = "test@test.test";
+      
+      dto.email = this.authService.getUsername();
 
       console.log(dto);
 
