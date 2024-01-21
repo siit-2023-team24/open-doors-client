@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
+import { SocketService } from 'src/app/shared/socket.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -13,7 +14,8 @@ export class NavBarComponent implements OnInit {
   role: string;
   id: number;
   constructor(private router: Router,
-              public authService: AuthService) {
+              public authService: AuthService,
+              private socketService: SocketService) {
   }
 
 
@@ -36,7 +38,9 @@ export class NavBarComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('user');
-    this.router.navigate(['login'])
+    this.router.navigate(['login']);
+    this.socketService.closeSockets();
+
   }
   refreshNavbar() {
     

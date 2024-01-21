@@ -22,7 +22,7 @@
     <hr class="horizontal-separator">
     <div *ngIf="isReviewable">
         <h2>Since you have stayed at one of this host's accommodations, why not leave a review?</h2>
-        <app-write-review-card [recipientId]="hostId" [isHost]="true" (reload)="reloadParent($event)"></app-write-review-card>
+        <app-write-review-card [recipientId]="hostId" [isHost]="true" [hostUsername]="username" (reload)="reloadParent($event)"></app-write-review-card>
     </div>
     <hr class="horizontal-separator">
     <div class="list-item">

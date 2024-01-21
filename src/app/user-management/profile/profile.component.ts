@@ -7,6 +7,7 @@ import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { Router } from '@angular/router';
 import { EditUser } from '../model/edit-user.model';
 import { AuthService } from 'src/app/auth/auth.service';
+import { SocketService } from 'src/app/shared/socket.service';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class ProfileComponent implements OnInit {
   imgPath: string= "";
 
   constructor(private userService: UserService, private imageService: ImageService,
-    private dialog: MatDialog, private router: Router, private authService: AuthService) {
+    private dialog: MatDialog, private router: Router, private authService: AuthService,
+    private socketService: SocketService) {
   }
 
 
@@ -64,6 +66,7 @@ export class ProfileComponent implements OnInit {
         console.log('Deleted user with id: ' + this.user.id);
 
         this.authService.logout();
+        this.socketService.closeSockets();
 
         this.router.navigate(['home']);
       },

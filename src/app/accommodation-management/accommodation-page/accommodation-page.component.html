@@ -129,12 +129,12 @@
         </div>
       </div>
       <br>
-      <app-review-card [review]="unapprovedReview" [canReport]="false" class="review" (reload)="reloadParent($event)"></app-review-card>
+      <app-review-card [review]="unapprovedReview" [canReport]="false" (reload)="reloadReviews($event)" class="review"></app-review-card>
     </div>
     <div *ngIf="isReviewable">
       <hr class="horizontal-separator">
       <h2>Since you have stayed at this accommodation in the past 7 days, why not leave a review?</h2>
-      <app-write-review-card [recipientId]="accommodation.id" [isHost]="false" (reload)="reloadParent($event)"></app-write-review-card>
+      <app-write-review-card [recipientId]="accommodation.id" [isHost]="false" [hostUsername]="accommodation.host" (reload)="reloadReviews($event)"></app-write-review-card>
     </div>
     <div *ngIf="reviews.length == 0">
       <hr class="horizontal-separator">
@@ -148,7 +148,7 @@
     <div class="list-item">
       <mat-grid-list cols="2" rowHeight="250px" class="review-list">
         <mat-grid-tile class="tile" *ngFor="let review of reviews">
-          <app-review-card [review]="review" [canReport]="false" class="review" (reload)="reloadParent($event)"></app-review-card>
+          <app-review-card [review]="review" [canReport]="false" (reload)="reloadReviews($event)"></app-review-card>
         </mat-grid-tile>
       </mat-grid-list>
     </div>

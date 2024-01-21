@@ -52,15 +52,6 @@ export class ReviewCardComponent {
     })
   }
 
-  refresh(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    const currentUrl = this.router.url;
-
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
-    });
-  }
-
   onDelete(): void {
     if(this.isHost) {
       this.reviewService.deleteHostReview(this.review.id).subscribe({
