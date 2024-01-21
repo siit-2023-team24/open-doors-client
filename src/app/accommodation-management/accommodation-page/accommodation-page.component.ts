@@ -205,7 +205,6 @@ export class AccommodationPageComponent implements OnInit{
 
     this.loadReviews(this.accommodation.id, guestId);
   }
-
   onInput(){
     if(this.selectedStartDate == null || this.selectedEndDate == null || this.selectedGuestNumber == null ||
       (this.selectedGuestNumber < this.accommodation.minGuests) || (this.selectedGuestNumber > this.accommodation.maxGuests))

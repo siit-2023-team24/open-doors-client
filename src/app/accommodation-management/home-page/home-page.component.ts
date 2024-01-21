@@ -95,16 +95,30 @@ export class HomePageComponent implements OnInit {
 
     console.log(combinedParams);
 
-    this.accommodationService.searchAndFilterAccommodations(combinedParams)
-    .subscribe(
-      (data) => {
-        console.log("Backend Response:", data);
-        this.accommodations = data;
-      },
-      (error) => {
-        console.error("Error:", error);
-      }
-    );
+    if(this.isGuest) {
+      this.accommodationService.searchAndFilterAccommodationWhenGuest(this.authService.getId(), combinedParams)
+      .subscribe(
+        (data) => {
+          console.log("Backend Response:", data);
+          this.accommodations = data;
+        },
+        (error) => {
+          console.error("Error:", error);
+        }
+      );
+    }
+    else {
+      this.accommodationService.searchAndFilterAccommodations(combinedParams)
+      .subscribe(
+        (data) => {
+          console.log("Backend Response:", data);
+          this.accommodations = data;
+        },
+        (error) => {
+          console.error("Error:", error);
+        }
+      );
+    }
   }
 
 }
