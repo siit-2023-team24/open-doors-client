@@ -4,6 +4,9 @@ import { ReviewService } from '../review.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SocketService } from 'src/app/shared/socket.service';
+import { Message } from 'src/app/shared/model/notification';
+import { NotificationType } from 'src/app/shared/model/notification.type';
 
 @Component({
   selector: 'app-pending-review-card',
@@ -19,7 +22,8 @@ export class PendingReviewCardComponent {
   reload: EventEmitter<number> = new EventEmitter();
 
   constructor(private service: ReviewService,
-    private dialog: MatDialog, private snackBar: MatSnackBar) {}
+    private dialog: MatDialog, private snackBar: MatSnackBar,
+    private socketService: SocketService) {}
 
   dialogApprove(): void {
     const dialogConfig = new MatDialogConfig();
@@ -29,6 +33,14 @@ export class PendingReviewCardComponent {
     dialogRef.afterClosed().subscribe({
       next: (answer: boolean) => {
         if (answer) this.approve();
+
+        let message : Message = {
+          timestamp: new Date,
+          username: this.review.hostUsername,
+          message: "Your accommodation " + this.review.accommodationName + " was just reviewed.",
+          type: NotificationType.ACCOMMODATION_REVIEW
+        }
+        this.socketService.sendMessageUsingSocket(message);
       }
     })
   }
