@@ -63,7 +63,6 @@ export class RegisterComponent implements OnInit {
       lastName: ['', Validators.required],
       number: ['1', Validators.min(1)],
       phone: ['', [Validators.required, phoneNumberValidator()]],
-      imageId: ['null', []]
     }, { validator: passwordMatchValidator });
   }
 

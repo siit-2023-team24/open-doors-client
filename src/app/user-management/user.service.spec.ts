@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http/testing';
 
 import { UserService } from './user.service';
-import { mockUser } from './mocks/user.service.mock';
+import { mockNewUser, mockUser } from './mocks/user.service.mock';
 import { EditUser } from './model/edit-user.model';
 
 describe('UserServiceService', () => {
@@ -76,6 +76,20 @@ describe('UserServiceService', () => {
     });
 
     req.flush(updatedUser);
+  });
+
+  it('should call register and the API should return the user that was added', () => {
+    
+    service.register(mockNewUser).subscribe((data) => {
+      expect(data).toEqual(mockNewUser);
+    });
+
+    const req = httpController.expectOne({
+      method: 'POST',
+      url: `${url}/auth/register`,
+    });
+
+    req.flush(mockNewUser);
   });
   
 });
