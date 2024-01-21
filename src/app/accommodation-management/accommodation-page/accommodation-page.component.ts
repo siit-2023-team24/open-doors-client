@@ -314,12 +314,4 @@ export class AccommodationPageComponent implements OnInit{
       this.accommodation.totalPrice *= this.selectedGuestNumber;
     }
   }
-
-  reloadParent(id: number): void {
-    let guestId = 0;
-    if (this.isGuest)
-      guestId = this.authService.getId();
-
-    this.loadReviews(this.accommodation.id, guestId);
-  }
 }
