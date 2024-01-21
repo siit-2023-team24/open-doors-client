@@ -61,7 +61,6 @@ export class ReviewCardComponent {
         },
         error: (error) => {
           console.error(error.error.message);
-          alert(error.error.message)
         }
       });
     }
@@ -73,7 +72,6 @@ export class ReviewCardComponent {
         },
         error: (error) => {
           console.error(error.error.message);
-          alert(error.error.message)
         }
       });
     }

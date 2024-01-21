@@ -13,6 +13,7 @@ import { Image } from '../model/image.model';
 import { ImageService } from 'src/app/image-management/image.service';
 import { AccommodationWholeEdited } from '../model/accommodation-whole-edited-model';
 import { AccommodationType } from 'src/app/accommodation-management/model/accommodation-type';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const minMaxValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const minControl = control.get('minGuests');
@@ -373,13 +374,13 @@ export class CreateAccommodationComponent {
       },
       error: (error) => {
         console.error(error)
-        alert(error.error.message)
+        this.showSnackBar(error.error.message)
       }
         
     });
   }
 
-  constructor(private formBuilder: FormBuilder, private service: AccommodationService,
+  constructor(private formBuilder: FormBuilder, private service: AccommodationService, private snackBar: MatSnackBar,
               private route: ActivatedRoute, private router: Router, private authService: AuthService, private imageService: ImageService) {
     
     this.accommodationForm = this.formBuilder.group({
@@ -417,6 +418,12 @@ export class CreateAccommodationComponent {
 
   getPath(image: number): string {
     return this.imageService.getPath(image, false);
+  }
+
+  private showSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+    });
   }
 
 }

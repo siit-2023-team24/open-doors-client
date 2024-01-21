@@ -4,6 +4,7 @@ import { AccommodationService } from '../accommodation.service';
 import { HostListAccommodation } from '../model/host-list-accommodation.model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-my-accommodation-card',
@@ -29,7 +30,7 @@ export class MyAccommodationCardComponent {
   reload: EventEmitter<number> = new EventEmitter();
   
   constructor(private service: AccommodationService, private imageService: ImageService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -84,7 +85,7 @@ export class MyAccommodationCardComponent {
         error: (error) => {
           console.error("Error deleting active accommodation: " + this.accommodation.id);
           console.log(error.error.message);
-          alert(error.error.message)
+          this.showSnackBar(error.error.message);
         }
       });
     }
@@ -93,6 +94,12 @@ export class MyAccommodationCardComponent {
 
   onEdit() {
     console.log("Edit acc.");
+  }
+
+  private showSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+    });
   }
 
 }

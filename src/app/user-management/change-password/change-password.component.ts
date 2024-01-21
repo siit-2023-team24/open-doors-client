@@ -4,6 +4,7 @@ import { NewPasswordDTO } from '../model/newPasswordDTO';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
@@ -34,7 +35,7 @@ export class ChangePasswordComponent {
 
   changePasswordForm: FormGroup;
 
-  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder, private authService: AuthService, private snackBar: MatSnackBar) {
     
   }
 
@@ -42,7 +43,7 @@ export class ChangePasswordComponent {
 
     this.changePasswordForm = this.formBuilder.group({
       oldPassword: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/)]],
+      newPassword: ['', [Validators.required]],
       repeatPassword: ['', Validators.required]
     }, {validator: passwordMatchValidator});
   }
@@ -58,15 +59,21 @@ export class ChangePasswordComponent {
       this.userService.changePassword(dto).subscribe({
         next: () => {
           this.router.navigate(['profile'], {queryParams: {title: 'My profile'}});
-          alert("You have successfully changed your password.");
+          this.showSnackBar("You have successfully changed your password.");
         },
         error: () => { console.log("Error updating password");}
       })
 
     }
     else {
-      alert("Input data is not valid.");
+      this.showSnackBar("Input data is not valid.");
     }
+  }
+
+  private showSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+    });
   }
 
 }
