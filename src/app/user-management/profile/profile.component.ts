@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { EditUser } from '../model/edit-user.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { SocketService } from 'src/app/shared/socket.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private userService: UserService, private imageService: ImageService,
     private dialog: MatDialog, private router: Router, private authService: AuthService,
-    private socketService: SocketService) {
+    private socketService: SocketService, private snackBar: MatSnackBar) {
   }
 
 
@@ -72,9 +73,15 @@ export class ProfileComponent implements OnInit {
       },
       error: (error) => {
         console.error(error.error.message);
-        alert(error.error.message)
+        this.showSnackBar(error.error.message)
       }
     })
+  }
+
+  private showSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+    });
   }
 
 }

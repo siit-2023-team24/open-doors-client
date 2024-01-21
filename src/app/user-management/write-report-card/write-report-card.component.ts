@@ -7,6 +7,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { UserReportDTO } from '../model/user-report';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-write-report-card',
   templateUrl: './write-report-card.component.html',
@@ -21,7 +22,8 @@ export class WriteReportCardComponent {
   constructor (private authService: AuthService,
               private userReportService: UserReportService,
               private dialog: MatDialog,
-              private router: Router) {}
+              private router: Router,
+              private snackBar: MatSnackBar) {}
 
   reason: string = "";
   noReason: boolean = false;
@@ -66,11 +68,15 @@ export class WriteReportCardComponent {
       },
       error: (error) => {
         console.error(error.error.message);
-        alert(error.error.message)
+        this.showSnackBar(error.error.message)
       }
     });
   }
 
-
+  private showSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+    });
+  }
   
 }
