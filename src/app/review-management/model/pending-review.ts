@@ -5,4 +5,5 @@ export interface PendingReview {
     timestamp: number;
     authorUsername: string;
     accommodationName: string;
+    hostUsername: string;
 }

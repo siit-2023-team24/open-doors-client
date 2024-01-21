@@ -78,14 +78,6 @@ export class WriteReviewCardComponent {
         next: (response: AccommodationReviewWholeDTO) => {
           this.reload.emit(response.id);
           console.log(response);
-
-          let message : Message = {
-            timestamp: new Date,
-            username: this.hostUsername,
-            message: "Your accommodation " + response.recipientId + " was just reviewed.",
-            type: NotificationType.ACCOMMODATION_REVIEW
-          }
-          this.socketService.sendMessageUsingSocket(message);
         },
         error: (error) => {
           console.log(error);
