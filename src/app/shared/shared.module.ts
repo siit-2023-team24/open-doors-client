@@ -8,14 +8,14 @@ import { MaterialModule } from '../infrastucture/material/material.module';
 
 @NgModule({
   declarations: [
-    DialogComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule,
     MaterialModule
   ],
   exports: [
-    DialogComponent,
+    DialogComponent
   ]
 })
 export class SharedModule { }
