@@ -3,7 +3,7 @@
         <form [formGroup]="loginForm">
             <div class="form login">
                 <mat-form-field>
-                    <input matInput type="email" formControlName="username" id="email" name="email" autocomplete="email" placeholder="Email">
+                    <input matInput type="email" formControlName="username" id="username" name="email" autocomplete="email" placeholder="Email">
                     <mat-error *ngIf="loginForm.get('username')?.hasError('email') && !loginForm.get('email')?.hasError('required')">
                         Please enter a valid email address.
                     </mat-error>
@@ -16,7 +16,7 @@
                     </mat-error>
                 </mat-form-field>
                 <br>
-                <button mat-raised-button id="login_button" class="button login-btn" (click)="login()">Sign in</button>
+                <button mat-raised-button id="sign-in-btn" class="button login-btn" (click)="login()">Sign in</button>
                 <p class="error">{{ errorMessage }}</p>
                 <p class="no-account">
                     Don't have an account yet?

@@ -7,10 +7,11 @@
 
     <div class="details-and-buttons">
         <div class="details">
+            <div id="req-id" class="row">{{ request.id }}</div>
             <div class="row accommodation-name">{{request.accommodationName ? request.accommodationName : 'No accommodation name'}}</div>
             <div class="row">{{ request.startDate| date:'dd/MM/yyyy' }} - {{ request.endDate| date:'dd/MM/yyyy' }}</div>
-            <div class="row">Number of guests: {{ request.guestNumber }}</div>
-            <div class="row">Status: {{ request.status }}</div>
+            <div  class="row">Number of guests: {{ request.guestNumber }}</div>
+            <div id="status" class="row">Status: {{ request.status }}</div>
         </div>
 
         <div class="buttons-container">
