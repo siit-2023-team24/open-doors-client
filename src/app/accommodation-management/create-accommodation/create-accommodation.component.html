@@ -13,7 +13,7 @@
                     <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
                         <mat-form-field class="create-text-field left">
                             <mat-label>Name of accommodation</mat-label>
-                            <input matInput formControlName="name" type="text" name="name" placeholder="Enter the name of your accommodation" required maxlength="50">
+                            <input id="acc-name" matInput formControlName="name" type="text" name="name" placeholder="Enter the name of your accommodation" required maxlength="50">
                             <mat-error *ngIf="accommodationForm.get('name')?.hasError('required')">
                                 Name is required.
                             </mat-error>
@@ -84,7 +84,7 @@
                     <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
                         <mat-form-field class="create-text-field left">
                             <mat-label>Country</mat-label>
-                            <mat-select formControlName="country" (selectionChange)="updateAddress()">
+                            <mat-select id="acc-country" formControlName="country" (selectionChange)="updateAddress()">
                                 <mat-option value="none" selected disabled>Location of the accommodation: country</mat-option>
                                 <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
                             </mat-select>
@@ -95,7 +95,7 @@
 
                         <mat-form-field class="create-text-field right">
                             <mat-label>City</mat-label>
-                            <input formControlName="city" matInput type="text" name="city" placeholder="Location of the accommodation: city" required maxlength="200" (change)="updateAddress()">
+                            <input id="acc-city" formControlName="city" matInput type="text" name="city" placeholder="Location of the accommodation: city" required maxlength="200" (change)="updateAddress()">
                             <mat-error *ngIf="accommodationForm.get('city')?.hasError('required')">
                                 City is required.
                             </mat-error>
@@ -108,7 +108,7 @@
                     <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
                         <mat-form-field class="create-text-field left">
                             <mat-label>Street</mat-label>
-                            <input matInput type="text" formControlName="street" name="street" placeholder="Location of the accommodation: street" required maxlength="200" (change)="updateAddress()">
+                            <input id="acc-street" matInput type="text" formControlName="street" name="street" placeholder="Location of the accommodation: street" required maxlength="200" (change)="updateAddress()">
                             <mat-error *ngIf="accommodationForm.get('street')?.hasError('required')">
                                 Street is required.
                             </mat-error>
@@ -138,7 +138,7 @@
                     <div fxLayout="row" fxLayoutGap="20px" class="section create-section">
                         <mat-form-field class="create-text-field left">
                             <mat-label>Type of accommodation</mat-label>
-                            <mat-select formControlName="type">
+                            <mat-select id="acc-type" formControlName="type">
                                 <mat-option value="none" selected disabled>Select the type of your accommodation</mat-option>
                                 <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
                             </mat-select>
@@ -147,16 +147,16 @@
                             </mat-error>
                         </mat-form-field>
 
-                        <mat-form-field class="create-text-field right">
+                        <mat-form-field id="deadline-field" class="create-text-field right">
                             <mat-label>Deadline for booking a reservation (in days)</mat-label>
-                            <input matInput formControlName="deadline" type="number" name="deadline" min="0" required max="365">
-                            <mat-error *ngIf="accommodationForm.get('deadline')?.hasError('max')">
+                            <input id="acc-deadline" matInput formControlName="deadline" type="number" name="deadline" min="0" required max="365">
+                            <mat-error id="deadline-upper" *ngIf="accommodationForm.get('deadline')?.hasError('max')">
                                 Deadline has to be under 365 days.
                             </mat-error>
-                            <mat-error *ngIf="accommodationForm.get('deadline')?.hasError('min')">
-                            Deadline has to be at least 0 days.
+                            <mat-error id="deadline-lower" *ngIf="accommodationForm.get('deadline')?.hasError('min')">
+                                Deadline has to be at least 0 days.
                             </mat-error>
-                            <mat-error *ngIf="accommodationForm.get('deadline')?.hasError('required')">
+                            <mat-error class="deadline-error" id="deadline-required" *ngIf="accommodationForm.get('deadline')?.hasError('required')">
                                 Booking deadline is required.
                             </mat-error>
                         </mat-form-field>
