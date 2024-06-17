@@ -15,7 +15,7 @@ import { SeasonalRatePricingDTO } from '../model/seasonal-rates-pricing';
 import { AccommodationSeasonalRateDTO } from '../model/accommodation-seasonal-rate';
 import { AccommodationFavoritesDTO } from '../model/accommodation-favorites';
 import { AccommodationReviewsDTO } from 'src/app/review-management/model/accommodation-reviews';
-
+import { MapViewComponent } from '../map-view/map-view.component';
 @Component({
   selector: 'app-accommodation-page',
   templateUrl: './accommodation-page.component.html',
@@ -118,7 +118,7 @@ export class AccommodationPageComponent implements OnInit{
     private imageService: ImageService,
     private reviewService: ReviewService,
     private reservationService: ReservationRequestService,
-    private authService: AuthService
+    protected authService: AuthService
   ) {}
 
   ngOnInit(): void {

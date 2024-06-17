@@ -1,6 +1,6 @@
 export interface MakeReservationRequestDTO {
     accommodationId: number;
-    guestId: number | null;
+    guestId?: number | null;
     startDate: Date;
     endDate: Date;
     numberOfGuests: number;
